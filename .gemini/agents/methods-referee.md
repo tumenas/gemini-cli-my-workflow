@@ -1,7 +1,10 @@
 ---
 name: methods-referee
 description: Methodology referee for a manuscript. Paper-type-aware (reduced-form / structural / theory+empirics / descriptive), each with its own dimension weights and mandatory sanity checks. Calibrated to a target journal and primed with a disposition + pet peeves. Used by `/review-paper --peer`.
-tools: Read, Grep, Glob
+tools:
+  - read_file
+  - grep_search
+  - glob
 model: inherit
 ---
 

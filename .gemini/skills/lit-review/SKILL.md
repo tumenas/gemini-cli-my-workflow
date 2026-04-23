@@ -2,7 +2,7 @@
 name: lit-review
 description: Structured literature search + synthesis with citation extraction, thematic clustering, and gap identification. Use when user says "find papers on X", "do a lit review", "what's the literature on...", "summarize what we know about...", "where's the gap in this field", "review recent work on Y". Produces a written review with BibTeX-ready citations. Uses WebSearch/WebFetch for recent work.
 argument-hint: "[topic, paper title, or research question] [--no-verify]"
-allowed-tools: ["read_file", "grep_search", "glob", "write_file", "WebSearch", "WebFetch", "codebase_investigator"]
+tools: ["read_file", "grep_search", "glob", "write_file", "google_web_search", "web_fetch", "codebase_investigator"]
 ---
 
 # Literature Review

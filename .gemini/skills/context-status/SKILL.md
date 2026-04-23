@@ -6,7 +6,7 @@ description: |
   approaching, and what state will be preserved.
 author: Gemini CLI Academic Workflow
 version: 1.0.0
-allowed-tools: ["read_file", "run_shell_command", "glob"]
+tools: ["read_file", "run_shell_command", "glob"]
 ---
 
 # /context-status — Check Session Health

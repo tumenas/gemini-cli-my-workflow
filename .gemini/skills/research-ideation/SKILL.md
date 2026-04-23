@@ -2,7 +2,7 @@
 name: research-ideation
 description: Generate structured research questions, testable hypotheses, and candidate empirical strategies from a topic, phenomenon, or dataset description. Use when user says "give me research ideas on X", "brainstorm questions about Y", "what could I study with this data?", "I'm looking for a paper idea on...", "generate hypotheses for...". One-shot generation, not multi-turn. For idea-refinement use `/interview-me`.
 argument-hint: "[topic, phenomenon, or dataset description] [--no-verify]"
-allowed-tools: ["read_file", "grep_search", "glob", "write_file", "WebSearch", "WebFetch", "codebase_investigator"]
+tools: ["read_file", "grep_search", "glob", "write_file", "google_web_search", "web_fetch", "codebase_investigator"]
 ---
 
 # Research Ideation

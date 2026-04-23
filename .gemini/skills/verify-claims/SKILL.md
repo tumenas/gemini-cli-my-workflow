@@ -2,7 +2,7 @@
 name: verify-claims
 description: Run Chain-of-Verification (CoVe) on a draft or a block of text with factual claims. Spawns the `claim-verifier` agent in a forked (fresh) context so it never sees the draft — then reports which claims are supported, contradicted, or unverifiable. Use when user says "verify these citations", "check the claims in X", "did I hallucinate anything", "fact-check this draft", "run CoVe on this", or after any text generation that asserts facts about papers, datasets, or numerical results. NOT for style/grammar review (use `/proofread`) or substance review (use `/review-paper`).
 argument-hint: "[file-or-text-path] [--source <path-or-url>] [--no-fail-closed]"
-allowed-tools: ["read_file", "grep_search", "glob", "codebase_investigator", "write_file"]
+tools: ["read_file", "grep_search", "glob", "codebase_investigator", "write_file"]
 ---
 
 # /verify-claims — Chain-of-Verification on a Draft

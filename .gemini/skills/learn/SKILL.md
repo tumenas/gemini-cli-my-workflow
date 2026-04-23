@@ -7,7 +7,7 @@ description: |
 author: Gemini CLI Academic Workflow
 version: 1.0.0
 argument-hint: "[skill-name (kebab-case)]"
-allowed-tools: ["read_file", "write_file", "run_shell_command", "glob", "grep_search"]
+tools: ["read_file", "write_file", "run_shell_command", "glob", "grep_search"]
 ---
 
 # /learn — Skill Extraction Workflow

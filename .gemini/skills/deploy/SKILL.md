@@ -2,7 +2,7 @@
 name: deploy
 description: Render Quarto `.qmd` slides to HTML and sync to `docs/` for GitHub Pages. Use when user says "deploy", "publish the slides", "ship to pages", "push the lecture live", "render and publish", or after Quarto edits that need to go public. NOT for local Quarto render only — use `quarto render` directly for that.
 argument-hint: "[LectureN or 'all']"
-allowed-tools: ["read_file", "run_shell_command"]
+tools: ["read_file", "run_shell_command"]
 ---
 
 # Deploy Slides to GitHub Pages

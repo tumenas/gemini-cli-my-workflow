@@ -2,7 +2,7 @@
 name: devils-advocate
 description: Adversarial 5-7 question challenge to a deck's pedagogical choices — ordering, prerequisites, cognitive load, motivation. Use when user says "devil's advocate", "poke holes in this deck", "push back on my slides", "stress-test the design", "what would a skeptical student ask?". read_file-only; surfaces questions to force rethinking. Lighter than `/pedagogy-review`.
 argument-hint: "[Lecture filename]"
-allowed-tools: ["read_file", "grep_search", "glob"]
+tools: ["read_file", "grep_search", "glob"]
 ---
 
 # Devil's Advocate Review

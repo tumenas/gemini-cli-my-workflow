@@ -1,7 +1,12 @@
 ---
 name: editor
 description: Journal editor who desk-reviews manuscripts, selects two referees with deliberately different dispositions, calibrates to a target journal from `.gemini/references/journal-profiles.md`, and synthesizes an editorial decision (FATAL / ADDRESSABLE / TASTE). Used by `/review-paper --peer [journal]`.
-tools: Read, Grep, Glob, WebSearch, WebFetch
+tools:
+  - read_file
+  - grep_search
+  - glob
+  - google_web_search
+  - web_fetch
 model: inherit
 ---
 

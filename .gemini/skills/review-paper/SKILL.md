@@ -2,7 +2,7 @@
 name: review-paper
 description: Comprehensive manuscript review with three modes: single-pass (default), --adversarial critic-fixer loop, and --peer [journal] simulated peer-review pipeline (editor + 2 dispositioned referees + editorial decision, calibrated to a target journal). R&R continuation via --peer --r2/--r3; hostile-editor stress test via --peer --stress. Auto-invokes /review-r + /audit-reproducibility on referenced scripts unless --no-cross-artifact.
 argument-hint: "[paper path] [--adversarial | --peer <journal> [--r2 | --r3 | --stress] [--no-novelty-check]] [--no-cross-artifact]"
-allowed-tools: ["read_file", "grep_search", "glob", "write_file", "replace", "run_shell_command", "codebase_investigator"]
+tools: ["read_file", "grep_search", "glob", "write_file", "replace", "run_shell_command", "codebase_investigator"]
 ---
 
 # Manuscript Review

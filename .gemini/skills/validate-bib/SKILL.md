@@ -2,7 +2,7 @@
 name: validate-bib
 description: Validate bibliography entries against citations in all lecture files. Structural checks (missing/unused entries, malformed fields) by default; `--semantic` adds citation-drift detection, DOI verification, and style-consistency checks.
 argument-hint: "[--semantic] [--skip-doi] [--cite-claim]"
-allowed-tools: ["read_file", "grep_search", "glob", "write_file", "run_shell_command", "WebFetch"]
+tools: ["read_file", "grep_search", "glob", "write_file", "run_shell_command", "web_fetch"]
 ---
 
 # Validate Bibliography

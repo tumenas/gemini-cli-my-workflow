@@ -1,7 +1,11 @@
 ---
 name: verifier
 description: End-to-end verification agent. Checks that slides compile, render, deploy, and display correctly. Use proactively before committing or creating PRs.
-tools: Read, Grep, Glob, Bash
+tools:
+  - read_file
+  - grep_search
+  - glob
+  - run_shell_command
 model: inherit
 ---
 

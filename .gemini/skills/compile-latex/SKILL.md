@@ -2,7 +2,7 @@
 name: compile-latex
 description: Compile a Beamer LaTeX slide deck with XeLaTeX (3 passes + bibtex). Use when user says "compile", "build the slides", "rebuild the PDF", "run latex", "render the tex", or asks why a `.tex` file isn't producing a PDF. Operates on `Slides/*.tex`.
 argument-hint: "[filename without .tex extension]"
-allowed-tools: ["read_file", "run_shell_command", "glob"]
+tools: ["read_file", "run_shell_command", "glob"]
 ---
 
 # Compile Beamer LaTeX Slides

@@ -9,7 +9,7 @@ description: |
   "audit", "find inconsistencies", "check everything".
 author: Gemini CLI Academic Workflow
 version: 1.0.0
-allowed-tools: ["read_file", "write_file", "replace", "run_shell_command", "glob", "grep_search", "codebase_investigator"]
+tools: ["read_file", "write_file", "replace", "run_shell_command", "glob", "grep_search", "codebase_investigator"]
 ---
 
 # /deep-audit — Repository Infrastructure Audit

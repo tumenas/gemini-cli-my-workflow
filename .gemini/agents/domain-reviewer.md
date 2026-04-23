@@ -1,7 +1,10 @@
 ---
 name: domain-reviewer
 description: Substantive domain review for lecture slides. Template agent — customize the 5 review lenses for your field. Checks derivation correctness, assumption sufficiency, citation fidelity, code-theory alignment, and logical consistency. Use after content is drafted or before teaching.
-tools: Read, Grep, Glob
+tools:
+  - read_file
+  - grep_search
+  - glob
 model: inherit
 ---
 

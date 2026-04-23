@@ -2,7 +2,7 @@
 name: seven-pass-review
 description: Mechanize Pattern 15 — the seven-pass adversarial review protocol for academic manuscripts. Spawns 7 forked subagents in parallel (abstract, intro, methods, results, robustness, prose, citations), then synthesizes a prioritized revision checklist. Use for submission-ready or R&R-stage papers where single-pass review isn't enough.
 argument-hint: "[manuscript path]"
-allowed-tools: ["read_file", "grep_search", "glob", "write_file", "run_shell_command", "codebase_investigator"]
+tools: ["read_file", "grep_search", "glob", "write_file", "run_shell_command", "codebase_investigator"]
 effort: high
 ---
 

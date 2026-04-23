@@ -1,7 +1,10 @@
 ---
 name: tikz-reviewer
 description: Harsh devil's advocate reviewer for TikZ diagrams. Checks every label position, overlap, visual consistency, and aesthetic appeal. Use after creating or modifying any TikZ code. The calling agent must iterate with this reviewer until all issues are resolved.
-tools: Read, Grep, Glob
+tools:
+  - read_file
+  - grep_search
+  - glob
 model: inherit
 ---
 

@@ -2,7 +2,7 @@
 name: commit
 description: Stage, commit, push, open a PR, and merge to main. Use ONLY on explicit commit intent — user says "commit", "ship it", "push this", "open a PR", "merge to main", "let's commit this", or prefixes with `/commit`. Do NOT auto-invoke on vague end-of-task phrases ("we're done", "wrap up") — those require explicit confirmation first. Runs the standard commit-PR-merge cycle; never force-pushes or skips hooks.
 argument-hint: "[optional: commit message]"
-allowed-tools: ["run_shell_command", "read_file", "glob", "codebase_investigator"]
+tools: ["run_shell_command", "read_file", "glob", "codebase_investigator"]
 ---
 
 # Commit, PR, and Merge

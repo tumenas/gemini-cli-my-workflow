@@ -1,7 +1,10 @@
 ---
 name: r-reviewer
 description: R code reviewer for academic scripts. Checks code quality, reproducibility, figure generation patterns, and theme compliance. Use after writing or modifying R scripts.
-tools: Read, Grep, Glob
+tools:
+  - read_file
+  - grep_search
+  - glob
 model: inherit
 ---
 

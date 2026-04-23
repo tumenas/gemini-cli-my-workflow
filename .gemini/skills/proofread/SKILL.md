@@ -2,7 +2,7 @@
 name: proofread
 description: read_file-only proofreading pass over lecture `.tex` or `.qmd` files. Checks grammar, typos, overflow, terminology consistency, and academic writing quality; produces a report without editing. Use when user says "proofread", "check for typos", "look for grammar issues", "copy-edit this", "any writing errors?", or before a lecture release.
 argument-hint: "[filename or 'all']"
-allowed-tools: ["read_file", "grep_search", "glob", "write_file", "codebase_investigator"]
+tools: ["read_file", "grep_search", "glob", "write_file", "codebase_investigator"]
 ---
 
 # Proofread Lecture Files

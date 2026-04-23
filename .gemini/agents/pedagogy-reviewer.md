@@ -1,7 +1,10 @@
 ---
 name: pedagogy-reviewer
 description: Holistic pedagogical review for academic slides. Checks narrative arc, prerequisite assumptions, worked examples, notation clarity, and deck-level pacing. Use after content is drafted.
-tools: Read, Grep, Glob
+tools:
+  - read_file
+  - grep_search
+  - glob
 model: inherit
 ---
 
