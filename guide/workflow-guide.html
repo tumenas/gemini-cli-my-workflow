@@ -9,7 +9,7 @@
 <meta name="author" content="Pedro H. C. Sant’Anna">
 <meta name="dcterms.date" content="2026-04-15">
 
-<title>My Claude Code Setup</title>
+<title>My Gemini CLI Setup</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -2184,7 +2184,7 @@ vertical-align: -.125em;
 .bi-battery-low::before { content: "\f911"; }
 .bi-anthropic::before { content: "\f912"; }
 .bi-apple-music::before { content: "\f913"; }
-.bi-claude::before { content: "\f914"; }
+.bi-gemini::before { content: "\f914"; }
 .bi-openai::before { content: "\f915"; }
 .bi-perplexity::before { content: "\f916"; }
 .bi-css::before { content: "\f917"; }
@@ -2359,7 +2359,7 @@ window.Quarto = {
   <li><a href="#sec-why" id="toc-sec-why" class="nav-link active" data-scroll-target="#sec-why"><span class="header-section-number">1</span> Why This Workflow Exists</a>
   <ul class="collapse">
   <li><a href="#the-problem" id="toc-the-problem" class="nav-link" data-scroll-target="#the-problem"><span class="header-section-number">1.1</span> The Problem</a></li>
-  <li><a href="#what-makes-claude-code-different" id="toc-what-makes-claude-code-different" class="nav-link" data-scroll-target="#what-makes-claude-code-different"><span class="header-section-number">1.2</span> What Makes Claude Code Different</a></li>
+  <li><a href="#what-makes-gemini-code-different" id="toc-what-makes-gemini-code-different" class="nav-link" data-scroll-target="#what-makes-gemini-code-different"><span class="header-section-number">1.2</span> What Makes Gemini CLI Different</a></li>
   <li><a href="#how-it-all-works-together" id="toc-how-it-all-works-together" class="nav-link" data-scroll-target="#how-it-all-works-together"><span class="header-section-number">1.3</span> How It All Works Together</a>
   <ul class="collapse">
   <li><a href="#what-you-do-vs-what-the-skill-does" id="toc-what-you-do-vs-what-the-skill-does" class="nav-link" data-scroll-target="#what-you-do-vs-what-the-skill-does"><span class="header-section-number">1.3.1</span> What You Do vs What the Skill Does</a></li>
@@ -2372,7 +2372,7 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#sec-prerequisites" id="toc-sec-prerequisites" class="nav-link" data-scroll-target="#sec-prerequisites"><span class="header-section-number">2.1</span> Prerequisites</a></li>
   <li><a href="#step-1-fork-clone" id="toc-step-1-fork-clone" class="nav-link" data-scroll-target="#step-1-fork-clone"><span class="header-section-number">2.2</span> Step 1: Fork &amp; Clone</a></li>
-  <li><a href="#sec-first-session" id="toc-sec-first-session" class="nav-link" data-scroll-target="#sec-first-session"><span class="header-section-number">2.3</span> Step 2: Start Claude Code and Paste This Prompt</a></li>
+  <li><a href="#sec-first-session" id="toc-sec-first-session" class="nav-link" data-scroll-target="#sec-first-session"><span class="header-section-number">2.3</span> Step 2: Start Gemini CLI and Paste This Prompt</a></li>
   <li><a href="#optional-manual-setup" id="toc-optional-manual-setup" class="nav-link" data-scroll-target="#optional-manual-setup"><span class="header-section-number">2.4</span> Optional: Manual Setup</a></li>
   <li><a href="#sec-spec-then-plan" id="toc-sec-spec-then-plan" class="nav-link" data-scroll-target="#sec-spec-then-plan"><span class="header-section-number">2.5</span> Requirements Specification (For Complex Tasks)</a></li>
   </ul></li>
@@ -2393,7 +2393,7 @@ window.Quarto = {
   </ul></li>
   <li><a href="#sec-blocks" id="toc-sec-blocks" class="nav-link" data-scroll-target="#sec-blocks"><span class="header-section-number">4</span> The Building Blocks</a>
   <ul class="collapse">
-  <li><a href="#claude.md-your-projects-constitution" id="toc-claude.md-your-projects-constitution" class="nav-link" data-scroll-target="#claude.md-your-projects-constitution"><span class="header-section-number">4.1</span> CLAUDE.md — Your Project’s Constitution</a></li>
+  <li><a href="#gemini.md-your-projects-constitution" id="toc-gemini.md-your-projects-constitution" class="nav-link" data-scroll-target="#gemini.md-your-projects-constitution"><span class="header-section-number">4.1</span> GEMINI.md — Your Project’s Constitution</a></li>
   <li><a href="#rules---domain-knowledge-that-auto-loads" id="toc-rules---domain-knowledge-that-auto-loads" class="nav-link" data-scroll-target="#rules---domain-knowledge-that-auto-loads"><span class="header-section-number">4.2</span> Rules — Domain Knowledge That Auto-Loads</a>
   <ul class="collapse">
   <li><a href="#example-path-scoped-r-code-conventions-rule" id="toc-example-path-scoped-r-code-conventions-rule" class="nav-link" data-scroll-target="#example-path-scoped-r-code-conventions-rule"><span class="header-section-number">4.2.1</span> Example: Path-Scoped R Code Conventions Rule</a></li>
@@ -2469,12 +2469,12 @@ window.Quarto = {
   <li><a href="#sec-ecosystem" id="toc-sec-ecosystem" class="nav-link" data-scroll-target="#sec-ecosystem"><span class="header-section-number">6</span> The Ecosystem: What Others Have Built</a>
   <ul class="collapse">
   <li><a href="#clo-author-paper-centric-research-workflows" id="toc-clo-author-paper-centric-research-workflows" class="nav-link" data-scroll-target="#clo-author-paper-centric-research-workflows"><span class="header-section-number">6.1</span> clo-author: Paper-Centric Research Workflows</a></li>
-  <li><a href="#claudeblattman-workflows-for-non-technical-academics" id="toc-claudeblattman-workflows-for-non-technical-academics" class="nav-link" data-scroll-target="#claudeblattman-workflows-for-non-technical-academics"><span class="header-section-number">6.2</span> claudeblattman: Workflows for Non-Technical Academics</a></li>
+  <li><a href="#geminiblattman-workflows-for-non-technical-academics" id="toc-geminiblattman-workflows-for-non-technical-academics" class="nav-link" data-scroll-target="#geminiblattman-workflows-for-non-technical-academics"><span class="header-section-number">6.2</span> geminiblattman: Workflows for Non-Technical Academics</a></li>
   <li><a href="#xu-yang-2026-reproducibility-as-architecture" id="toc-xu-yang-2026-reproducibility-as-architecture" class="nav-link" data-scroll-target="#xu-yang-2026-reproducibility-as-architecture"><span class="header-section-number">6.3</span> Xu &amp; Yang (2026): Reproducibility as Architecture</a></li>
   <li><a href="#mixtapetools-the-rhetoric-of-decks" id="toc-mixtapetools-the-rhetoric-of-decks" class="nav-link" data-scroll-target="#mixtapetools-the-rhetoric-of-decks"><span class="header-section-number">6.4</span> MixtapeTools: The Rhetoric of Decks</a></li>
   <li><a href="#aea-data-editor-template" id="toc-aea-data-editor-template" class="nav-link" data-scroll-target="#aea-data-editor-template"><span class="header-section-number">6.5</span> AEA Data Editor Template</a></li>
   <li><a href="#autoresearch-constraint-based-autonomous-research" id="toc-autoresearch-constraint-based-autonomous-research" class="nav-link" data-scroll-target="#autoresearch-constraint-based-autonomous-research"><span class="header-section-number">6.6</span> autoresearch: Constraint-Based Autonomous Research</a></li>
-  <li><a href="#claudecodetools-the-editor-persona" id="toc-claudecodetools-the-editor-persona" class="nav-link" data-scroll-target="#claudecodetools-the-editor-persona"><span class="header-section-number">6.7</span> ClaudeCodeTools: The Editor Persona</a></li>
+  <li><a href="#geminicodetools-the-editor-persona" id="toc-geminicodetools-the-editor-persona" class="nav-link" data-scroll-target="#geminicodetools-the-editor-persona"><span class="header-section-number">6.7</span> GeminiCodeTools: The Editor Persona</a></li>
   <li><a href="#sec-community" id="toc-sec-community" class="nav-link" data-scroll-target="#sec-community"><span class="header-section-number">6.8</span> Community Adoption</a></li>
   </ul></li>
   <li><a href="#sec-customize" id="toc-sec-customize" class="nav-link" data-scroll-target="#sec-customize"><span class="header-section-number">7</span> Customizing for Your Domain</a>
@@ -2510,7 +2510,7 @@ window.Quarto = {
   <li><a href="#latex-wont-compile" id="toc-latex-wont-compile" class="nav-link" data-scroll-target="#latex-wont-compile"><span class="header-section-number">8.5.1</span> LaTeX Won’t Compile</a></li>
   <li><a href="#quarto-wont-render" id="toc-quarto-wont-render" class="nav-link" data-scroll-target="#quarto-wont-render"><span class="header-section-number">8.5.2</span> Quarto Won’t Render</a></li>
   <li><a href="#hooks-not-firing" id="toc-hooks-not-firing" class="nav-link" data-scroll-target="#hooks-not-firing"><span class="header-section-number">8.5.3</span> Hooks Not Firing</a></li>
-  <li><a href="#claude-ignores-rules" id="toc-claude-ignores-rules" class="nav-link" data-scroll-target="#claude-ignores-rules"><span class="header-section-number">8.5.4</span> Claude Ignores Rules</a></li>
+  <li><a href="#gemini-ignores-rules" id="toc-gemini-ignores-rules" class="nav-link" data-scroll-target="#gemini-ignores-rules"><span class="header-section-number">8.5.4</span> Gemini Ignores Rules</a></li>
   <li><a href="#context-lost-after-compaction" id="toc-context-lost-after-compaction" class="nav-link" data-scroll-target="#context-lost-after-compaction"><span class="header-section-number">8.5.5</span> Context Lost After Compaction</a></li>
   <li><a href="#quality-score-too-low" id="toc-quality-score-too-low" class="nav-link" data-scroll-target="#quality-score-too-low"><span class="header-section-number">8.5.6</span> Quality Score Too Low</a></li>
   <li><a href="#skills-not-auto-invoked" id="toc-skills-not-auto-invoked" class="nav-link" data-scroll-target="#skills-not-auto-invoked"><span class="header-section-number">8.5.7</span> Skills Not Auto-Invoked</a></li>
@@ -2527,7 +2527,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">My Claude Code Setup</h1>
+<h1 class="title">My Gemini CLI Setup</h1>
 <p class="subtitle lead">A Comprehensive Guide to AI-Assisted Academic Workflows: Slides, Papers, Analysis, and Beyond</p>
 </div>
 
@@ -2569,16 +2569,16 @@ window.Quarto = {
 <h2 data-number="1.1" class="anchored" data-anchor-id="the-problem"><span class="header-section-number">1.1</span> The Problem</h2>
 <p>If you’ve ever done serious academic work — built lecture slides, drafted a research paper, run a data analysis pipeline — you know the pain:</p>
 <ul>
-<li><strong>Context loss between sessions.</strong> You pick up where you left off, but Claude doesn’t remember <em>why</em> you chose that notation, <em>what</em> the instructor approved, or <em>which</em> bugs were fixed last time.</li>
+<li><strong>Context loss between sessions.</strong> You pick up where you left off, but Gemini doesn’t remember <em>why</em> you chose that notation, <em>what</em> the instructor approved, or <em>which</em> bugs were fixed last time.</li>
 <li><strong>Quality is inconsistent.</strong> One slide has perfect spacing; the next overflows. One regression table has proper formatting; the next is missing standard errors. Citations compile in Overleaf but break locally.</li>
 <li><strong>Review is manual and exhausting.</strong> You proofread 140 slides by hand. You re-read your paper for the fifth time looking for the same kinds of errors. You miss a typo in an equation. A student or referee catches it.</li>
 <li><strong>No one checks the math.</strong> Grammar checkers catch “teh” but not a flipped sign in a decomposition theorem, a misspecified regression, or a broken replication.</li>
 </ul>
-<p>This workflow solves all of these problems. You describe what you want — “translate Lecture 5 to Quarto,” “review my paper before submission,” or “analyze this dataset and produce publication-ready tables” — and Claude handles the rest: plans the approach, implements it, runs <a href="#sec-system">specialized reviewers</a>, fixes issues, verifies quality, and presents results. Like a contractor who manages the entire job.</p>
+<p>This workflow solves all of these problems. You describe what you want — “translate Lecture 5 to Quarto,” “review my paper before submission,” or “analyze this dataset and produce publication-ready tables” — and Gemini handles the rest: plans the approach, implements it, runs <a href="#sec-system">specialized reviewers</a>, fixes issues, verifies quality, and presents results. Like a contractor who manages the entire job.</p>
 </section>
-<section id="what-makes-claude-code-different" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="what-makes-claude-code-different"><span class="header-section-number">1.2</span> What Makes Claude Code Different</h2>
-<p>Claude Code runs on your computer with full access to your file system, terminal, and git. It works as a <strong>CLI tool</strong>, a <strong>VS Code extension</strong>, or through the <strong>Claude Desktop app</strong> — same capabilities, same configuration, different interface. Here is what that enables:</p>
+<section id="what-makes-gemini-code-different" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="what-makes-gemini-code-different"><span class="header-section-number">1.2</span> What Makes Gemini CLI Different</h2>
+<p>Gemini CLI runs on your computer with full access to your file system, terminal, and git. It works as a <strong>CLI tool</strong>, a <strong>VS Code extension</strong>, or through the <strong>Gemini Desktop app</strong> — same capabilities, same configuration, different interface. Here is what that enables:</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 33%">
@@ -2605,7 +2605,7 @@ window.Quarto = {
 </tr>
 <tr class="even">
 <td>Persistent memory</td>
-<td>CLAUDE.md + MEMORY.md survive across sessions</td>
+<td>GEMINI.md + MEMORY.md survive across sessions</td>
 </tr>
 <tr class="odd">
 <td>Orchestrator pattern</td>
@@ -2621,7 +2621,7 @@ window.Quarto = {
 </tr>
 <tr class="even">
 <td>CLI/headless mode</td>
-<td>Run from scripts: <code>claude -p &quot;compile all lectures&quot;</code></td>
+<td>Run from scripts: <code>gemini -p &quot;compile all lectures&quot;</code></td>
 </tr>
 <tr class="odd">
 <td>Browser bridge</td>
@@ -2646,7 +2646,7 @@ window.Quarto = {
 </section>
 <section id="how-it-all-works-together" class="level2" data-number="1.3">
 <h2 data-number="1.3" class="anchored" data-anchor-id="how-it-all-works-together"><span class="header-section-number">1.3</span> How It All Works Together</h2>
-<p>Before diving into setup, here is the key insight: <strong>skills hide most of the mechanics</strong>. You describe what you want in plain English, Claude figures out which skill fits, and the skill runs the right agents and checks. There is no repo-wide daemon watching for plan approvals — the work happens <em>inside</em> the skill you invoke.</p>
+<p>Before diving into setup, here is the key insight: <strong>skills hide most of the mechanics</strong>. You describe what you want in plain English, Gemini figures out which skill fits, and the skill runs the right agents and checks. There is no repo-wide daemon watching for plan approvals — the work happens <em>inside</em> the skill you invoke.</p>
 <section id="what-you-do-vs-what-the-skill-does" class="level3" data-number="1.3.1">
 <h3 data-number="1.3.1" class="anchored" data-anchor-id="what-you-do-vs-what-the-skill-does"><span class="header-section-number">1.3.1</span> What You Do vs What the Skill Does</h3>
 <table class="caption-top table">
@@ -2659,7 +2659,7 @@ window.Quarto = {
 <tbody>
 <tr class="odd">
 <td>Describe what you want</td>
-<td>Claude selects and runs the right skill</td>
+<td>Gemini selects and runs the right skill</td>
 </tr>
 <tr class="even">
 <td>Approve plans</td>
@@ -2680,7 +2680,7 @@ window.Quarto = {
 <h3 data-number="1.3.2" class="anchored" data-anchor-id="example-fix-my-slides-before-tomorrow"><span class="header-section-number">1.3.2</span> Example: “Fix my slides before tomorrow”</h3>
 <pre><code>You: &quot;Review my lecture slides and fix all issues before tomorrow&#39;s class&quot;
      ↓
-Claude automatically:
+Gemini automatically:
   → Runs /proofread (grammar, typos, consistency)
   → Runs /visual-audit (overflow, layout, spacing)
   → Runs /pedagogy-review (narrative flow, notation clarity)
@@ -2692,14 +2692,14 @@ Claude automatically:
 You see: &quot;Done. Fixed 12 issues. Score: 88/100. Ready to commit?&quot;
 You: &quot;Yes&quot;
      ↓
-Claude runs /commit (only because you explicitly approved)</code></pre>
+Gemini runs /commit (only because you explicitly approved)</code></pre>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href>Paper Review</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href>Data Analysis</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <pre><code>You: &quot;Review my paper draft and prepare it for submission&quot;
      ↓
-Claude automatically:
+Gemini automatically:
   → Runs /review-paper (argument structure, methods, citations)
   → Runs /proofread (grammar, consistency, formatting)
   → Runs /validate-bib (cross-reference citations)
@@ -2713,7 +2713,7 @@ You see: &quot;Done. Fixed 18 issues. Score: 91/100. Ready to commit?&quot;</cod
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
 <pre><code>You: &quot;Analyze this dataset and produce publication-ready output&quot;
      ↓
-Claude automatically:
+Gemini automatically:
   → Runs /data-analysis (explore, model, tables, figures)
   → Runs /review-r (code quality, reproducibility)
   → Produces R script, tables, and figures
@@ -2737,9 +2737,9 @@ You see: &quot;Analysis complete. 3 tables, 4 figures. Score: 85/100.&quot;</cod
 <p>Skills like <code>/proofread</code> or <code>/compile-latex</code> can be invoked two ways:</p>
 <ol type="1">
 <li><strong>Explicitly</strong> — You type <code>/proofread MySlides.tex</code></li>
-<li><strong>Automatically</strong> — Claude invokes them when relevant to your request</li>
+<li><strong>Automatically</strong> — Gemini invokes them when relevant to your request</li>
 </ol>
-<p>Most of the time, you just describe what you want and Claude handles the rest. Explicit skill invocation is there when you want precise control.</p>
+<p>Most of the time, you just describe what you want and Gemini handles the rest. Explicit skill invocation is there when you want precise control.</p>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -2750,7 +2750,7 @@ You see: &quot;Analysis complete. 3 tables, 4 figures. Score: 85/100.&quot;</cod
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>You talk, Claude orchestrates.</strong> The 14 agents, 28 skills, and 24 rules exist so you don’t have to think about them. Describe your goal, approve the plan, and let the system work.</p>
+<p><strong>You talk, Gemini orchestrates.</strong> The 14 agents, 28 skills, and 24 rules exist so you don’t have to think about them. Describe your goal, approve the plan, and let the system work.</p>
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -2763,7 +2763,7 @@ You see: &quot;Analysis complete. 3 tables, 4 figures. Score: 85/100.&quot;</cod
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>This guide describes the full system — 14 agents, 28 skills, 24 rules. That is the ceiling, not the floor. <strong>Start with just CLAUDE.md and 2–3 skills</strong> (<code>/compile-latex</code>, <code>/proofread</code>, <code>/commit</code>). Add rules and agents as you discover what you need. The template is designed for progressive adoption: fork it, fill in the placeholders, and start working. Everything else is there when you’re ready.</p>
+<p>This guide describes the full system — 14 agents, 28 skills, 24 rules. That is the ceiling, not the floor. <strong>Start with just GEMINI.md and 2–3 skills</strong> (<code>/compile-latex</code>, <code>/proofread</code>, <code>/commit</code>). Add rules and agents as you discover what you need. The template is designed for progressive adoption: fork it, fill in the placeholders, and start working. Everything else is there when you’re ready.</p>
 </div>
 </div>
 <hr>
@@ -2772,7 +2772,7 @@ You see: &quot;Analysis complete. 3 tables, 4 figures. Score: 85/100.&quot;</cod
 </section>
 <section id="sec-setup" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> Getting Started</h1>
-<p>You need three things: install Claude Code, fork the repo, and paste a prompt. Claude handles everything else.</p>
+<p>You need three things: install Gemini CLI, fork the repo, and paste a prompt. Gemini handles everything else.</p>
 <section id="sec-prerequisites" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="sec-prerequisites"><span class="header-section-number">2.1</span> Prerequisites</h2>
 <table class="caption-top table">
@@ -2785,19 +2785,19 @@ You see: &quot;Analysis complete. 3 tables, 4 figures. Score: 85/100.&quot;</cod
 </thead>
 <tbody>
 <tr class="odd">
-<td><strong>Claude Code</strong></td>
+<td><strong>Gemini CLI</strong></td>
 <td>The AI tool that powers this workflow</td>
-<td><code>curl -fsSL https://claude.ai/install.sh | bash</code> (<a href="https://code.claude.com/docs/en/overview">docs</a>)</td>
+<td><code>curl -fsSL https://gemini.ai/install.sh | bash</code> (<a href="https://code.gemini.com/docs/en/overview">docs</a>)</td>
 </tr>
 <tr class="even">
 <td><strong>Node.js 18+</strong></td>
-<td>Required to run Claude Code</td>
+<td>Required to run Gemini CLI</td>
 <td><a href="https://nodejs.org">nodejs.org</a></td>
 </tr>
 <tr class="odd">
-<td><strong>Claude account</strong></td>
-<td>Authentication for Claude</td>
-<td><a href="https://claude.ai">Claude Pro or Max subscription</a> or <a href="https://console.anthropic.com">Anthropic API key</a> (pay per token)</td>
+<td><strong>Gemini account</strong></td>
+<td>Authentication for Gemini</td>
+<td><a href="https://gemini.ai">Gemini Pro or Max subscription</a> or <a href="https://console.anthropic.com">Anthropic API key</a> (pay per token)</td>
 </tr>
 <tr class="even">
 <td><strong>git</strong></td>
@@ -2848,9 +2848,9 @@ You see: &quot;Analysis complete. 3 tables, 4 figures. Score: 85/100.&quot;</cod
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>Claude Pro or Max subscription</strong>: Includes Claude Code usage with generous limits. Check <a href="https://claude.ai">claude.ai</a> for current pricing and tier details. Best for most academics.</p>
+<p><strong>Gemini Pro or Max subscription</strong>: Includes Gemini CLI usage with generous limits. Check <a href="https://gemini.ai">gemini.ai</a> for current pricing and tier details. Best for most academics.</p>
 <p><strong>API access</strong> (pay per token): For heavy users or CI/CD. Use <a href="#sec-effort">effort levels</a> and the <a href="#multi-model-strategy-cost-vs-quality">multi-model strategy</a> to control costs.</p>
-<p>Claude Code itself is free and open source. You pay only for the Claude model usage.</p>
+<p>Gemini CLI itself is free and open source. You pay only for the Gemini model usage.</p>
 </div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled">
@@ -2864,13 +2864,13 @@ You see: &quot;Analysis complete. 3 tables, 4 figures. Score: 85/100.&quot;</cod
 </div>
 <div class="callout-body-container callout-body">
 <ul class="task-list">
-<li><label><input type="checkbox">Install Claude Code: <code>curl -fsSL https://claude.ai/install.sh | bash</code></label></li>
+<li><label><input type="checkbox">Install Gemini CLI: <code>curl -fsSL https://gemini.ai/install.sh | bash</code></label></li>
 <li><label><input type="checkbox">Fork the repo and clone it locally</label></li>
-<li><label><input type="checkbox">Run <code>claude</code> in the project directory (first run will prompt for authentication)</label></li>
+<li><label><input type="checkbox">Run <code>gemini</code> in the project directory (first run will prompt for authentication)</label></li>
 <li><label><input type="checkbox">Paste the starter prompt (fill in your project details)</label></li>
-<li><label><input type="checkbox">Wait for Claude to customize <code>CLAUDE.md</code> for your project</label></li>
+<li><label><input type="checkbox">Wait for Gemini to customize <code>GEMINI.md</code> for your project</label></li>
 <li><label><input type="checkbox">Approve the configuration plan</label></li>
-<li><label><input type="checkbox">Ask Claude to do something: <em>“Review my slides”</em> or <em>“Create a lecture on [topic]”</em></label></li>
+<li><label><input type="checkbox">Ask Gemini to do something: <em>“Review my slides”</em> or <em>“Create a lecture on [topic]”</em></label></li>
 <li><label><input type="checkbox">Approve the task plan, watch it work, review the output</label></li>
 </ul>
 <p>That’s it. Everything else — agents, hooks, rules — runs automatically in the background.</p>
@@ -2888,10 +2888,10 @@ You see: &quot;Analysis complete. 3 tables, 4 figures. Score: 85/100.&quot;</cod
 </div>
 <div id="callout-6" class="callout-6-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p><strong>“command not found: claude”:</strong> Install Claude Code first: <code>curl -fsSL https://claude.ai/install.sh | bash</code>. Requires Node.js 18+ (<code>node --version</code> to check).</p>
-<p><strong>Claude seems to ignore the configuration files:</strong> Make sure you ran <code>claude</code> from inside the project directory (not a parent folder). Claude reads <code>.claude/</code> and <code>CLAUDE.md</code> from the current working directory.</p>
-<p><strong>Hooks not firing (no notifications, no reminders):</strong> Check that Python 3 is installed (<code>python3 --version</code>) and hook files are executable (<code>chmod +x .claude/hooks/*</code>).</p>
-<p><strong>“What does plan approval look like?”</strong> Claude presents a numbered plan and asks for your input. Say “approved”, “looks good”, or “revise step 3”. That’s it — no special commands needed.</p>
+<p><strong>“command not found: gemini”:</strong> Install Gemini CLI first: <code>curl -fsSL https://gemini.ai/install.sh | bash</code>. Requires Node.js 18+ (<code>node --version</code> to check).</p>
+<p><strong>Gemini seems to ignore the configuration files:</strong> Make sure you ran <code>gemini</code> from inside the project directory (not a parent folder). Gemini reads <code>.gemini/</code> and <code>GEMINI.md</code> from the current working directory.</p>
+<p><strong>Hooks not firing (no notifications, no reminders):</strong> Check that Python 3 is installed (<code>python3 --version</code>) and hook files are executable (<code>chmod +x .gemini/hooks/*</code>).</p>
+<p><strong>“What does plan approval look like?”</strong> Gemini presents a numbered plan and asks for your input. Say “approved”, “looks good”, or “revise step 3”. That’s it — no special commands needed.</p>
 <p>For more, see <a href="#troubleshooting">Troubleshooting</a> in the Appendix.</p>
 </div>
 </div>
@@ -2900,26 +2900,26 @@ You see: &quot;Analysis complete. 3 tables, 4 figures. Score: 85/100.&quot;</cod
 <section id="step-1-fork-clone" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="step-1-fork-clone"><span class="header-section-number">2.2</span> Step 1: Fork &amp; Clone</h2>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fork this repo on GitHub (click &quot;Fork&quot; on the repo page), then:</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/YOUR_USERNAME/claude-code-my-workflow.git my-project</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/YOUR_USERNAME/gemini-code-my-workflow.git my-project</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> my-project</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Replace <code>YOUR_USERNAME</code> with your GitHub username.</p>
 </section>
 <section id="sec-first-session" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="sec-first-session"><span class="header-section-number">2.3</span> Step 2: Start Claude Code and Paste This Prompt</h2>
-<p>Open your terminal in the project directory, run <code>claude</code>, and paste the following. Fill in the <strong>bolded placeholders</strong> with your project details:</p>
+<h2 data-number="2.3" class="anchored" data-anchor-id="sec-first-session"><span class="header-section-number">2.3</span> Step 2: Start Gemini CLI and Paste This Prompt</h2>
+<p>Open your terminal in the project directory, run <code>gemini</code>, and paste the following. Fill in the <strong>bolded placeholders</strong> with your project details:</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Using VS Code or Claude Desktop instead of the terminal?
+<span class="screen-reader-only">Note</span>Using VS Code or Gemini Desktop instead of the terminal?
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-7" class="callout-7-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Everything in this guide works the same in any Claude Code interface. In <strong>VS Code</strong>, open the Claude Code panel (click the Claude icon in the sidebar or press Cmd+Shift+P → “Claude Code: Open”). In <strong>Claude Desktop</strong>, open your project folder and start a local session. Then paste the starter prompt below.</p>
+<p>Everything in this guide works the same in any Gemini CLI interface. In <strong>VS Code</strong>, open the Gemini CLI panel (click the Gemini icon in the sidebar or press Cmd+Shift+P → “Gemini CLI: Open”). In <strong>Gemini Desktop</strong>, open your project folder and start a local session. Then paste the starter prompt below.</p>
 <p>The guide shows terminal commands because they are the most universal way to explain things, but every skill, agent, hook, and rule works identically regardless of which interface you use.</p>
 </div>
 </div>
@@ -2936,16 +2936,16 @@ You see: &quot;Analysis complete. 3 tables, 4 figures. Score: 85/100.&quot;</cod
 <div class="callout-body-container callout-body">
 <p>I am starting to work on <strong>[PROJECT NAME]</strong> in this repo. <strong>[Describe your project in 2–3 sentences — what you’re building, who it’s for, what tools you use (e.g., LaTeX/Beamer, R, Quarto).]</strong></p>
 <p>I want our collaboration to be structured, precise, and rigorous — even if it takes more time. When creating visuals, everything must be polished and publication-ready. I don’t want to repeat myself, so our workflow should be smart about remembering decisions and learning from corrections.</p>
-<p>I’ve set up the Claude Code academic workflow (forked from <code>pedrohcgs/claude-code-my-workflow</code>). The configuration files are already in this repo (<code>.claude/</code>, <code>CLAUDE.md</code>, templates, scripts). Please read them, understand the workflow, and then <strong>update all configuration files to fit my project</strong> — fill in placeholders in <code>CLAUDE.md</code>, adjust rules if needed, and propose any customizations specific to my use case.</p>
+<p>I’ve set up the Gemini CLI academic workflow (forked from <code>pedrohcgs/gemini-code-my-workflow</code>). The configuration files are already in this repo (<code>.gemini/</code>, <code>GEMINI.md</code>, templates, scripts). Please read them, understand the workflow, and then <strong>update all configuration files to fit my project</strong> — fill in placeholders in <code>GEMINI.md</code>, adjust rules if needed, and propose any customizations specific to my use case.</p>
 <p>After that, use the plan-first workflow for all non-trivial tasks. Once I approve a plan, switch to contractor mode — coordinate everything autonomously and only come back to me when there’s ambiguity or a decision to make. For our first few sessions, check in with me a bit more often so I can learn how the workflow operates.</p>
 <p>Enter plan mode and start by adapting the workflow configuration for this project.</p>
 </div>
 </div>
-<p><strong>What this does:</strong> Claude will read <code>CLAUDE.md</code> and all the rules, fill in your project name, institution, Beamer environments, CSS classes, and project state table, then propose any rule adjustments for your specific use case. You approve the plan, and Claude handles the rest. From there, you just describe what you want to build.</p>
+<p><strong>What this does:</strong> Gemini will read <code>GEMINI.md</code> and all the rules, fill in your project name, institution, Beamer environments, CSS classes, and project state table, then propose any rule adjustments for your specific use case. You approve the plan, and Gemini handles the rest. From there, you just describe what you want to build.</p>
 </section>
 <section id="optional-manual-setup" class="level2" data-number="2.4">
 <h2 data-number="2.4" class="anchored" data-anchor-id="optional-manual-setup"><span class="header-section-number">2.4</span> Optional: Manual Setup</h2>
-<p>If you prefer to configure things yourself instead of letting Claude handle it:</p>
+<p>If you prefer to configure things yourself instead of letting Gemini handle it:</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -2958,7 +2958,7 @@ You see: &quot;Analysis complete. 3 tables, 4 figures. Score: 85/100.&quot;</cod
 </div>
 <div id="callout-9" class="callout-9-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p><strong>Customize CLAUDE.md</strong> — Open <code>CLAUDE.md</code> and replace all <code>[BRACKETED PLACEHOLDERS]</code>:</p>
+<p><strong>Customize GEMINI.md</strong> — Open <code>GEMINI.md</code> and replace all <code>[BRACKETED PLACEHOLDERS]</code>:</p>
 <ol type="1">
 <li><strong>Project name and institution</strong></li>
 <li><strong>Folder structure</strong> (adjust to your layout)</li>
@@ -2966,15 +2966,15 @@ You see: &quot;Analysis complete. 3 tables, 4 figures. Score: 85/100.&quot;</cod
 <li><strong>Beamer environments</strong> (your custom LaTeX environments)</li>
 <li><strong>CSS classes</strong> (your Quarto theme classes)</li>
 </ol>
-<p><strong>Create your knowledge base</strong> — Open <code>.claude/rules/knowledge-base-template.md</code> and fill in:</p>
+<p><strong>Create your knowledge base</strong> — Open <code>.gemini/rules/knowledge-base-template.md</code> and fill in:</p>
 <ol type="1">
 <li><strong>Notation registry</strong> — every symbol you use, where it’s introduced, and anti-patterns</li>
 <li><strong>Applications database</strong> — datasets, papers, and R packages you reference</li>
 <li><strong>Design principles</strong> — what you’ve approved and what you’ve overridden</li>
 </ol>
-<p><strong>Configure permissions</strong> — Review <code>.claude/settings.json</code>. The template includes permissions for git, LaTeX, Quarto, R, and utility scripts. Add any additional tools you use.</p>
+<p><strong>Configure permissions</strong> — Review <code>.gemini/settings.json</code>. The template includes permissions for git, LaTeX, Quarto, R, and utility scripts. Add any additional tools you use.</p>
 <p><strong>Test it:</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># In Claude Code, type:</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># In Gemini CLI, type:</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">/compile-latex</span> MyFirstLecture</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="ex">/proofread</span> Slides/MyFirstLecture.tex</span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> scripts/quality_score.py Slides/MyFirstLecture.tex</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -2985,14 +2985,14 @@ You see: &quot;Analysis complete. 3 tables, 4 figures. Score: 85/100.&quot;</cod
 </section>
 <section id="sec-spec-then-plan" class="level2" data-number="2.5">
 <h2 data-number="2.5" class="anchored" data-anchor-id="sec-spec-then-plan"><span class="header-section-number">2.5</span> Requirements Specification (For Complex Tasks)</h2>
-<p>For complex or ambiguous tasks, Claude may ask 3-5 clarifying questions to create a requirements specification before planning. This catches ambiguity early and reduces rework.</p>
+<p>For complex or ambiguous tasks, Gemini may ask 3-5 clarifying questions to create a requirements specification before planning. This catches ambiguity early and reduces rework.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true" href>Slide Creation</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false" href>Data Analysis</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-3" role="tab" aria-controls="tabset-2-3" aria-selected="false" href>Code Refactoring</a></li></ul>
 <div class="tab-content">
 <div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
 <pre><code>You: &quot;Improve my lecture on hypothesis testing&quot;
 
-Claude: &quot;Let me clarify:
+Gemini: &quot;Let me clarify:
 1. What needs improvement (clarity, examples, pacing)?
 2. Any student feedback to address?
 3. Constraints (time, notation changes)?
@@ -3005,7 +3005,7 @@ Claude: &quot;Let me clarify:
 <div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
 <pre><code>You: &quot;Analyze the survey data&quot;
 
-Claude: &quot;Let me clarify:
+Gemini: &quot;Let me clarify:
 1. What&#39;s the research question?
 2. Expected output format (tables, plots, report)?
 3. Any replication targets or baselines?
@@ -3014,7 +3014,7 @@ Claude: &quot;Let me clarify:
 <div id="tabset-2-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-3-tab">
 <pre><code>You: &quot;Clean up my analysis scripts&quot;
 
-Claude: &quot;Let me clarify:
+Gemini: &quot;Let me clarify:
 1. What&#39;s the pain point (speed, readability, bugs)?
 2. Breaking changes okay or preserve compatibility?
 3. Testing infrastructure available?
@@ -3022,14 +3022,14 @@ Claude: &quot;Let me clarify:
 </div>
 </div>
 </div>
-<p>After 3-5 questions, Claude creates a specification document in <code>quality_reports/specs/</code> with:</p>
+<p>After 3-5 questions, Gemini creates a specification document in <code>quality_reports/specs/</code> with:</p>
 <ul>
 <li><strong>MUST</strong> have (non-negotiable requirements)</li>
 <li><strong>SHOULD</strong> have (preferred features)</li>
 <li><strong>MAY</strong> have (optional enhancements)</li>
 <li><strong>Clarity status</strong> (CLEAR/ASSUMED/BLOCKED for each aspect)</li>
 </ul>
-<p>You approve the spec, then Claude plans implementation. This reduces mid-plan pivots by 30-50%.</p>
+<p>You approve the spec, then Gemini plans implementation. This reduces mid-plan pivots by 30-50%.</p>
 <p><strong>Template:</strong> <code>templates/requirements-spec.md</code></p>
 <hr>
 </section>
@@ -3039,11 +3039,11 @@ Claude: &quot;Let me clarify:
 <p>With setup covered, here is what the system actually <em>does</em>. This section walks through the three core mechanisms that make the workflow powerful: specialized agents, adversarial QA, and automatic quality scoring.</p>
 <section id="why-specialized-agents-beat-one-size-fits-all" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="why-specialized-agents-beat-one-size-fits-all"><span class="header-section-number">3.1</span> Why Specialized Agents Beat One-Size-Fits-All</h2>
-<p>Consider proofreading a 140-slide lecture deck. You could ask Claude:</p>
+<p>Consider proofreading a 140-slide lecture deck. You could ask Gemini:</p>
 <blockquote class="blockquote">
 <p>“Review these slides for grammar, layout, math correctness, code quality, and pedagogical flow.”</p>
 </blockquote>
-<p>Claude will skim everything and catch some issues. But it will miss:</p>
+<p>Gemini will skim everything and catch some issues. But it will miss:</p>
 <ul>
 <li>The equation on slide 42 where a subscript changed from <span class="math inline">\(m_t^{d=0}\)</span> to <span class="math inline">\(m_t^0\)</span></li>
 <li>The TikZ diagram where two labels overlap at presentation resolution</li>
@@ -3118,7 +3118,7 @@ APPROVED   NEEDS WORK
           +----+----------+
                |
           ... (up to 5 rounds)</code></pre>
-<p><strong>Why it works:</strong> The critic can’t fix files (read-only), so it has no incentive to downplay issues. The fixer can’t approve itself (the critic re-audits). This prevents the common failure of Claude saying “looks good” about its own work.</p>
+<p><strong>Why it works:</strong> The critic can’t fix files (read-only), so it has no incentive to downplay issues. The fixer can’t approve itself (the critic re-audits). This prevents the common failure of Gemini saying “looks good” about its own work.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -3136,7 +3136,7 @@ APPROVED   NEEDS WORK
 <section id="the-orchestrator-a-pattern-not-a-daemon" class="level2" data-number="3.3">
 <h2 data-number="3.3" class="anchored" data-anchor-id="the-orchestrator-a-pattern-not-a-daemon"><span class="header-section-number">3.3</span> The Orchestrator: A Pattern, Not a Daemon</h2>
 <p>Individual agents are specialists. Skills like <code>/slide-excellence</code> and <code>/qa-quarto</code> coordinate a few agents for specific tasks. In day-to-day work, you don’t have to think about which agents to run — the right skill runs the right agents for you.</p>
-<p>The <strong>orchestrator protocol</strong> (<code>.claude/rules/orchestrator-protocol.md</code>) defines the 6-step loop (IMPLEMENT → VERIFY → REVIEW → FIX → RE-VERIFY → SCORE) that skills implement internally. It is <strong>not</strong> a runtime daemon: plan approval does NOT auto-trigger this loop. You invoke a skill (e.g., <code>/create-lecture</code>, <code>/qa-quarto</code>, <code>/review-paper --adversarial</code>) and the skill runs the pattern within its own scope.</p>
+<p>The <strong>orchestrator protocol</strong> (<code>.gemini/rules/orchestrator-protocol.md</code>) defines the 6-step loop (IMPLEMENT → VERIFY → REVIEW → FIX → RE-VERIFY → SCORE) that skills implement internally. It is <strong>not</strong> a runtime daemon: plan approval does NOT auto-trigger this loop. You invoke a skill (e.g., <code>/create-lecture</code>, <code>/qa-quarto</code>, <code>/review-paper --adversarial</code>) and the skill runs the pattern within its own scope.</p>
 <p>What’s mechanically implemented today: <code>/commit</code> (verifier + quality_score), <code>/qa-quarto</code> (critic-fixer loop), <code>/review-paper --adversarial</code> (critic-fixer loop), <code>/slide-excellence</code> (multi-agent fanout), <code>/review-paper --peer</code> (editor + 2 referees + cross-artifact). See <a href="#pattern-2-contractor-mode-orchestrator">Pattern 2</a> for the complete workflow.</p>
 </section>
 <section id="sec-quality" class="level2" data-number="3.4">
@@ -3231,7 +3231,7 @@ APPROVED   NEEDS WORK
 </section>
 <section id="mandatory-verification" class="level3" data-number="3.4.2">
 <h3 data-number="3.4.2" class="anchored" data-anchor-id="mandatory-verification"><span class="header-section-number">3.4.2</span> Mandatory Verification</h3>
-<p>The verification protocol (<code>.claude/rules/verification-protocol.md</code>) requires that Claude compile, render, or otherwise verify every output before reporting a task as complete. Skills that implement the orchestrator pattern enforce this as Step 2: VERIFY. This means Claude <strong>cannot</strong> say “done” from within those skills without actually checking the output.</p>
+<p>The verification protocol (<code>.gemini/rules/verification-protocol.md</code>) requires that Gemini compile, render, or otherwise verify every output before reporting a task as complete. Skills that implement the orchestrator pattern enforce this as Step 2: VERIFY. This means Gemini <strong>cannot</strong> say “done” from within those skills without actually checking the output.</p>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -3301,7 +3301,7 @@ APPROVED   NEEDS WORK
 </tr>
 </tbody>
 </table>
-<p>To customize, open <code>.claude/agents/domain-reviewer.md</code> and fill in:</p>
+<p>To customize, open <code>.gemini/agents/domain-reviewer.md</code> and fill in:</p>
 <ol type="1">
 <li>Your domain’s common assumption types</li>
 <li>Typical derivation patterns to verify</li>
@@ -3315,11 +3315,11 @@ APPROVED   NEEDS WORK
 </section>
 <section id="sec-blocks" class="level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span> The Building Blocks</h1>
-<p>Understanding the configuration layers helps you customize the workflow and debug when things go wrong. Claude Code’s power comes from five configuration layers that work together — think of them as the operating system for your academic project.</p>
-<section id="claude.md-your-projects-constitution" class="level2" data-number="4.1">
-<h2 data-number="4.1" class="anchored" data-anchor-id="claude.md-your-projects-constitution"><span class="header-section-number">4.1</span> CLAUDE.md — Your Project’s Constitution</h2>
-<p><code>CLAUDE.md</code> is the single most important file. Claude reads it at the start of every session. But here is the critical insight: <strong>Claude reliably follows about 100–150 custom instructions.</strong> Your system prompt already uses ~50, leaving ~100–150 for your project. CLAUDE.md and always-on rules share this budget.</p>
-<p>This means CLAUDE.md should be a <strong>slim constitution</strong> — short directives and pointers, not comprehensive documentation. Aim for ~120 lines:</p>
+<p>Understanding the configuration layers helps you customize the workflow and debug when things go wrong. Gemini CLI’s power comes from five configuration layers that work together — think of them as the operating system for your academic project.</p>
+<section id="gemini.md-your-projects-constitution" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="gemini.md-your-projects-constitution"><span class="header-section-number">4.1</span> GEMINI.md — Your Project’s Constitution</h2>
+<p><code>GEMINI.md</code> is the single most important file. Gemini reads it at the start of every session. But here is the critical insight: <strong>Gemini reliably follows about 100–150 custom instructions.</strong> Your system prompt already uses ~50, leaving ~100–150 for your project. GEMINI.md and always-on rules share this budget.</p>
+<p>This means GEMINI.md should be a <strong>slim constitution</strong> — short directives and pointers, not comprehensive documentation. Aim for ~120 lines:</p>
 <ul>
 <li><strong>Core principles</strong> — 4–5 bullets (plan-first, verify-after, quality gates, LEARN tags)</li>
 <li><strong>Folder structure</strong> — where everything lives</li>
@@ -3328,7 +3328,7 @@ APPROVED   NEEDS WORK
 <li><strong>Current state</strong> — what’s done, what’s in progress</li>
 <li><strong>Skill quick reference</strong> — table of available slash commands</li>
 </ul>
-<p>Move everything else into <code>.claude/rules/</code> files (with path-scoping so they only load when relevant).</p>
+<p>Move everything else into <code>.gemini/rules/</code> files (with path-scoping so they only load when relevant).</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># CLAUDE.MD --- My Course Development</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>**Project:** Econ 730 --- Causal Panel Data</span>
@@ -3357,21 +3357,21 @@ APPROVED   NEEDS WORK
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>CLAUDE.md loads every session. If it exceeds ~150 lines, Claude starts ignoring rules silently. Put detailed standards in path-scoped rules (<code>.claude/rules/</code>) instead — they only load when Claude works on matching files, so they don’t compete for attention.</p>
+<p>GEMINI.md loads every session. If it exceeds ~150 lines, Gemini starts ignoring rules silently. Put detailed standards in path-scoped rules (<code>.gemini/rules/</code>) instead — they only load when Gemini works on matching files, so they don’t compete for attention.</p>
 </div>
 </div>
 </section>
 <section id="rules---domain-knowledge-that-auto-loads" class="level2" data-number="4.2">
 <h2 data-number="4.2" class="anchored" data-anchor-id="rules---domain-knowledge-that-auto-loads"><span class="header-section-number">4.2</span> Rules — Domain Knowledge That Auto-Loads</h2>
-<p>Rules are markdown files in <code>.claude/rules/</code> that Claude loads automatically. They encode your project’s standards. The key design principle is <strong>path-scoping</strong>: rules with a <code>paths:</code> YAML frontmatter only load when Claude works on matching files.</p>
+<p>Rules are markdown files in <code>.gemini/rules/</code> that Gemini loads automatically. They encode your project’s standards. The key design principle is <strong>path-scoping</strong>: rules with a <code>paths:</code> YAML frontmatter only load when Gemini works on matching files.</p>
 <p><strong>Always-on rules</strong> (no <code>paths:</code> frontmatter) load every session. Keep these few and focused:</p>
-<pre><code>.claude/rules/
+<pre><code>.gemini/rules/
 ├── plan-first-workflow.md       # ~83 lines — plan before you build
 ├── orchestrator-protocol.md     # ~42 lines — contractor mode loop
 ├── session-logging.md           # ~23 lines — three logging triggers
 └── meta-governance.md           # ~251 lines — template vs working project</code></pre>
 <p><strong>Path-scoped rules</strong> load only when relevant:</p>
-<pre><code>.claude/rules/
+<pre><code>.gemini/rules/
 ├── r-code-conventions.md        # paths: [&quot;**/*.R&quot;] — R standards
 ├── quality-gates.md             # paths: [&quot;*.tex&quot;, &quot;*.qmd&quot;, &quot;*.R&quot;] — scoring
 ├── verification-protocol.md     # paths: [&quot;*.tex&quot;, &quot;*.qmd&quot;, &quot;docs/&quot;] — verify before done
@@ -3379,9 +3379,9 @@ APPROVED   NEEDS WORK
 ├── exploration-folder-protocol.md  # paths: [&quot;explorations/**&quot;] — sandbox rules
 ├── orchestrator-research.md     # paths: [&quot;scripts/**/*.R&quot;, &quot;explorations/**&quot;] — simple loop
 └── ...20 path-scoped rules total</code></pre>
-<p>The first three always-on rules total ~148 lines of actionable instructions. <code>meta-governance</code> is a reference document for the template’s dual nature (working project vs. public template) and loads passively. Path-scoped rules add rich, domain-specific guidance exactly when Claude needs it.</p>
+<p>The first three always-on rules total ~148 lines of actionable instructions. <code>meta-governance</code> is a reference document for the template’s dual nature (working project vs. public template) and loads passively. Path-scoped rules add rich, domain-specific guidance exactly when Gemini needs it.</p>
 <p><strong>Sync vs. translate:</strong> The <code>beamer-quarto-sync</code> rule handles incremental edits — fix a typo in Beamer, same fix goes to Quarto. The <code>/translate-to-quarto</code> skill is for full initial translation of a new lecture. Translate once, sync thereafter.</p>
-<p><strong>Why rules matter:</strong> Without them, Claude will use generic defaults. With them, Claude follows <em>your</em> standards consistently across sessions.</p>
+<p><strong>Why rules matter:</strong> Without them, Gemini will use generic defaults. With them, Gemini follows <em>your</em> standards consistently across sessions.</p>
 <section id="example-path-scoped-r-code-conventions-rule" class="level3" data-number="4.2.1">
 <h3 data-number="4.2.1" class="anchored" data-anchor-id="example-path-scoped-r-code-conventions-rule"><span class="header-section-number">4.2.1</span> Example: Path-Scoped R Code Conventions Rule</h3>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
@@ -3400,7 +3400,7 @@ APPROVED   NEEDS WORK
 <span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="fu">## Visual Identity</span></span>
 <span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>primary_blue  &lt;- &quot;#012169&quot;</span>
 <span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>primary_gold  &lt;- &quot;#f2a900&quot;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>The <code>paths:</code> block means this rule only loads when Claude reads or edits an <code>.R</code> file. When Claude works on a <code>.tex</code> file, this rule doesn’t consume any of the instruction budget.</p>
+<p>The <code>paths:</code> block means this rule only loads when Gemini reads or edits an <code>.R</code> file. When Gemini works on a <code>.tex</code> file, this rule doesn’t consume any of the instruction budget.</p>
 </section>
 </section>
 <section id="constitutional-governance-optional" class="level2" data-number="4.3">
@@ -3427,7 +3427,7 @@ APPROVED   NEEDS WORK
 </section>
 <section id="skills---reusable-slash-commands" class="level2" data-number="4.4">
 <h2 data-number="4.4" class="anchored" data-anchor-id="skills---reusable-slash-commands"><span class="header-section-number">4.4</span> Skills — Reusable Slash Commands</h2>
-<p>Skills are multi-step workflows invoked with <code>/command</code>. Each skill lives in <code>.claude/skills/[name]/SKILL.md</code>:</p>
+<p>Skills are multi-step workflows invoked with <code>/command</code>. Each skill lives in <code>.gemini/skills/[name]/SKILL.md</code>:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">name</span><span class="kw">:</span><span class="at"> compile-latex</span></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">description</span><span class="kw">:</span><span class="at"> Compile LaTeX with 3-pass XeLaTeX + bibtex</span></span>
@@ -3504,14 +3504,14 @@ APPROVED   NEEDS WORK
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Claude Code ships with built-in skills beyond this template’s 28: <code>/batch</code> orchestrates parallel refactoring across your codebase (using git worktrees for isolation), <code>/simplify</code> runs 3-agent code review and applies fixes, and <code>/debug</code> helps troubleshoot sessions. These complement the academic skills above.</p>
+<p>Gemini CLI ships with built-in skills beyond this template’s 28: <code>/batch</code> orchestrates parallel refactoring across your codebase (using git worktrees for isolation), <code>/simplify</code> runs 3-agent code review and applies fixes, and <code>/debug</code> helps troubleshoot sessions. These complement the academic skills above.</p>
 </div>
 </div>
 </section>
 <section id="agents---specialized-reviewers" class="level2" data-number="4.5">
 <h2 data-number="4.5" class="anchored" data-anchor-id="agents---specialized-reviewers"><span class="header-section-number">4.5</span> Agents — Specialized Reviewers</h2>
 <p>Agents are the real power of this system. Each agent is an expert in one dimension of quality:</p>
-<pre><code>.claude/agents/
+<pre><code>.gemini/agents/
 +-- proofreader.md        # Grammar, typos, consistency
 +-- slide-auditor.md      # Visual layout, overflow, spacing
 +-- pedagogy-reviewer.md  # Narrative arc, notation clarity, pacing
@@ -3558,8 +3558,8 @@ APPROVED   NEEDS WORK
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>A single Claude prompt trying to check grammar, layout, math, and code simultaneously will do a mediocre job at all of them. Specialized agents focus on one dimension and do it thoroughly. The <code>/slide-excellence</code> skill runs them all in parallel, then synthesizes results.</p>
-<p>Claude Code also offers experimental <strong>Agent Teams</strong> — multiple independent sessions that coordinate, share findings, and challenge each other’s approaches. This is a research preview feature; the orchestrator + subagent pattern described here is more mature for academic workflows.</p>
+<p>A single Gemini prompt trying to check grammar, layout, math, and code simultaneously will do a mediocre job at all of them. Specialized agents focus on one dimension and do it thoroughly. The <code>/slide-excellence</code> skill runs them all in parallel, then synthesizes results.</p>
+<p>Gemini CLI also offers experimental <strong>Agent Teams</strong> — multiple independent sessions that coordinate, share findings, and challenge each other’s approaches. This is a research preview feature; the orchestrator + subagent pattern described here is more mature for academic workflows.</p>
 </div>
 </div>
 </section>
@@ -3693,7 +3693,7 @@ APPROVED   NEEDS WORK
 </section>
 <section id="settings---permissions-and-hooks" class="level2" data-number="4.6">
 <h2 data-number="4.6" class="anchored" data-anchor-id="settings---permissions-and-hooks"><span class="header-section-number">4.6</span> Settings — Permissions and Hooks</h2>
-<p><code>.claude/settings.json</code> controls what Claude is allowed to do. Here is a simplified excerpt — the template includes additional permission entries for git, GitHub CLI, PDF tools, and more:</p>
+<p><code>.gemini/settings.json</code> controls what Gemini is allowed to do. Here is a simplified excerpt — the template includes additional permission entries for git, GitHub CLI, PDF tools, and more:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;permissions&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;allow&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
@@ -3709,14 +3709,14 @@ APPROVED   NEEDS WORK
 <span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>      <span class="fu">{</span></span>
 <span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;hooks&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="fu">{</span></span>
 <span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;type&quot;</span><span class="fu">:</span> <span class="st">&quot;command&quot;</span><span class="fu">,</span></span>
-<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;command&quot;</span><span class="fu">:</span> <span class="st">&quot;python3 </span><span class="ch">\&quot;</span><span class="st">$CLAUDE_PROJECT_DIR</span><span class="ch">\&quot;</span><span class="st">/.claude/hooks/log-reminder.py&quot;</span><span class="fu">,</span></span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;command&quot;</span><span class="fu">:</span> <span class="st">&quot;python3 </span><span class="ch">\&quot;</span><span class="st">$CLAUDE_PROJECT_DIR</span><span class="ch">\&quot;</span><span class="st">/.gemini/hooks/log-reminder.py&quot;</span><span class="fu">,</span></span>
 <span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;timeout&quot;</span><span class="fu">:</span> <span class="dv">10</span></span>
 <span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span><span class="ot">]</span></span>
 <span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span></span>
 <span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>    <span class="ot">]</span></span>
 <span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
 <span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><strong>Permission modes.</strong> Claude Code has five permission modes that control how much autonomy Claude gets:</p>
+<p><strong>Permission modes.</strong> Gemini CLI has five permission modes that control how much autonomy Gemini gets:</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 13%">
@@ -3765,10 +3765,10 @@ APPROVED   NEEDS WORK
 </tr>
 </tbody>
 </table>
-<p>Set via CLI flag (<code>claude --permission-mode plan</code>), the <code>/config</code> command, or <code>permissions.defaultMode</code> in <code>settings.json</code>.</p>
+<p>Set via CLI flag (<code>gemini --permission-mode plan</code>), the <code>/config</code> command, or <code>permissions.defaultMode</code> in <code>settings.json</code>.</p>
 <section id="the-six-layer-permission-stack" class="level3" data-number="4.6.1">
 <h3 data-number="4.6.1" class="anchored" data-anchor-id="the-six-layer-permission-stack"><span class="header-section-number">4.6.1</span> The Six-Layer Permission Stack</h3>
-<p>Permission mode is not resolved from a single file. Claude Code honors <strong>six layers</strong>, with later layers overriding earlier ones:</p>
+<p>Permission mode is not resolved from a single file. Gemini CLI honors <strong>six layers</strong>, with later layers overriding earlier ones:</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 25%">
@@ -3789,30 +3789,30 @@ APPROVED   NEEDS WORK
 <td>1</td>
 <td>VSCode user</td>
 <td><code>~/Library/Application Support/Code/User/settings.json</code> (macOS), <code>~/.config/Code/User/settings.json</code> (Linux), <code>%APPDATA%/Code/User/settings.json</code> (Windows)</td>
-<td><code>claudeCode.initialPermissionMode</code></td>
+<td><code>geminiCode.initialPermissionMode</code></td>
 </tr>
 <tr class="even">
 <td>2</td>
 <td>VSCode workspace</td>
 <td><code>&lt;repo&gt;/.vscode/settings.json</code></td>
-<td><code>claudeCode.initialPermissionMode</code></td>
+<td><code>geminiCode.initialPermissionMode</code></td>
 </tr>
 <tr class="odd">
 <td>3</td>
 <td>CLI user</td>
-<td><code>~/.claude/settings.json</code></td>
+<td><code>~/.gemini/settings.json</code></td>
 <td><code>permissions.defaultMode</code></td>
 </tr>
 <tr class="even">
 <td>4</td>
 <td>CLI project</td>
-<td><code>&lt;repo&gt;/.claude/settings.json</code></td>
+<td><code>&lt;repo&gt;/.gemini/settings.json</code></td>
 <td><code>permissions.defaultMode</code></td>
 </tr>
 <tr class="odd">
 <td>5</td>
 <td>CLI project-local (gitignored)</td>
-<td><code>&lt;repo&gt;/.claude/settings.local.json</code></td>
+<td><code>&lt;repo&gt;/.gemini/settings.local.json</code></td>
 <td><code>permissions.defaultMode</code></td>
 </tr>
 <tr class="even">
@@ -3829,11 +3829,11 @@ APPROVED   NEEDS WORK
 <h3 data-number="4.6.2" class="anchored" data-anchor-id="troubleshooting-prompts-fire-despite-bypasspermissions"><span class="header-section-number">4.6.2</span> Troubleshooting: Prompts Fire Despite <code>bypassPermissions</code></h3>
 <p>This is the single most common source of confusion. Work through the checklist in order:</p>
 <ol type="1">
-<li><strong>Look at the status line</strong> at the top of the Claude Code panel. With this repo’s <code>statusLine</code> configured, it prints <code>[BYPASS]</code>, <code>[PLAN]</code>, <code>[AUTO-EDIT]</code>, or <code>[PROMPT]</code> for the four standard modes. Any other mode Claude Code reports (e.g., <code>dontAsk</code>) is shown as a bracketed raw name like <code>[dontAsk]</code>. If it doesn’t say <code>[BYPASS]</code>, you have an in-session override — press <code>Shift+Tab</code> to cycle modes until you land on bypass.</li>
+<li><strong>Look at the status line</strong> at the top of the Gemini CLI panel. With this repo’s <code>statusLine</code> configured, it prints <code>[BYPASS]</code>, <code>[PLAN]</code>, <code>[AUTO-EDIT]</code>, or <code>[PROMPT]</code> for the four standard modes. Any other mode Gemini CLI reports (e.g., <code>dontAsk</code>) is shown as a bracketed raw name like <code>[dontAsk]</code>. If it doesn’t say <code>[BYPASS]</code>, you have an in-session override — press <code>Shift+Tab</code> to cycle modes until you land on bypass.</li>
 <li><strong>Run <code>/permission-check</code></strong> to see every layer’s value, the resolved merged state, and any drift (e.g., project says bypass but project-local says default).</li>
 <li><strong>Check for stale sessions.</strong> If settings changed recently but the session predates the change, it still runs under the old mode. Reload the window (<code>Cmd+Shift+P</code> → “Developer: Reload Window”) and start a new session.</li>
 <li><strong>Check <code>deny</code> lists.</strong> A match in any layer’s <code>deny</code> blocks the tool regardless of <code>allow</code> entries elsewhere.</li>
-<li><strong>VSCode vs CLI split.</strong> If the VSCode layers say bypass but no CLI layer does, a terminal-launched Claude Code will still prompt. Align them.</li>
+<li><strong>VSCode vs CLI split.</strong> If the VSCode layers say bypass but no CLI layer does, a terminal-launched Gemini CLI will still prompt. Align them.</li>
 </ol>
 </section>
 <section id="the-plan-bypass-handoff-recommended-daily-driver" class="level3" data-number="4.6.3">
@@ -3854,11 +3854,11 @@ APPROVED   NEEDS WORK
 </div>
 </div>
 <p>The flow:</p>
-<pre><code>Start session in plan mode  (Shift+Tab at startup, or claude --permission-mode plan)
+<pre><code>Start session in plan mode  (Shift+Tab at startup, or gemini --permission-mode plan)
      |
      | Read-only exploration + planning
-     |   Claude can Read, Grep, run Bash readonly, spawn Explore/Plan agents
-     |   Claude CANNOT edit files (except the plan file itself)
+     |   Gemini can Read, Grep, run Bash readonly, spawn Explore/Plan agents
+     |   Gemini CANNOT edit files (except the plan file itself)
      |
      v
 Plan drafted, saved to quality_reports/plans/YYYY-MM-DD_description.md
@@ -3866,7 +3866,7 @@ Plan drafted, saved to quality_reports/plans/YYYY-MM-DD_description.md
      v
 User approves via ExitPlanMode UI
      |
-     | Claude Code returns the session to defaultMode.
+     | Gemini CLI returns the session to defaultMode.
      | If defaultMode = bypassPermissions, execution now runs
      | without approval prompts.
      v
@@ -3889,18 +3889,18 @@ Orchestrator executes the plan end-to-end --- no prompts.</code></pre>
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>By default, Claude saves plans to a global directory (<code>~/.claude/plans/</code>), not your project. To keep plans with your project (and in git), add this to <code>.claude/settings.json</code>:</p>
+<p>By default, Gemini saves plans to a global directory (<code>~/.gemini/plans/</code>), not your project. To keep plans with your project (and in git), add this to <code>.gemini/settings.json</code>:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;plansDirectory&quot;</span><span class="fu">:</span> <span class="st">&quot;quality_reports/plans&quot;</span></span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
-<p>The <strong>Stop hook</strong> runs a fast Python script after every response. No LLM call, no latency. It checks whether the session log is current and reminds Claude to update it if not. Behavioral rules like verification and Beamer-Quarto sync are enforced via auto-loaded rules in <code>.claude/rules/</code>, which is the right tool for nuanced judgment that Claude can evaluate in-context.</p>
+<p>The <strong>Stop hook</strong> runs a fast Python script after every response. No LLM call, no latency. It checks whether the session log is current and reminds Gemini to update it if not. Behavioral rules like verification and Beamer-Quarto sync are enforced via auto-loaded rules in <code>.gemini/rules/</code>, which is the right tool for nuanced judgment that Gemini can evaluate in-context.</p>
 </section>
 </section>
 <section id="sec-effort" class="level2" data-number="4.7">
 <h2 data-number="4.7" class="anchored" data-anchor-id="sec-effort"><span class="header-section-number">4.7</span> Effort Levels — Cost vs. Thoroughness</h2>
-<p>Claude Code lets you control how deeply it reasons about each task. Higher effort means more “thinking tokens” and better results — but higher cost.</p>
+<p>Gemini CLI lets you control how deeply it reasons about each task. Higher effort means more “thinking tokens” and better results — but higher cost.</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 12%">
@@ -3962,7 +3962,7 @@ Orchestrator executes the plan end-to-end --- no prompts.</code></pre>
 </section>
 <section id="memory---cross-session-persistence" class="level2" data-number="4.8">
 <h2 data-number="4.8" class="anchored" data-anchor-id="memory---cross-session-persistence"><span class="header-section-number">4.8</span> Memory — Cross-Session Persistence</h2>
-<p>Claude Code has an auto-memory system at <code>~/.claude/projects/[project]/memory/MEMORY.md</code>. This file persists across sessions and is loaded into every conversation.</p>
+<p>Gemini CLI has an auto-memory system at <code>~/.gemini/projects/[project]/memory/MEMORY.md</code>. This file persists across sessions and is loaded into every conversation.</p>
 <p>Use it for: - Key project facts that never change - Corrections you don’t want repeated (<code>[LEARN:tag]</code> format) - Current plan status</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Auto Memory</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -3986,13 +3986,13 @@ Orchestrator executes the plan end-to-end --- no prompts.</code></pre>
 </section>
 <section id="session-logs-why-not-just-what-history-with-automated-reminders" class="level3" data-number="4.8.2">
 <h3 data-number="4.8.2" class="anchored" data-anchor-id="session-logs-why-not-just-what-history-with-automated-reminders"><span class="header-section-number">4.8.2</span> Session Logs — Why-Not-Just-What History (with Automated Reminders)</h3>
-<p>Git commits record what changed, but not <em>why</em>. Session logs fill this gap. Claude writes to <code>quality_reports/session_logs/</code> at three points: right after plan approval, incrementally during implementation (as decisions happen), and at session end. This means the log captures reasoning <em>as it happens</em>, before auto-compression can discard it.</p>
-<p>Because relying on instructions alone is fragile (Claude forgets during long sessions), a <strong>Stop hook</strong> (<code>.claude/hooks/log-reminder.py</code>) fires after every response. It tracks how many responses have passed since the session log was last updated. After a threshold, it blocks Claude from stopping until the log is current. This turns a best practice into an enforced behavior.</p>
+<p>Git commits record what changed, but not <em>why</em>. Session logs fill this gap. Gemini writes to <code>quality_reports/session_logs/</code> at three points: right after plan approval, incrementally during implementation (as decisions happen), and at session end. This means the log captures reasoning <em>as it happens</em>, before auto-compression can discard it.</p>
+<p>Because relying on instructions alone is fragile (Gemini forgets during long sessions), a <strong>Stop hook</strong> (<code>.gemini/hooks/log-reminder.py</code>) fires after every response. It tracks how many responses have passed since the session log was last updated. After a threshold, it blocks Gemini from stopping until the log is current. This turns a best practice into an enforced behavior.</p>
 <p>New sessions can read these logs to understand not just the current state of the project, but the reasoning behind it. See Pattern 1 in <a href="#sec-patterns">Workflow Patterns</a> for the full protocol.</p>
 </section>
 <section id="how-it-all-fits-together" class="level3" data-number="4.8.3">
 <h3 data-number="4.8.3" class="anchored" data-anchor-id="how-it-all-fits-together"><span class="header-section-number">4.8.3</span> How It All Fits Together</h3>
-<p>With CLAUDE.md, MEMORY.md, plans, and session logs, the system has four distinct memory layers. Here is what each one does and when it matters:</p>
+<p>With GEMINI.md, MEMORY.md, plans, and session logs, the system has four distinct memory layers. Here is what each one does and when it matters:</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 12%">
@@ -4013,7 +4013,7 @@ Orchestrator executes the plan end-to-end --- no prompts.</code></pre>
 <tbody>
 <tr class="odd">
 <td>Project context</td>
-<td><code>CLAUDE.md</code></td>
+<td><code>GEMINI.md</code></td>
 <td>Yes (on disk)</td>
 <td>Rarely</td>
 <td>Project rules, folder structure, commands</td>
@@ -4041,7 +4041,7 @@ Orchestrator executes the plan end-to-end --- no prompts.</code></pre>
 </tr>
 <tr class="odd">
 <td>Conversation</td>
-<td>Claude’s context window</td>
+<td>Gemini’s context window</td>
 <td><strong>No</strong> (compressed)</td>
 <td>Every response</td>
 <td>Current working memory</td>
@@ -4052,7 +4052,7 @@ Orchestrator executes the plan end-to-end --- no prompts.</code></pre>
 </section>
 <section id="hooks---automated-enforcement" class="level3" data-number="4.8.4">
 <h3 data-number="4.8.4" class="anchored" data-anchor-id="hooks---automated-enforcement"><span class="header-section-number">4.8.4</span> Hooks — Automated Enforcement</h3>
-<p>The session log reminder above is one example of a broader pattern: using <strong>hooks</strong> to enforce rules that Claude might otherwise forget during long sessions. Rules live in context and can be compressed away. Hooks live in <code>.claude/settings.json</code> and fire every time, regardless of context state.</p>
+<p>The session log reminder above is one example of a broader pattern: using <strong>hooks</strong> to enforce rules that Gemini might otherwise forget during long sessions. Rules live in context and can be compressed away. Hooks live in <code>.gemini/settings.json</code> and fire every time, regardless of context state.</p>
 <p>The template includes hooks for logging, notifications, and context survival:</p>
 <table class="caption-top table">
 <colgroup>
@@ -4076,7 +4076,7 @@ Orchestrator executes the plan end-to-end --- no prompts.</code></pre>
 <tr class="even">
 <td>Desktop notification</td>
 <td><code>Notification</code></td>
-<td>Desktop alert when Claude needs attention (macOS/Linux)</td>
+<td>Desktop alert when Gemini needs attention (macOS/Linux)</td>
 </tr>
 <tr class="odd">
 <td>Context state capture</td>
@@ -4101,7 +4101,7 @@ Orchestrator executes the plan end-to-end --- no prompts.</code></pre>
 </tbody>
 </table>
 <p>Verification and Beamer-Quarto sync are enforced via auto-loaded rules, which are the right tool for nuanced judgment. Hooks are reserved for enforcement that <em>must</em> survive context compression.</p>
-<p><strong>Hook handler types.</strong> The examples above use <code>command</code> hooks (shell scripts), but Claude Code supports four handler types:</p>
+<p><strong>Hook handler types.</strong> The examples above use <code>command</code> hooks (shell scripts), but Gemini CLI supports four handler types:</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 20%">
@@ -4123,7 +4123,7 @@ Orchestrator executes the plan end-to-end --- no prompts.</code></pre>
 </tr>
 <tr class="even">
 <td><strong><code>prompt</code></strong></td>
-<td>Injects text into Claude’s conversation — no script needed</td>
+<td>Injects text into Gemini’s conversation — no script needed</td>
 <td>Soft reminders: “Check that equations compile before saving”</td>
 </tr>
 <tr class="odd">
@@ -4149,13 +4149,13 @@ Orchestrator executes the plan end-to-end --- no prompts.</code></pre>
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Use <strong>command hooks</strong> for fast, mechanical checks (file exists? counter threshold?). Use <strong>prompt hooks</strong> for soft guidance that doesn’t need a script. Use <strong>rules</strong> for nuanced judgment (did Claude verify correctly?). Avoid prompt hooks that fire on high-frequency events — the injected text adds up in context.</p>
+<p>Use <strong>command hooks</strong> for fast, mechanical checks (file exists? counter threshold?). Use <strong>prompt hooks</strong> for soft guidance that doesn’t need a script. Use <strong>rules</strong> for nuanced judgment (did Gemini verify correctly?). Avoid prompt hooks that fire on high-frequency events — the injected text adds up in context.</p>
 </div>
 </div>
 </section>
 <section id="context-survival-system-advanced" class="level3" data-number="4.8.5">
 <h3 data-number="4.8.5" class="anchored" data-anchor-id="context-survival-system-advanced"><span class="header-section-number">4.8.5</span> Context Survival System (Advanced)</h3>
-<p>When context compaction happens, Claude loses working memory. The <strong>context survival system</strong> ensures you can recover seamlessly.</p>
+<p>When context compaction happens, Gemini loses working memory. The <strong>context survival system</strong> ensures you can recover seamlessly.</p>
 <section id="how-it-works" class="level4" data-number="4.8.5.1">
 <h4 data-number="4.8.5.1" class="anchored" data-anchor-id="how-it-works"><span class="header-section-number">4.8.5.1</span> How It Works</h4>
 <p>Two hooks work together to preserve and restore state:</p>
@@ -4173,7 +4173,7 @@ Orchestrator executes the plan end-to-end --- no prompts.</code></pre>
                                     post-compact-restore.py:
                                     • Reads saved state
                                     • Prints context summary
-                                    • Claude knows where it left off</code></pre>
+                                    • Gemini knows where it left off</code></pre>
 </section>
 <section id="what-gets-saved" class="level4" data-number="4.8.5.2">
 <h4 data-number="4.8.5.2" class="anchored" data-anchor-id="what-gets-saved"><span class="header-section-number">4.8.5.2</span> What Gets Saved</h4>
@@ -4194,7 +4194,7 @@ Orchestrator executes the plan end-to-end --- no prompts.</code></pre>
 <tr class="odd">
 <td>Plan path</td>
 <td>Session cache</td>
-<td>So Claude can read the plan file</td>
+<td>So Gemini can read the plan file</td>
 </tr>
 <tr class="even">
 <td>Current task</td>
@@ -4253,12 +4253,12 @@ Orchestrator executes the plan end-to-end --- no prompts.</code></pre>
 </section>
 <section id="recovery-after-compaction" class="level4" data-number="4.8.5.4">
 <h4 data-number="4.8.5.4" class="anchored" data-anchor-id="recovery-after-compaction"><span class="header-section-number">4.8.5.4</span> Recovery After Compaction</h4>
-<p>If compaction happens mid-task, Claude will automatically see:</p>
+<p>If compaction happens mid-task, Gemini will automatically see:</p>
 <ol type="1">
 <li><strong>Restoration message</strong> — what plan was active, what task was in progress</li>
 <li><strong>Recovery actions</strong> — read the plan, check git status, continue</li>
 </ol>
-<p>You can also manually point Claude to the right context:</p>
+<p>You can also manually point Gemini to the right context:</p>
 <blockquote class="blockquote">
 <p>“We just had compaction. Read <code>quality_reports/plans/2026-02-06_translate-lecture5.md</code> and continue from where we left off.”</p>
 </blockquote>
@@ -4272,7 +4272,7 @@ Orchestrator executes the plan end-to-end --- no prompts.</code></pre>
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Now that you understand the building blocks, here’s what’s new: Claude Code has added <a href="#sec-effort">effort levels</a> for cost control, <a href="#hooks---automated-enforcement">expanded hook events</a>, <a href="#skill-frontmatter">skill frontmatter fields</a> for fine-grained skill configuration, <a href="#settings---permissions-and-hooks">permission modes</a> for controlling Claude’s autonomy, <a href="#sec-agent-config">advanced agent configuration</a>, plugins, <code>/batch</code> for parallel refactoring, and headless CLI mode. Each is covered in its respective section above.</p>
+<p>Now that you understand the building blocks, here’s what’s new: Gemini CLI has added <a href="#sec-effort">effort levels</a> for cost control, <a href="#hooks---automated-enforcement">expanded hook events</a>, <a href="#skill-frontmatter">skill frontmatter fields</a> for fine-grained skill configuration, <a href="#settings---permissions-and-hooks">permission modes</a> for controlling Gemini’s autonomy, <a href="#sec-agent-config">advanced agent configuration</a>, plugins, <code>/batch</code> for parallel refactoring, and headless CLI mode. Each is covered in its respective section above.</p>
 </div>
 </div>
 <hr>
@@ -4291,9 +4291,9 @@ Orchestrator executes the plan end-to-end --- no prompts.</code></pre>
 <p>The most common failure mode in AI-assisted development is not bad code — it is solving the wrong problem, or solving the right problem in a fragile order. Plan-first development forces an explicit design step before any file is touched. Plans are saved to <code>quality_reports/plans/</code> on disk, so they survive <a href="#context-survival-system-advanced">context compaction</a>.</p>
 <p>Without a plan:</p>
 <ul>
-<li>Claude starts editing immediately, discovers a dependency on slide 3 that changes the approach, and has to undo work</li>
-<li>Context compression discards the reasoning behind a design choice, and Claude makes a contradictory decision later</li>
-<li>The user and Claude have different mental models of what “done” looks like</li>
+<li>Gemini starts editing immediately, discovers a dependency on slide 3 that changes the approach, and has to undo work</li>
+<li>Context compression discards the reasoning behind a design choice, and Gemini makes a contradictory decision later</li>
+<li>The user and Gemini have different mental models of what “done” looks like</li>
 </ul>
 <p>With a plan:</p>
 <ul>
@@ -4306,7 +4306,7 @@ Orchestrator executes the plan end-to-end --- no prompts.</code></pre>
 <h3 data-number="5.1.2" class="anchored" data-anchor-id="the-protocol"><span class="header-section-number">5.1.2</span> The Protocol</h3>
 <pre><code>Non-trivial task arrives
   |
-  +-- Step 1: Claude enters plan mode (automatic, or say &quot;plan this first&quot;)
+  +-- Step 1: Gemini enters plan mode (automatic, or say &quot;plan this first&quot;)
   +-- Step 2: Draft plan (approach, files, verification)
   +-- Step 3: Save to quality_reports/plans/YYYY-MM-DD_description.md
   +-- Step 4: Present plan to user
@@ -4343,7 +4343,7 @@ Orchestrator executes the plan end-to-end --- no prompts.</code></pre>
 </div>
 </div>
 </div>
-<p>Claude writes all three log entries automatically — no need to ask.</p>
+<p>Gemini writes all three log entries automatically — no need to ask.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-22-contents" aria-controls="callout-22" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -4356,7 +4356,7 @@ Orchestrator executes the plan end-to-end --- no prompts.</code></pre>
 </div>
 <div id="callout-22" class="callout-22-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>For multi-project academics, start each week by asking Claude to read all session logs from the past week and synthesize a status report with priorities and open questions. The session log infrastructure already captures what you need — the weekly review is just a synthesis prompt: <em>“Read all session logs from this week. Summarize: what was accomplished, what’s blocked, what should I prioritize next?”</em></p>
+<p>For multi-project academics, start each week by asking Gemini to read all session logs from the past week and synthesize a status report with priorities and open questions. The session log infrastructure already captures what you need — the weekly review is just a synthesis prompt: <em>“Read all session logs from this week. Summarize: what was accomplished, what’s blocked, what should I prioritize next?”</em></p>
 </div>
 </div>
 </div>
@@ -4478,7 +4478,7 @@ Orchestrator executes the plan end-to-end --- no prompts.</code></pre>
 </div>
 <div id="callout-23" class="callout-23-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p><strong>Natural-language task</strong> → Claude picks a skill: “Translate Lecture 5 to Quarto” → Claude invokes <code>/translate-to-quarto</code>, and that skill runs the orchestrator pattern (translate → verify → review → fix → score) internally.</p>
+<p><strong>Natural-language task</strong> → Gemini picks a skill: “Translate Lecture 5 to Quarto” → Gemini invokes <code>/translate-to-quarto</code>, and that skill runs the orchestrator pattern (translate → verify → review → fix → score) internally.</p>
 <p><strong>Explicit skill call:</strong> <code>/qa-quarto Lecture5</code> — you specifically want the adversarial critic-fixer loop, nothing else.</p>
 <p>Both are valid. The natural-language path is the “I trust you, pick the skill” path. Explicit skill calls are the “I know exactly which loop I want” path. Either way, the orchestrator pattern runs <em>inside</em> the invoked skill — there is no auto-trigger outside a skill.</p>
 </div>
@@ -4514,7 +4514,7 @@ Orchestrator executes the plan end-to-end --- no prompts.</code></pre>
 <div class="callout-body-container callout-body">
 <p>Writing TikZ from a blank page reliably produces label-over-arrow collisions because the compiler doesn’t warn about them. The template ships three reinforcing layers:</p>
 <ul>
-<li><strong><a href="https://github.com/pedrohcgs/claude-code-my-workflow/tree/main/templates/tikz-snippets"><code>templates/tikz-snippets/</code></a></strong> — 8 production-ready standalone diagrams (DAG basic, DAG mediation, two-period DiD, event study, timeline, regression scatter, 3-step flowchart, supply-demand). Each embeds the prevention rules (explicit node dimensions, coordinate map, directional edge labels) by construction.</li>
+<li><strong><a href="https://github.com/pedrohcgs/gemini-code-my-workflow/tree/main/templates/tikz-snippets"><code>templates/tikz-snippets/</code></a></strong> — 8 production-ready standalone diagrams (DAG basic, DAG mediation, two-period DiD, event study, timeline, regression scatter, 3-step flowchart, supply-demand). Each embeds the prevention rules (explicit node dimensions, coordinate map, directional edge labels) by construction.</li>
 <li><strong>Rules <code>tikz-prevention.md</code> + <code>tikz-measurement.md</code></strong> — Upstream authoring rules (P1–P6) and the six-pass collision protocol with formulas (Bézier depth, character widths, 0.4 cm boundary clearance). Adapted from Scott Cunningham’s <a href="https://github.com/scunning1975/MixtapeTools">MixtapeTools</a>.</li>
 <li><strong><a href="#all-skills"><code>/new-diagram</code></a> skill</strong> — Scaffolds from the gallery, runs the P3/P4 grep pre-check before compiling, invokes <code>tikz-reviewer</code> with measurement citations, loops until APPROVED.</li>
 </ul>
@@ -4592,7 +4592,7 @@ Phase 4: Only then extend
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">LEARN:citation</span><span class="co">]</span> Post-LASSO is Belloni (2013), NOT Belloni (2014)</span>
 <span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">LEARN:r-code</span><span class="co">]</span> Package X: ALWAYS include intercept in design matrix</span>
 <span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">LEARN:workflow</span><span class="co">]</span> Every Beamer edit must auto-sync to Quarto</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>These tags are searchable and persist across sessions. When Claude encounters a similar situation, it checks memory first.</p>
+<p>These tags are searchable and persist across sessions. When Gemini encounters a similar situation, it checks memory first.</p>
 </section>
 <section id="automated-skill-capture-learn" class="level3" data-number="5.7.2">
 <h3 data-number="5.7.2" class="anchored" data-anchor-id="automated-skill-capture-learn"><span class="header-section-number">5.7.2</span> Automated Skill Capture: /learn</h3>
@@ -4604,11 +4604,11 @@ Phase 4: Only then extend
   → If YES to any, continue
          ↓
 Phase 2: CHECK EXISTING
-  Search .claude/skills/ for related skills
+  Search .gemini/skills/ for related skills
   → Nothing related? Create new. Overlap? Update existing.
          ↓
 Phase 3: CREATE SKILL
-  Write to .claude/skills/[name]/SKILL.md
+  Write to .gemini/skills/[name]/SKILL.md
   • Problem statement
   • Trigger conditions (exact errors, symptoms)
   • Step-by-step solution
@@ -4689,7 +4689,7 @@ Phase 4: QUALITY GATE
 </tr>
 </tbody>
 </table>
-<p>Skills saved to <code>.claude/skills/</code> survive compaction and session boundaries — if you discover something valuable late in a session, extract it with <code>/learn</code> before compaction erases the details.</p>
+<p>Skills saved to <code>.gemini/skills/</code> survive compaction and session boundaries — if you discover something valuable late in a session, extract it with <code>/learn</code> before compaction erases the details.</p>
 </section>
 </section>
 </section>
@@ -4719,7 +4719,7 @@ Phase 4: QUALITY GATE
 </div>
 <div id="callout-26" class="callout-26-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>A stronger variant: when Claude reviews its own work in the same conversation, it suffers <strong>confirmation bias</strong> — it has internalized its own reasoning and will systematically find the work acceptable. The fix: spawn a new agent via the Task tool with NO access to the original conversation. Give it only the artifact and a critique prompt. The fresh agent has no sunk cost in the work and will be ruthless.</p>
+<p>A stronger variant: when Gemini reviews its own work in the same conversation, it suffers <strong>confirmation bias</strong> — it has internalized its own reasoning and will systematically find the work acceptable. The fix: spawn a new agent via the Task tool with NO access to the original conversation. Give it only the artifact and a critique prompt. The fresh agent has no sunk cost in the work and will be ruthless.</p>
 <blockquote class="blockquote">
 <p>“Spawn a new agent. Have it read only my paper draft — not our conversation. Ask it to find the 5 weakest points and suggest how a hostile referee would attack each one.”</p>
 </blockquote>
@@ -4733,7 +4733,7 @@ Phase 4: QUALITY GATE
 <p>Patterns 1–8 apply broadly, with course materials as the primary example. The next four patterns are designed for <strong>research projects</strong> — papers, simulations, and empirical analysis — where the rhythm is different: ideas are uncertain, experiments may fail, and code is often written to answer a question rather than to ship. Patterns 13–14 then extend the foundation to reproducibility standards and presentation rhetoric.</p>
 <section id="pattern-9-parallel-agents" class="level3" data-number="5.9.1">
 <h3 data-number="5.9.1" class="anchored" data-anchor-id="pattern-9-parallel-agents"><span class="header-section-number">5.9.1</span> Pattern 9: Parallel Agents for Research Tasks</h3>
-<p>Claude Code can spawn <strong>multiple agents simultaneously</strong> using the Task tool. This is not limited to review — you can use it for any research or analysis task where independent subtasks can run at the same time.</p>
+<p>Gemini CLI can spawn <strong>multiple agents simultaneously</strong> using the Task tool. This is not limited to review — you can use it for any research or analysis task where independent subtasks can run at the same time.</p>
 <section id="when-to-use-parallel-agents" class="level4" data-number="5.9.1.1">
 <h4 data-number="5.9.1.1" class="anchored" data-anchor-id="when-to-use-parallel-agents"><span class="header-section-number">5.9.1.1</span> When to Use Parallel Agents</h4>
 <table class="caption-top table">
@@ -4785,7 +4785,7 @@ Phase 4: QUALITY GATE
 <blockquote class="blockquote">
 <p>“Read these three papers in parallel. For each, extract the key identification assumption, the main estimator, and whether they have a replication package. Summarize in a table.”</p>
 </blockquote>
-<p>Either way, Claude spawns up to 3 Task agents, each processing one paper simultaneously, then synthesizes the results.</p>
+<p>Either way, Gemini spawns up to 3 Task agents, each processing one paper simultaneously, then synthesizes the results.</p>
 </section>
 <section id="agent-debates" class="level4" data-number="5.9.1.3">
 <h4 data-number="5.9.1.3" class="anchored" data-anchor-id="agent-debates"><span class="header-section-number">5.9.1.3</span> Agent Debates</h4>
@@ -4876,15 +4876,15 @@ Decision point (1-2 hours):
   ├── Graduate → Move to R/, scripts/, tests/ (upgrade to 80/100)
   ├── Keep exploring → Stay in explorations/
   └── Abandon → Archive with brief explanation</code></pre>
-<p>The <strong>kill switch</strong> is explicit: at any point, you can stop, archive with a one-paragraph explanation, and move on. No guilt, no sunk cost. See <code>.claude/rules/exploration-folder-protocol.md</code> and <code>.claude/rules/exploration-fast-track.md</code> for the full protocols.</p>
+<p>The <strong>kill switch</strong> is explicit: at any point, you can stop, archive with a one-paragraph explanation, and move on. No guilt, no sunk cost. See <code>.gemini/rules/exploration-folder-protocol.md</code> and <code>.gemini/rules/exploration-fast-track.md</code> for the full protocols.</p>
 </section>
 <section id="simplified-orchestrator-for-research" class="level4" data-number="5.9.2.5">
 <h4 data-number="5.9.2.5" class="anchored" data-anchor-id="simplified-orchestrator-for-research"><span class="header-section-number">5.9.2.5</span> Simplified Orchestrator for Research</h4>
-<p>The full orchestrator (Pattern 2) is designed for course materials with multi-agent review loops. For research projects, the <strong>simple variant</strong> strips this down to: implement → verify → score → done. No multi-round reviews, no parallel agent spawning. This lives in its own path-scoped rule (<code>.claude/rules/orchestrator-research.md</code>) that loads only when working on R scripts or explorations.</p>
+<p>The full orchestrator (Pattern 2) is designed for course materials with multi-agent review loops. For research projects, the <strong>simple variant</strong> strips this down to: implement → verify → score → done. No multi-round reviews, no parallel agent spawning. This lives in its own path-scoped rule (<code>.gemini/rules/orchestrator-research.md</code>) that loads only when working on R scripts or explorations.</p>
 </section>
 <section id="merge-only-quality-reporting" class="level4" data-number="5.9.2.6">
 <h4 data-number="5.9.2.6" class="anchored" data-anchor-id="merge-only-quality-reporting"><span class="header-section-number">5.9.2.6</span> Merge-Only Quality Reporting</h4>
-<p>In research projects, commits are frequent and incremental. Generating a quality report for each commit creates noise. Instead, quality reports are generated <strong>only at merge time</strong> — a permanent snapshot of what was merged and why. Session logs capture the ongoing reasoning. See <code>.claude/rules/session-logging.md</code>.</p>
+<p>In research projects, commits are frequent and incremental. Generating a quality report for each commit creates noise. Instead, quality reports are generated <strong>only at merge time</strong> — a permanent snapshot of what was merged and why. Session logs capture the ongoing reasoning. See <code>.gemini/rules/session-logging.md</code>.</p>
 </section>
 </section>
 <section id="pattern-11-research-skills" class="level3" data-number="5.9.3">
@@ -4980,7 +4980,7 @@ Decision point (1-2 hours):
 </div>
 <p>Git worktrees create a <strong>separate working directory</strong> linked to the same repository. Each directory has its own branch but shares commit history. Subagents can use worktrees via the <code>isolation: worktree</code> field (see <a href="#sec-agent-config">Advanced Agent Configuration</a>).</p>
 <pre><code>your-project/                     ← main branch (stays clean)
-.worktrees/lecture-06-quarto/     ← isolated branch (Claude works here)</code></pre>
+.worktrees/lecture-06-quarto/     ← isolated branch (Gemini works here)</code></pre>
 <section id="why-use-worktrees" class="level4" data-number="5.9.4.1">
 <h4 data-number="5.9.4.1" class="anchored" data-anchor-id="why-use-worktrees"><span class="header-section-number">5.9.4.1</span> Why Use Worktrees?</h4>
 <table class="caption-top table">
@@ -5013,7 +5013,7 @@ Decision point (1-2 hours):
 </tr>
 <tr class="odd">
 <td><strong>Parallel work</strong></td>
-<td>Work on slides (main) while Claude translates (worktree)</td>
+<td>Work on slides (main) while Gemini translates (worktree)</td>
 </tr>
 </tbody>
 </table>
@@ -5219,7 +5219,7 @@ Decision point (1-2 hours):
 │   ├── 02_analysis/        # Main results
 │   └── 03_appendix/        # Appendix results
 └── results/                # Output tables, figures</code></pre>
-<p>These standards load automatically via the path-scoped rule mechanism: when Claude edits files matching <code>replication-protocol.md</code>’s path globs, the rule is injected into context without any manual invocation. Ask Claude to <em>“prepare a replication package”</em> and the rule’s directory structure and checklist above guide the work from the first file touched.</p>
+<p>These standards load automatically via the path-scoped rule mechanism: when Gemini edits files matching <code>replication-protocol.md</code>’s path globs, the rule is injected into context without any manual invocation. Ask Gemini to <em>“prepare a replication package”</em> and the rule’s directory structure and checklist above guide the work from the first file touched.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-31-contents" aria-controls="callout-31" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -5324,7 +5324,7 @@ Decision point (1-2 hours):
 </section>
 <section id="how-existing-agents-support-this" class="level4" data-number="5.10.2.4">
 <h4 data-number="5.10.2.4" class="anchored" data-anchor-id="how-existing-agents-support-this"><span class="header-section-number">5.10.2.4</span> How Existing Agents Support This</h4>
-<p>The <code>/slide-excellence</code> skill already invokes the pedagogy-reviewer and slide-auditor, which enforce many of these principles automatically. To enforce <em>all</em> of them — including title-as-assertion and MB/MC smoothness — customize the <strong>domain-reviewer</strong> agent (<code>.claude/agents/domain-reviewer.md</code>) with rhetoric-of-decks lenses. The orchestrator will then apply them during every review cycle without manual invocation.</p>
+<p>The <code>/slide-excellence</code> skill already invokes the pedagogy-reviewer and slide-auditor, which enforce many of these principles automatically. To enforce <em>all</em> of them — including title-as-assertion and MB/MC smoothness — customize the <strong>domain-reviewer</strong> agent (<code>.gemini/agents/domain-reviewer.md</code>) with rhetoric-of-decks lenses. The orchestrator will then apply them during every review cycle without manual invocation.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-32-contents" aria-controls="callout-32" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -5337,7 +5337,7 @@ Decision point (1-2 hours):
 </div>
 <div id="callout-32" class="callout-32-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>For the complete philosophical treatment — from Aristotle’s three modes of persuasion through neuroaesthetics and the Netflix analogy — see <a href="https://github.com/scunning1975/MixtapeTools/tree/main/presentations">The Rhetoric of Decks</a>. The repository includes a full essay, example Beamer decks with professional color palettes, a <code>theme_rhetoric()</code> ggplot2 theme, and a tested deck generation prompt for Claude Code.</p>
+<p>For the complete philosophical treatment — from Aristotle’s three modes of persuasion through neuroaesthetics and the Netflix analogy — see <a href="https://github.com/scunning1975/MixtapeTools/tree/main/presentations">The Rhetoric of Decks</a>. The repository includes a full essay, example Beamer decks with professional color palettes, a <code>theme_rhetoric()</code> ggplot2 theme, and a tested deck generation prompt for Gemini CLI.</p>
 </div>
 </div>
 </div>
@@ -5349,7 +5349,7 @@ Decision point (1-2 hours):
 <p>This pattern differs from the parallel multi-agent review in <a href="#pattern-6-multi-agent-review">Pattern 6</a>. There, agents run simultaneously and findings are merged. Here, audits run <strong>sequentially</strong>, each producing an independent report. The independence is the point: a citation auditor shouldn’t be influenced by what the prose auditor flagged.</p>
 <section id="the-seven-audit-protocol-for-papers" class="level4" data-number="5.10.3.1">
 <h4 data-number="5.10.3.1" class="anchored" data-anchor-id="the-seven-audit-protocol-for-papers"><span class="header-section-number">5.10.3.1</span> The Seven-Audit Protocol (for Papers)</h4>
-<p>Inspired by <a href="https://github.com/aspi6246/ClaudeCodeTools">ClaudeCodeTools “The Editor”</a>, this protocol runs seven sequential passes before submission:</p>
+<p>Inspired by <a href="https://github.com/aspi6246/GeminiCodeTools">GeminiCodeTools “The Editor”</a>, this protocol runs seven sequential passes before submission:</p>
 <ol type="1">
 <li><strong>Abstract audit</strong> — Does the abstract accurately reflect findings? Is it a compelling “storefront”?</li>
 <li><strong>Introduction structure</strong> — Does the intro follow a recognized template (classic, puzzle-first, contribution-first)?</li>
@@ -5364,7 +5364,7 @@ Decision point (1-2 hours):
 <h4 data-number="5.10.3.2" class="anchored" data-anchor-id="how-to-implement"><span class="header-section-number">5.10.3.2</span> How to Implement</h4>
 <p>Use <code>/review-paper</code> for a comprehensive single-pass review. When you need deeper, independent audits (e.g., before journal submission), run each audit as a separate skill invocation with <code>context: fork</code> to ensure isolation:</p>
 <pre><code>You: &quot;Run the seven-audit protocol on my paper&quot;
-Claude: [Runs 7 sequential forked reviews, each blind to the others]
+Gemini: [Runs 7 sequential forked reviews, each blind to the others]
        → Produces 7 independent reports
        → Synthesizes into prioritized revision checklist</code></pre>
 <p><strong>Adapting for other artifacts:</strong> The same principle works for replication packages (7 passes: code, data, documentation, licensing, runtime, outputs, README) or grant proposals (significance, approach, innovation, environment, budget).</p>
@@ -5403,7 +5403,7 @@ Claude: [Runs 7 sequential forked reviews, each blind to the others]
 </tr>
 <tr class="even">
 <td>Voice preservation</td>
-<td>claudeblattman</td>
+<td>geminiblattman</td>
 <td>Maintain a reference doc with your writing style; load as context</td>
 </tr>
 <tr class="odd">
@@ -5413,13 +5413,13 @@ Claude: [Runs 7 sequential forked reviews, each blind to the others]
 </tr>
 <tr class="even">
 <td>Self-improving configuration</td>
-<td>claudeblattman</td>
+<td>geminiblattman</td>
 <td>Use <code>/learn</code> to capture discoveries; review MEMORY.md periodically</td>
 </tr>
 <tr class="odd">
 <td>Human judgment, AI execution</td>
 <td>Xu &amp; Yang</td>
-<td>You design the diagnostic; Claude runs it</td>
+<td>You design the diagnostic; Gemini runs it</td>
 </tr>
 <tr class="even">
 <td>Beauty is function</td>
@@ -5429,11 +5429,11 @@ Claude: [Runs 7 sequential forked reviews, each blind to the others]
 <tr class="odd">
 <td>Constraint-based autonomy</td>
 <td>autoresearch</td>
-<td>Define boundaries in Markdown (what CAN/CANNOT change); let Claude explore within</td>
+<td>Define boundaries in Markdown (what CAN/CANNOT change); let Gemini explore within</td>
 </tr>
 <tr class="even">
 <td>Sequential independent audits</td>
-<td>ClaudeCodeTools</td>
+<td>GeminiCodeTools</td>
 <td>Run N blind audit passes; independence prevents groupthink (<a href="#pattern-15-sequential-audits">Pattern 15</a>)</td>
 </tr>
 </tbody>
@@ -5448,7 +5448,7 @@ Claude: [Runs 7 sequential forked reviews, each blind to the others]
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>If you write <strong>papers</strong>: start with clo-author (adversarial review pairs) or ClaudeCodeTools (seven-audit protocol, see <a href="#pattern-15-sequential-audits">Pattern 15</a>). If you give <strong>presentations</strong>: MixtapeTools. If you run <strong>computational experiments</strong>: autoresearch. If you’re a <strong>non-technical academic</strong>: claudeblattman. All of them build on the same foundation patterns from this template — the <a href="#sec-system">orchestrator</a>, <a href="#sec-quality">quality gates</a>, and <a href="#the-adversarial-pattern-critic-fixer">adversarial review</a>.</p>
+<p>If you write <strong>papers</strong>: start with clo-author (adversarial review pairs) or GeminiCodeTools (seven-audit protocol, see <a href="#pattern-15-sequential-audits">Pattern 15</a>). If you give <strong>presentations</strong>: MixtapeTools. If you run <strong>computational experiments</strong>: autoresearch. If you’re a <strong>non-technical academic</strong>: geminiblattman. All of them build on the same foundation patterns from this template — the <a href="#sec-system">orchestrator</a>, <a href="#sec-quality">quality gates</a>, and <a href="#the-adversarial-pattern-critic-fixer">adversarial review</a>.</p>
 </div>
 </div>
 <p>Here is what each project does and when you should use it.</p>
@@ -5468,10 +5468,10 @@ Claude: [Runs 7 sequential forked reviews, each blind to the others]
 </ul>
 <p><strong>When to use it:</strong> Your primary output is research papers and you want production-grade infrastructure for the full lifecycle — from literature review through journal submission and revise-and-resubmit.</p>
 </section>
-<section id="claudeblattman-workflows-for-non-technical-academics" class="level2" data-number="6.2">
-<h2 data-number="6.2" class="anchored" data-anchor-id="claudeblattman-workflows-for-non-technical-academics"><span class="header-section-number">6.2</span> claudeblattman: Workflows for Non-Technical Academics</h2>
-<p><strong>Website:</strong> <a href="https://claudeblattman.com">claudeblattman.com</a> <strong>Repository:</strong> <a href="https://github.com/chrisblattman/claudeblattman">chrisblattman/claudeblattman</a> <strong>Author:</strong> Chris Blattman (University of Chicago)</p>
-<p>claudeblattman is a comprehensive guide for academics who do not write code, built by a political economist who describes himself as someone who “has never written a line of code.” It demonstrates that Claude Code workflows extend far beyond technical tasks into daily academic life.</p>
+<section id="geminiblattman-workflows-for-non-technical-academics" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="geminiblattman-workflows-for-non-technical-academics"><span class="header-section-number">6.2</span> geminiblattman: Workflows for Non-Technical Academics</h2>
+<p><strong>Website:</strong> <a href="https://geminiblattman.com">geminiblattman.com</a> <strong>Repository:</strong> <a href="https://github.com/chrisblattman/geminiblattman">chrisblattman/geminiblattman</a> <strong>Author:</strong> Chris Blattman (University of Chicago)</p>
+<p>geminiblattman is a comprehensive guide for academics who do not write code, built by a political economist who describes himself as someone who “has never written a line of code.” It demonstrates that Gemini CLI workflows extend far beyond technical tasks into daily academic life.</p>
 <p><strong>What it adds:</strong></p>
 <ul>
 <li><strong>Executive assistant workflows</strong> — morning briefings (weather, calendar, inbox, VIP tracking), smart email triage with 14 phases, daily check-in ritual, schedule queries, todo management</li>
@@ -5483,7 +5483,7 @@ Claude: [Runs 7 sequential forked reviews, each blind to the others]
 <li><strong>Graceful degradation</strong> — every skill works with partial infrastructure. Missing MCP integrations produce explanations, not errors</li>
 <li><strong>Writing style rules</strong> — numbers over adjectives, topic sentences make claims, no throat-clearing, hedge only with a reason or number</li>
 </ul>
-<p><strong>When to use it:</strong> You are new to Claude Code, want practical daily workflows beyond coding, or want to see how an academic non-programmer built a sophisticated system.</p>
+<p><strong>When to use it:</strong> You are new to Gemini CLI, want practical daily workflows beyond coding, or want to see how an academic non-programmer built a sophisticated system.</p>
 </section>
 <section id="xu-yang-2026-reproducibility-as-architecture" class="level2" data-number="6.3">
 <h2 data-number="6.3" class="anchored" data-anchor-id="xu-yang-2026-reproducibility-as-architecture"><span class="header-section-number">6.3</span> Xu &amp; Yang (2026): Reproducibility as Architecture</h2>
@@ -5509,7 +5509,7 @@ Claude: [Runs 7 sequential forked reviews, each blind to the others]
 <li><strong>Example decks</strong> with professional color palettes, custom ggplot2 themes (<code>theme_rhetoric()</code>), and complete Beamer templates</li>
 <li><strong>Zero-warning compilation standard</strong> — even 0.5pt overfull hbox must be fixed</li>
 </ul>
-<p><strong>When to use it:</strong> You want to make your presentations genuinely beautiful and rhetorically effective, or you want a tested deck generation workflow for Claude Code.</p>
+<p><strong>When to use it:</strong> You want to make your presentations genuinely beautiful and rhetorically effective, or you want a tested deck generation workflow for Gemini CLI.</p>
 </section>
 <section id="aea-data-editor-template" class="level2" data-number="6.5">
 <h2 data-number="6.5" class="anchored" data-anchor-id="aea-data-editor-template"><span class="header-section-number">6.5</span> AEA Data Editor Template</h2>
@@ -5526,7 +5526,7 @@ Claude: [Runs 7 sequential forked reviews, each blind to the others]
 <li><strong>Structured results logging</strong> — every experiment is recorded in a TSV file with branch name, metric, and status</li>
 <li><strong>Time-budgeted iterations</strong> — fixed training windows make experiments comparable</li>
 </ul>
-<p><strong>When to use it:</strong> You are running iterative computational experiments (Monte Carlo simulations, hyperparameter searches, model comparisons) and want Claude to explore the space semi-autonomously within defined constraints.</p>
+<p><strong>When to use it:</strong> You are running iterative computational experiments (Monte Carlo simulations, hyperparameter searches, model comparisons) and want Gemini to explore the space semi-autonomously within defined constraints.</p>
 <p><strong>Example:</strong> Adapting the <code>program.md</code> pattern for a Monte Carlo study:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb42"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># program.md — Monte Carlo Experiment Constraints</span></span>
 <span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -5543,10 +5543,10 @@ Claude: [Runs 7 sequential forked reviews, each blind to the others]
 <span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a><span class="fu">## Success Metric</span></span>
 <span id="cb42-14"><a href="#cb42-14" aria-hidden="true" tabindex="-1"></a>RMSE of ATT estimate. Lower is better. Report coverage rate alongside.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="claudecodetools-the-editor-persona" class="level2" data-number="6.7">
-<h2 data-number="6.7" class="anchored" data-anchor-id="claudecodetools-the-editor-persona"><span class="header-section-number">6.7</span> ClaudeCodeTools: The Editor Persona</h2>
-<p><strong>Repository:</strong> <a href="https://github.com/aspi6246/ClaudeCodeTools">aspi6246/ClaudeCodeTools</a></p>
-<p>A collection of Claude Code personas, including “The Editor” — a deeply structured academic paper reviewer that runs seven sequential audit passes (see <a href="#pattern-15-sequential-audits">Pattern 15</a>). Notable features:</p>
+<section id="geminicodetools-the-editor-persona" class="level2" data-number="6.7">
+<h2 data-number="6.7" class="anchored" data-anchor-id="geminicodetools-the-editor-persona"><span class="header-section-number">6.7</span> GeminiCodeTools: The Editor Persona</h2>
+<p><strong>Repository:</strong> <a href="https://github.com/aspi6246/GeminiCodeTools">aspi6246/GeminiCodeTools</a></p>
+<p>A collection of Gemini CLI personas, including “The Editor” — a deeply structured academic paper reviewer that runs seven sequential audit passes (see <a href="#pattern-15-sequential-audits">Pattern 15</a>). Notable features:</p>
 <ul>
 <li><strong>R&amp;R mode</strong> — tracks referee reports and cross-references each concern against revisions</li>
 <li><strong>Blunt, specific feedback</strong> — “This paragraph is incoherent” not “might benefit from clarity”</li>
@@ -5562,7 +5562,7 @@ Claude: [Runs 7 sequential forked reviews, each blind to the others]
 <li><strong>Energy</strong> — Nepal and global energy economics, PV module reliability</li>
 <li><strong>Teaching</strong> — ECN 152 course development, Econ 730 causal panel data</li>
 </ul>
-<p>Each adaptation follows the same pattern: fork the template, fill in <code>CLAUDE.md</code> placeholders, customize the domain reviewer, and add field-specific skills. The infrastructure (orchestrator, hooks, quality gates) transfers without modification.</p>
+<p>Each adaptation follows the same pattern: fork the template, fill in <code>GEMINI.md</code> placeholders, customize the domain reviewer, and add field-specific skills. The infrastructure (orchestrator, hooks, quality gates) transfers without modification.</p>
 <hr>
 </section>
 </section>
@@ -5570,7 +5570,7 @@ Claude: [Runs 7 sequential forked reviews, each blind to the others]
 <h1 data-number="7"><span class="header-section-number">7</span> Customizing for Your Domain</h1>
 <section id="step-1-build-your-knowledge-base" class="level2" data-number="7.1">
 <h2 data-number="7.1" class="anchored" data-anchor-id="step-1-build-your-knowledge-base"><span class="header-section-number">7.1</span> Step 1: Build Your Knowledge Base</h2>
-<p>The knowledge base (<code>.claude/rules/knowledge-base-template.md</code>) is the most domain-specific component — it’s a <a href="#rules---domain-knowledge-that-auto-loads">path-scoped rule</a> that loads automatically when Claude works on your content files. It provides skeleton tables for notation conventions, lecture progression, applications, design principles, anti-patterns, and R code pitfalls. Fill them in as you develop your project — you don’t need everything upfront.</p>
+<p>The knowledge base (<code>.gemini/rules/knowledge-base-template.md</code>) is the most domain-specific component — it’s a <a href="#rules---domain-knowledge-that-auto-loads">path-scoped rule</a> that loads automatically when Gemini works on your content files. It provides skeleton tables for notation conventions, lecture progression, applications, design principles, anti-patterns, and R code pitfalls. Fill them in as you develop your project — you don’t need everything upfront.</p>
 <section id="notation-registry" class="level3" data-number="7.1.1">
 <h3 data-number="7.1.1" class="anchored" data-anchor-id="notation-registry"><span class="header-section-number">7.1.1</span> Notation Registry</h3>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb43"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Symbol <span class="pp">|</span> Meaning <span class="pp">|</span> Introduced <span class="pp">|</span> Anti-Pattern <span class="pp">|</span></span>
@@ -5594,7 +5594,7 @@ Claude: [Runs 7 sequential forked reviews, each blind to the others]
 </section>
 <section id="step-2-create-your-domain-reviewer" class="level2" data-number="7.2">
 <h2 data-number="7.2" class="anchored" data-anchor-id="step-2-create-your-domain-reviewer"><span class="header-section-number">7.2</span> Step 2: Create Your Domain Reviewer</h2>
-<p>Copy <code>.claude/agents/domain-reviewer.md</code> and customize the <a href="#sec-domain-reviewer">5-lens framework</a> for your field. The template provides the structure; you fill in domain-specific checks.</p>
+<p>Copy <code>.gemini/agents/domain-reviewer.md</code> and customize the <a href="#sec-domain-reviewer">5-lens framework</a> for your field. The template provides the structure; you fill in domain-specific checks.</p>
 </section>
 <section id="step-3-adapt-your-theme" class="level2" data-number="7.3">
 <h2 data-number="7.3" class="anchored" data-anchor-id="step-3-adapt-your-theme"><span class="header-section-number">7.3</span> Step 3: Adapt Your Theme</h2>
@@ -5612,12 +5612,12 @@ Claude: [Runs 7 sequential forked reviews, each blind to the others]
 <p>The guide includes 24 <a href="#skills---reusable-slash-commands">skills</a> for common academic tasks. But if you have repetitive workflows specific to your domain, you can create your own.</p>
 <section id="when-to-create-a-skill" class="level3" data-number="7.4.1">
 <h3 data-number="7.4.1" class="anchored" data-anchor-id="when-to-create-a-skill"><span class="header-section-number">7.4.1</span> When to Create a Skill</h3>
-<p>Create a skill when: - You repeatedly explain the same 3+ step workflow to Claude - You need domain-specific quality checks (citation style, notation consistency, lab protocols) - You enforce field-specific output formats (thesis structure, journal templates) - You coordinate multi-tool workflows (data → analysis → manuscript)</p>
+<p>Create a skill when: - You repeatedly explain the same 3+ step workflow to Gemini - You need domain-specific quality checks (citation style, notation consistency, lab protocols) - You enforce field-specific output formats (thesis structure, journal templates) - You coordinate multi-tool workflows (data → analysis → manuscript)</p>
 <p><strong>Don’t create a skill for:</strong> - One-time tasks - Workflows that change frequently - Simple 1-2 step operations</p>
 </section>
 <section id="skill-structure" class="level3" data-number="7.4.2">
 <h3 data-number="7.4.2" class="anchored" data-anchor-id="skill-structure"><span class="header-section-number">7.4.2</span> Skill Structure</h3>
-<p>Each skill is a directory in <code>.claude/skills/</code> with a <code>SKILL.md</code> file:</p>
+<p>Each skill is a directory in <code>.gemini/skills/</code> with a <code>SKILL.md</code> file:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb46"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="an">name:</span><span class="co"> your-skill-name</span></span>
 <span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="an">description:</span><span class="co"> [What it does] + [When to use] + [Key capabilities]</span></span>
@@ -5664,7 +5664,7 @@ Claude: [Runs 7 sequential forked reviews, each blind to the others]
 </tr>
 <tr class="even">
 <td><code>description</code></td>
-<td><strong>Most important.</strong> Controls when Claude auto-loads the skill</td>
+<td><strong>Most important.</strong> Controls when Gemini auto-loads the skill</td>
 <td><code>Compile Beamer slides...</code></td>
 </tr>
 <tr class="odd">
@@ -5689,7 +5689,7 @@ Claude: [Runs 7 sequential forked reviews, each blind to the others]
 </tr>
 <tr class="odd">
 <td><code>agent</code></td>
-<td>Link to an agent definition in <code>.claude/agents/</code></td>
+<td>Link to an agent definition in <code>.gemini/agents/</code></td>
 <td><code>proofreader</code></td>
 </tr>
 <tr class="even">
@@ -5704,7 +5704,7 @@ Claude: [Runs 7 sequential forked reviews, each blind to the others]
 </tr>
 <tr class="even">
 <td><code>disable-model-invocation</code></td>
-<td>Prevent Claude from auto-triggering</td>
+<td>Prevent Gemini from auto-triggering</td>
 <td><code>true</code></td>
 </tr>
 <tr class="odd">
@@ -5777,11 +5777,11 @@ Claude: [Runs 7 sequential forked reviews, each blind to the others]
 <span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>Current git status: <span class="in">`!git status --short`</span></span>
 <span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>Recent changes: <span class="in">`!git log --oneline -5`</span></span>
 <span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>Available lectures: <span class="in">`!ls Slides/*.tex`</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>When Claude loads the skill, it runs these commands and injects the live output into the skill text. This is powerful for skills that need to adapt to the current project state.</p>
+<p>When Gemini loads the skill, it runs these commands and injects the live output into the skill text. This is powerful for skills that need to adapt to the current project state.</p>
 </section>
 <section id="writing-effective-trigger-descriptions" class="level3" data-number="7.4.5">
 <h3 data-number="7.4.5" class="anchored" data-anchor-id="writing-effective-trigger-descriptions"><span class="header-section-number">7.4.5</span> Writing Effective Trigger Descriptions</h3>
-<p>The <code>description</code> field is the single most important thing you write when creating a skill. Claude reads the description of every available skill on every turn and uses it to decide whether to auto-invoke without the user typing a slash command. A vague description means a skill that only runs when the user remembers its name — defeating the point of auto-invocation.</p>
+<p>The <code>description</code> field is the single most important thing you write when creating a skill. Gemini reads the description of every available skill on every turn and uses it to decide whether to auto-invoke without the user typing a slash command. A vague description means a skill that only runs when the user remembers its name — defeating the point of auto-invocation.</p>
 <p><strong>The gold-standard pattern has three parts:</strong></p>
 <ol type="1">
 <li><strong>Verb + object</strong> — what the skill <em>does</em>, in one clause. Start with an action verb (Compile, Review, Generate, Translate).</li>
@@ -5789,22 +5789,22 @@ Claude: [Runs 7 sequential forked reviews, each blind to the others]
 <li><strong>Disambiguation from sibling skills</strong> — if your skill lives near others in the same domain (e.g., <code>proofread</code>, <code>visual-audit</code>, and <code>pedagogy-review</code> all operate on slides), explicitly say what it is <em>not</em> for, or point at the alternative. This prevents mis-routing.</li>
 </ol>
 <p><strong>Example: refactoring a weak description into an A-grade one.</strong></p>
-<p>Before (weak — the skill exists but Claude won’t auto-pick it):</p>
+<p>Before (weak — the skill exists but Gemini won’t auto-pick it):</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb48"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">description</span><span class="kw">:</span><span class="at"> Run the proofreading protocol on lecture files. Checks grammar, typos, overflow, consistency.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>After (strong — Claude will match this from cold prompts):</p>
+<p>After (strong — Gemini will match this from cold prompts):</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb49"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">description</span><span class="kw">:</span><span class="at"> Read-only proofreading pass over lecture .tex or .qmd files.</span></span>
 <span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="at">  Checks grammar, typos, overflow, terminology consistency, and academic</span></span>
 <span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="at">  writing quality; produces a report without editing. Use when user says</span></span>
 <span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="st">&quot;proofread&quot;</span><span class="at">, &quot;check for typos&quot;, &quot;look for grammar issues&quot;, &quot;copy-edit</span></span>
 <span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a><span class="at">  this&quot;, &quot;any writing errors?&quot;, or before a lecture release.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><strong>The test:</strong> imagine a teammate who has never seen your skill list types <code>&quot;can you look for writing errors in Lecture 3?&quot;</code>. Does your description contain enough lexical overlap that Claude would match it against competing skills? If not, add more trigger phrases.</p>
+<p><strong>The test:</strong> imagine a teammate who has never seen your skill list types <code>&quot;can you look for writing errors in Lecture 3?&quot;</code>. Does your description contain enough lexical overlap that Gemini would match it against competing skills? If not, add more trigger phrases.</p>
 <p><strong>Another good example (disambiguation):</strong></p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb50"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">description</span><span class="kw">:</span><span class="at"> Interactive interview that formalizes a fuzzy research idea into</span></span>
 <span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="at">  a structured spec (RQ, hypotheses, identification, data needs, empirical</span></span>
 <span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a><span class="at">  strategy). Use when user says &quot;interview me&quot;, &quot;help me think through this</span></span>
 <span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a><span class="at">  idea&quot;, &quot;I have a half-baked idea&quot;. Multi-turn Q&amp;A; saves spec to disk.</span></span>
 <span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a><span class="at">  NOT for lit review (/lit-review) or ideation from scratch (/research-ideation).</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>The final sentence — “NOT for X, use /Y instead” — is the disambiguation clause. Two skills with overlapping descriptions will split Claude’s routing probability; the explicit “not for” resolves the tie.</p>
+<p>The final sentence — “NOT for X, use /Y instead” — is the disambiguation clause. Two skills with overlapping descriptions will split Gemini’s routing probability; the explicit “not for” resolves the tie.</p>
 <p><strong>Bad (too vague — will never auto-invoke):</strong></p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb51"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">description</span><span class="kw">:</span><span class="at"> Helps with citations</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>Checklist before shipping a new skill:</strong></p>
@@ -5813,7 +5813,7 @@ Claude: [Runs 7 sequential forked reviews, each blind to the others]
 <li><label><input type="checkbox">Has a “Use when:” clause with at least 3 trigger phrases.</label></li>
 <li><label><input type="checkbox">Includes at least one verbatim quote a user might literally type.</label></li>
 <li><label><input type="checkbox">Disambiguates from any sibling skills in the same domain.</label></li>
-<li><label><input type="checkbox">Fits in roughly 2–4 lines (longer descriptions get truncated in Claude’s skill index).</label></li>
+<li><label><input type="checkbox">Fits in roughly 2–4 lines (longer descriptions get truncated in Gemini’s skill index).</label></li>
 </ul>
 </section>
 <section id="domain-specific-examples" class="level3" data-number="7.4.6">
@@ -5846,8 +5846,8 @@ Claude: [Runs 7 sequential forked reviews, each blind to the others]
 <h3 data-number="7.4.7" class="anchored" data-anchor-id="quick-start"><span class="header-section-number">7.4.7</span> Quick Start</h3>
 <ol type="1">
 <li><p><strong>Copy the template:</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb52"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> .claude/skills/your-skill-name</span>
-<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> templates/skill-template.md .claude/skills/your-skill-name/SKILL.md</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb52"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> .gemini/skills/your-skill-name</span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> templates/skill-template.md .gemini/skills/your-skill-name/SKILL.md</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
 <li><p><strong>Customize for your domain:</strong></p>
 <ul>
 <li>Replace trigger phrases with your field’s terminology</li>
@@ -5887,15 +5887,15 @@ Claude: [Runs 7 sequential forked reviews, each blind to the others]
 <section id="tips-from-6-sessions-of-iteration" class="level2" data-number="7.5">
 <h2 data-number="7.5" class="anchored" data-anchor-id="tips-from-6-sessions-of-iteration"><span class="header-section-number">7.5</span> Tips from 6+ Sessions of Iteration</h2>
 <ol type="1">
-<li><strong>Keep CLAUDE.md under 150 lines.</strong> Claude follows ~150 instructions reliably. A 400-line CLAUDE.md means rules get silently ignored. Use path-scoped rules for detailed standards.</li>
+<li><strong>Keep GEMINI.md under 150 lines.</strong> Gemini follows ~150 instructions reliably. A 400-line GEMINI.md means rules get silently ignored. Use path-scoped rules for detailed standards.</li>
 <li><strong>Add rules incrementally.</strong> Don’t try to write all rules upfront. Add them when you discover patterns. Use <code>paths:</code> frontmatter so they only load when relevant.</li>
 <li><strong>Use the [LEARN] format.</strong> Every correction gets tagged and persisted in MEMORY.md. This prevents repeating mistakes across sessions.</li>
 <li><strong>Trust the adversarial pattern.</strong> The critic-fixer loop catches things you won’t. Let it run.</li>
 <li><strong>Verify everything.</strong> The verification rule exists for a reason. Never skip compilation or rendering checks.</li>
 <li><strong>Session logs matter.</strong> Document design decisions, not just what changed. Future-you will thank present-you.</li>
 <li><strong>Devil’s Advocate early.</strong> Challenge slide structure before you’ve built 50 slides on a shaky foundation.</li>
-<li><strong>Progressive disclosure.</strong> Start with CLAUDE.md + 2–3 rules. Add more as your workflow matures. Newcomers should not face 24 rules on day one.</li>
-<li><strong>Use <code>CLAUDE.local.md</code> for personal overrides.</strong> This file is automatically gitignored and loaded alongside <code>CLAUDE.md</code>. Put machine-specific paths, personal preferences, and local tool versions here — they won’t pollute the shared repo.</li>
+<li><strong>Progressive disclosure.</strong> Start with GEMINI.md + 2–3 rules. Add more as your workflow matures. Newcomers should not face 24 rules on day one.</li>
+<li><strong>Use <code>CLAUDE.local.md</code> for personal overrides.</strong> This file is automatically gitignored and loaded alongside <code>GEMINI.md</code>. Put machine-specific paths, personal preferences, and local tool versions here — they won’t pollute the shared repo.</li>
 </ol>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-36-contents" aria-controls="callout-36" aria-expanded="false" aria-label="Toggle callout">
@@ -5909,10 +5909,10 @@ Claude: [Runs 7 sequential forked reviews, each blind to the others]
 </div>
 <div id="callout-36" class="callout-36-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>For capabilities beyond file editing and shell commands — web search during literature review, database queries for replication, or reference manager integration (Zotero, Mendeley) — Claude Code supports <a href="https://modelcontextprotocol.io">MCP servers</a>. Configure them in <code>.claude/settings.json</code> under <code>&quot;mcpServers&quot;</code>. Start with skills and agents first; add MCP when you need external integrations.</p>
+<p>For capabilities beyond file editing and shell commands — web search during literature review, database queries for replication, or reference manager integration (Zotero, Mendeley) — Gemini CLI supports <a href="https://modelcontextprotocol.io">MCP servers</a>. Configure them in <code>.gemini/settings.json</code> under <code>&quot;mcpServers&quot;</code>. Start with skills and agents first; add MCP when you need external integrations.</p>
 <section id="extending-with-plugins" class="level2" data-number="7.6">
 <h2 data-number="7.6" class="anchored" data-anchor-id="extending-with-plugins"><span class="header-section-number">7.6</span> Extending with Plugins</h2>
-<p>Claude Code supports <strong>plugins</strong> — bundled collections of skills, agents, hooks, and MCP servers that can be installed from git repositories. Use <code>/plugin</code> to browse and manage plugins (it has a Discover tab for finding new ones). Plugins are a newer extension point; start with skills and rules (which you control entirely) before adopting third-party plugins.</p>
+<p>Gemini CLI supports <strong>plugins</strong> — bundled collections of skills, agents, hooks, and MCP servers that can be installed from git repositories. Use <code>/plugin</code> to browse and manage plugins (it has a Discover tab for finding new ones). Plugins are a newer extension point; start with skills and rules (which you control entirely) before adopting third-party plugins.</p>
 </section>
 </div>
 </div>
@@ -5940,57 +5940,57 @@ Claude: [Runs 7 sequential forked reviews, each blind to the others]
 <tbody>
 <tr class="odd">
 <td>Proofreader</td>
-<td><code>.claude/agents/proofreader.md</code></td>
+<td><code>.gemini/agents/proofreader.md</code></td>
 <td>Grammar, typos, consistency</td>
 </tr>
 <tr class="even">
 <td>Slide Auditor</td>
-<td><code>.claude/agents/slide-auditor.md</code></td>
+<td><code>.gemini/agents/slide-auditor.md</code></td>
 <td>Visual layout, overflow, spacing</td>
 </tr>
 <tr class="odd">
 <td>Pedagogy Reviewer</td>
-<td><code>.claude/agents/pedagogy-reviewer.md</code></td>
+<td><code>.gemini/agents/pedagogy-reviewer.md</code></td>
 <td>Narrative arc, notation clarity</td>
 </tr>
 <tr class="even">
 <td>R Reviewer</td>
-<td><code>.claude/agents/r-reviewer.md</code></td>
+<td><code>.gemini/agents/r-reviewer.md</code></td>
 <td>R code quality, reproducibility</td>
 </tr>
 <tr class="odd">
 <td>TikZ Reviewer</td>
-<td><code>.claude/agents/tikz-reviewer.md</code></td>
+<td><code>.gemini/agents/tikz-reviewer.md</code></td>
 <td>Diagram visual quality</td>
 </tr>
 <tr class="even">
 <td>Beamer Translator</td>
-<td><code>.claude/agents/beamer-translator.md</code></td>
+<td><code>.gemini/agents/beamer-translator.md</code></td>
 <td>LaTeX to Quarto translation</td>
 </tr>
 <tr class="odd">
 <td>Quarto Critic</td>
-<td><code>.claude/agents/quarto-critic.md</code></td>
+<td><code>.gemini/agents/quarto-critic.md</code></td>
 <td>Adversarial Quarto QA</td>
 </tr>
 <tr class="even">
 <td>Quarto Fixer</td>
-<td><code>.claude/agents/quarto-fixer.md</code></td>
+<td><code>.gemini/agents/quarto-fixer.md</code></td>
 <td>Applies critic’s fixes</td>
 </tr>
 <tr class="odd">
 <td>Verifier</td>
-<td><code>.claude/agents/verifier.md</code></td>
+<td><code>.gemini/agents/verifier.md</code></td>
 <td>Task completion verification</td>
 </tr>
 <tr class="even">
 <td>Domain Reviewer</td>
-<td><code>.claude/agents/domain-reviewer.md</code></td>
+<td><code>.gemini/agents/domain-reviewer.md</code></td>
 <td>Your domain-specific review</td>
 </tr>
 <tr class="odd">
 <td>Claim Verifier</td>
-<td><code>.claude/agents/claim-verifier.md</code></td>
+<td><code>.gemini/agents/claim-verifier.md</code></td>
 <td>Chain-of-Verification (fresh-context) fact-checker (v1.7.0)</td>
 </tr>
 </tbody>
@@ -6014,142 +6014,142 @@ Claude: [Runs 7 sequential forked reviews, each blind to the others]
 <tbody>
 <tr class="odd">
 <td><code>/compile-latex</code></td>
-<td><code>.claude/skills/compile-latex/</code></td>
+<td><code>.gemini/skills/compile-latex/</code></td>
 <td>XeLaTeX 3-pass compilation</td>
 </tr>
 <tr class="even">
 <td><code>/deploy</code></td>
-<td><code>.claude/skills/deploy/</code></td>
+<td><code>.gemini/skills/deploy/</code></td>
 <td>Quarto render + GitHub Pages sync</td>
 </tr>
 <tr class="odd">
 <td><code>/extract-tikz</code></td>
-<td><code>.claude/skills/extract-tikz/</code></td>
+<td><code>.gemini/skills/extract-tikz/</code></td>
 <td>TikZ to SVG conversion</td>
 </tr>
 <tr class="even">
 <td><code>/new-diagram</code></td>
-<td><code>.claude/skills/new-diagram/</code></td>
+<td><code>.gemini/skills/new-diagram/</code></td>
 <td>Scaffold a TikZ diagram from the gallery</td>
 </tr>
 <tr class="odd">
 <td><code>/proofread</code></td>
-<td><code>.claude/skills/proofread/</code></td>
+<td><code>.gemini/skills/proofread/</code></td>
 <td>Run proofreading agent</td>
 </tr>
 <tr class="even">
 <td><code>/visual-audit</code></td>
-<td><code>.claude/skills/visual-audit/</code></td>
+<td><code>.gemini/skills/visual-audit/</code></td>
 <td>Run layout audit agent</td>
 </tr>
 <tr class="odd">
 <td><code>/pedagogy-review</code></td>
-<td><code>.claude/skills/pedagogy-review/</code></td>
+<td><code>.gemini/skills/pedagogy-review/</code></td>
 <td>Run pedagogy review agent</td>
 </tr>
 <tr class="even">
 <td><code>/review-r</code></td>
-<td><code>.claude/skills/review-r/</code></td>
+<td><code>.gemini/skills/review-r/</code></td>
 <td>Run R code review agent</td>
 </tr>
 <tr class="odd">
 <td><code>/qa-quarto</code></td>
-<td><code>.claude/skills/qa-quarto/</code></td>
+<td><code>.gemini/skills/qa-quarto/</code></td>
 <td>Critic-fixer adversarial loop</td>
 </tr>
 <tr class="even">
 <td><code>/slide-excellence</code></td>
-<td><code>.claude/skills/slide-excellence/</code></td>
+<td><code>.gemini/skills/slide-excellence/</code></td>
 <td>Combined multi-agent review</td>
 </tr>
 <tr class="odd">
 <td><code>/translate-to-quarto</code></td>
-<td><code>.claude/skills/translate-to-quarto/</code></td>
+<td><code>.gemini/skills/translate-to-quarto/</code></td>
 <td>Beamer to Quarto translation</td>
 </tr>
 <tr class="even">
 <td><code>/validate-bib</code></td>
-<td><code>.claude/skills/validate-bib/</code></td>
+<td><code>.gemini/skills/validate-bib/</code></td>
 <td>Bibliography validation</td>
 </tr>
 <tr class="odd">
 <td><code>/devils-advocate</code></td>
-<td><code>.claude/skills/devils-advocate/</code></td>
+<td><code>.gemini/skills/devils-advocate/</code></td>
 <td>Design challenge questions</td>
 </tr>
 <tr class="even">
 <td><code>/create-lecture</code></td>
-<td><code>.claude/skills/create-lecture/</code></td>
+<td><code>.gemini/skills/create-lecture/</code></td>
 <td>Full lecture creation</td>
 </tr>
 <tr class="odd">
 <td><code>/commit</code></td>
-<td><code>.claude/skills/commit/</code></td>
+<td><code>.gemini/skills/commit/</code></td>
 <td>Stage, commit, PR, and merge</td>
 </tr>
 <tr class="even">
 <td><code>/lit-review</code></td>
-<td><code>.claude/skills/lit-review/</code></td>
+<td><code>.gemini/skills/lit-review/</code></td>
 <td>Literature search and synthesis</td>
 </tr>
 <tr class="odd">
 <td><code>/research-ideation</code></td>
-<td><code>.claude/skills/research-ideation/</code></td>
+<td><code>.gemini/skills/research-ideation/</code></td>
 <td>Research questions and strategies</td>
 </tr>
 <tr class="even">
 <td><code>/interview-me</code></td>
-<td><code>.claude/skills/interview-me/</code></td>
+<td><code>.gemini/skills/interview-me/</code></td>
 <td>Interactive research interview</td>
 </tr>
 <tr class="odd">
 <td><code>/review-paper</code></td>
-<td><code>.claude/skills/review-paper/</code></td>
+<td><code>.gemini/skills/review-paper/</code></td>
 <td>Manuscript review</td>
 </tr>
 <tr class="even">
 <td><code>/respond-to-referees</code></td>
-<td><code>.claude/skills/respond-to-referees/</code></td>
+<td><code>.gemini/skills/respond-to-referees/</code></td>
 <td>R&amp;R cross-reference and response draft</td>
 </tr>
 <tr class="odd">
 <td><code>/data-analysis</code></td>
-<td><code>.claude/skills/data-analysis/</code></td>
+<td><code>.gemini/skills/data-analysis/</code></td>
 <td>End-to-end R analysis</td>
 </tr>
 <tr class="even">
 <td><code>/audit-reproducibility</code></td>
-<td><code>.claude/skills/audit-reproducibility/</code></td>
+<td><code>.gemini/skills/audit-reproducibility/</code></td>
 <td>Enforce replication tolerance thresholds on paper ↔︎ code</td>
 </tr>
 <tr class="odd">
 <td><code>/learn</code></td>
-<td><code>.claude/skills/learn/</code></td>
+<td><code>.gemini/skills/learn/</code></td>
 <td>Extract discoveries into persistent skills</td>
 </tr>
 <tr class="even">
 <td><code>/context-status</code></td>
-<td><code>.claude/skills/context-status/</code></td>
+<td><code>.gemini/skills/context-status/</code></td>
 <td>Show session health and context usage</td>
 </tr>
 <tr class="odd">
 <td><code>/deep-audit</code></td>
-<td><code>.claude/skills/deep-audit/</code></td>
+<td><code>.gemini/skills/deep-audit/</code></td>
 <td>Repository-wide consistency audit</td>
 </tr>
 <tr class="even">
 <td><code>/seven-pass-review</code></td>
-<td><code>.claude/skills/seven-pass-review/</code></td>
+<td><code>.gemini/skills/seven-pass-review/</code></td>
 <td>Seven-pass adversarial manuscript review (parallel forked subagents)</td>
 </tr>
 <tr class="odd">
 <td><code>/permission-check</code></td>
-<td><code>.claude/skills/permission-check/</code></td>
+<td><code>.gemini/skills/permission-check/</code></td>
 <td>Diagnose permission layers (6-tier stack)</td>
 </tr>
 <tr class="even">
 <td><code>/verify-claims</code></td>
-<td><code>.claude/skills/verify-claims/</code></td>
+<td><code>.gemini/skills/verify-claims/</code></td>
 <td>Chain-of-Verification fact-check on any draft (v1.7.0)</td>
 </tr>
 </tbody>
@@ -6331,36 +6331,36 @@ Claude: [Runs 7 sequential forked reviews, each blind to the others]
 <tr class="odd">
 <td>Session log reminder</td>
 <td>Stop (command)</td>
-<td><code>.claude/hooks/log-reminder.py</code></td>
+<td><code>.gemini/hooks/log-reminder.py</code></td>
 </tr>
 <tr class="even">
 <td>Desktop notification</td>
 <td>Notification (command)</td>
-<td><code>.claude/hooks/notify.sh</code></td>
+<td><code>.gemini/hooks/notify.sh</code></td>
 </tr>
 <tr class="odd">
 <td>Context state capture</td>
 <td>PreCompact (command)</td>
-<td><code>.claude/hooks/pre-compact.py</code></td>
+<td><code>.gemini/hooks/pre-compact.py</code></td>
 </tr>
 <tr class="even">
 <td>Context restoration</td>
 <td>SessionStart[compact|resume] (command)</td>
-<td><code>.claude/hooks/post-compact-restore.py</code></td>
+<td><code>.gemini/hooks/post-compact-restore.py</code></td>
 </tr>
 <tr class="odd">
 <td>Context monitor</td>
 <td>PostToolUse[Bash|Task] (command)</td>
-<td><code>.claude/hooks/context-monitor.py</code></td>
+<td><code>.gemini/hooks/context-monitor.py</code></td>
 </tr>
 <tr class="even">
 <td>Verification reminder</td>
 <td>PostToolUse[Write|Edit] (command)</td>
-<td><code>.claude/hooks/verify-reminder.py</code></td>
+<td><code>.gemini/hooks/verify-reminder.py</code></td>
 </tr>
 </tbody>
 </table>
-<p><strong>Additional hook events</strong> available in Claude Code (not used in this template but available for custom hooks):</p>
+<p><strong>Additional hook events</strong> available in Gemini CLI (not used in this template but available for custom hooks):</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 22%">
@@ -6448,36 +6448,36 @@ Claude: [Runs 7 sequential forked reviews, each blind to the others]
 <section id="hooks-not-firing" class="level3" data-number="8.5.3">
 <h3 data-number="8.5.3" class="anchored" data-anchor-id="hooks-not-firing"><span class="header-section-number">8.5.3</span> Hooks Not Firing</h3>
 <p><strong>Symptom:</strong> No context warnings, no verification reminders.</p>
-<p><strong>Fix:</strong> 1. Check hooks are configured: <code>cat .claude/settings.json | grep hooks</code> 2. Ensure Python 3 is available: <code>which python3</code> 3. Check hook file permissions: <code>ls -la .claude/hooks/</code></p>
+<p><strong>Fix:</strong> 1. Check hooks are configured: <code>cat .gemini/settings.json | grep hooks</code> 2. Ensure Python 3 is available: <code>which python3</code> 3. Check hook file permissions: <code>ls -la .gemini/hooks/</code></p>
 </section>
-<section id="claude-ignores-rules" class="level3" data-number="8.5.4">
-<h3 data-number="8.5.4" class="anchored" data-anchor-id="claude-ignores-rules"><span class="header-section-number">8.5.4</span> Claude Ignores Rules</h3>
-<p><strong>Symptom:</strong> Claude doesn’t follow conventions in <code>.claude/rules/</code>.</p>
-<p><strong>Fix:</strong> 1. Rules use <code>paths:</code> frontmatter — check the path matches your files 2. Too many rules? Claude follows ~150 instructions reliably. Consolidate. 3. Try: <em>“Read <code>.claude/rules/[rule].md</code> and follow it for this task”</em></p>
+<section id="gemini-ignores-rules" class="level3" data-number="8.5.4">
+<h3 data-number="8.5.4" class="anchored" data-anchor-id="gemini-ignores-rules"><span class="header-section-number">8.5.4</span> Gemini Ignores Rules</h3>
+<p><strong>Symptom:</strong> Gemini doesn’t follow conventions in <code>.gemini/rules/</code>.</p>
+<p><strong>Fix:</strong> 1. Rules use <code>paths:</code> frontmatter — check the path matches your files 2. Too many rules? Gemini follows ~150 instructions reliably. Consolidate. 3. Try: <em>“Read <code>.gemini/rules/[rule].md</code> and follow it for this task”</em></p>
 </section>
 <section id="context-lost-after-compaction" class="level3" data-number="8.5.5">
 <h3 data-number="8.5.5" class="anchored" data-anchor-id="context-lost-after-compaction"><span class="header-section-number">8.5.5</span> Context Lost After Compaction</h3>
-<p><strong>Symptom:</strong> Claude forgets what you were working on.</p>
-<p><strong>Fix:</strong> 1. Point Claude to the plan: <em>“Read <code>quality_reports/plans/[latest].md</code>”</em> 2. Check session log: <em>“Read <code>quality_reports/session_logs/[latest].md</code>”</em> 3. The <code>post-compact-restore.py</code> hook should print recovery info automatically</p>
+<p><strong>Symptom:</strong> Gemini forgets what you were working on.</p>
+<p><strong>Fix:</strong> 1. Point Gemini to the plan: <em>“Read <code>quality_reports/plans/[latest].md</code>”</em> 2. Check session log: <em>“Read <code>quality_reports/session_logs/[latest].md</code>”</em> 3. The <code>post-compact-restore.py</code> hook should print recovery info automatically</p>
 </section>
 <section id="quality-score-too-low" class="level3" data-number="8.5.6">
 <h3 data-number="8.5.6" class="anchored" data-anchor-id="quality-score-too-low"><span class="header-section-number">8.5.6</span> Quality Score Too Low</h3>
 <p><strong>Symptom:</strong> Score stuck below 80, can’t commit.</p>
-<p><strong>Fix:</strong> 1. Run <code>/slide-excellence</code> to get detailed issue breakdown 2. Fix critical issues first (they cost -10 to -20 points each) 3. Ask Claude: <em>“What are the remaining critical issues?”</em></p>
+<p><strong>Fix:</strong> 1. Run <code>/slide-excellence</code> to get detailed issue breakdown 2. Fix critical issues first (they cost -10 to -20 points each) 3. Ask Gemini: <em>“What are the remaining critical issues?”</em></p>
 </section>
 <section id="skills-not-auto-invoked" class="level3" data-number="8.5.7">
 <h3 data-number="8.5.7" class="anchored" data-anchor-id="skills-not-auto-invoked"><span class="header-section-number">8.5.7</span> Skills Not Auto-Invoked</h3>
-<p><strong>Symptom:</strong> Claude doesn’t use skills when you describe a task.</p>
-<p><strong>Fix:</strong> 1. Be explicit in your request: <em>“Review my slides for grammar and layout issues”</em> 2. Check skill has auto-invocation enabled (no <code>disable-model-invocation: true</code>) 3. Skill descriptions help Claude know when to use them — check they’re clear</p>
+<p><strong>Symptom:</strong> Gemini doesn’t use skills when you describe a task.</p>
+<p><strong>Fix:</strong> 1. Be explicit in your request: <em>“Review my slides for grammar and layout issues”</em> 2. Check skill has auto-invocation enabled (no <code>disable-model-invocation: true</code>) 3. Skill descriptions help Gemini know when to use them — check they’re clear</p>
 </section>
 <section id="plans-saved-to-wrong-directory" class="level3" data-number="8.5.8">
 <h3 data-number="8.5.8" class="anchored" data-anchor-id="plans-saved-to-wrong-directory"><span class="header-section-number">8.5.8</span> Plans Saved to Wrong Directory</h3>
-<p><strong>Symptom:</strong> Plans save to <code>~/.claude/plans/</code> instead of your project directory. Can’t track plans in git.</p>
-<p><strong>Fix:</strong> Add to <code>.claude/settings.json</code>:</p>
+<p><strong>Symptom:</strong> Plans save to <code>~/.gemini/plans/</code> instead of your project directory. Can’t track plans in git.</p>
+<p><strong>Fix:</strong> Add to <code>.gemini/settings.json</code>:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb53"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;plansDirectory&quot;</span><span class="fu">:</span> <span class="st">&quot;quality_reports/plans&quot;</span></span>
 <span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>This tells Claude Code to save plans inside your project where they can be version-controlled.</p>
+<p>This tells Gemini CLI to save plans inside your project where they can be version-controlled.</p>
 <hr>
 </section>
 </section>
@@ -6487,12 +6487,12 @@ Claude: [Runs 7 sequential forked reviews, each blind to the others]
 <p>This guide builds on the work of many. We are grateful to these projects and their authors.</p>
 <p><strong>Core Infrastructure:</strong></p>
 <ul>
-<li><a href="https://code.claude.com/docs/en/overview">Claude Code</a> by Anthropic — the CLI tool, VS Code extension, and Desktop app that makes all of this possible</li>
+<li><a href="https://code.gemini.com/docs/en/overview">Gemini CLI</a> by Anthropic — the CLI tool, VS Code extension, and Desktop app that makes all of this possible</li>
 </ul>
 <p><strong>Research Workflows:</strong></p>
 <ul>
 <li><a href="https://github.com/hugosantanna/clo-author">clo-author</a> by Hugo Sant’Anna (UAB) — paper-centric research workflows with adversarial agent pairs, simulated peer review, and full research lifecycle management</li>
-<li><a href="https://github.com/chrisblattman/claudeblattman">claudeblattman</a> by Chris Blattman (University of Chicago) — comprehensive workflows for non-technical academics: executive assistant, proposal writing, project management, and the fresh-context critique pattern</li>
+<li><a href="https://github.com/chrisblattman/geminiblattman">geminiblattman</a> by Chris Blattman (University of Chicago) — comprehensive workflows for non-technical academics: executive assistant, proposal writing, project management, and the fresh-context critique pattern</li>
 </ul>
 <p><strong>Reproducibility &amp; Data Management:</strong></p>
 <ul>
@@ -6504,7 +6504,7 @@ Claude: [Runs 7 sequential forked reviews, each blind to the others]
 <li><a href="https://github.com/scunning1975/MixtapeTools/tree/main/presentations">MixtapeTools / The Rhetoric of Decks</a> by Scott Cunningham (Baylor) — the philosophical and practical framework for beautiful, rhetorically effective academic presentations</li>
 <li>Scott Cunningham, <em><a href="https://mixtape.scunning.com">Causal Inference: The Mixtape</a></em> — the textbook whose author developed the presentation framework above</li>
 <li><a href="https://github.com/karpathy/autoresearch">autoresearch</a> by Andrej Karpathy — constraint-based autonomous research with <code>program.md</code> as constitutional document</li>
-<li><a href="https://github.com/aspi6246/ClaudeCodeTools">ClaudeCodeTools</a> — “The Editor” persona for seven-audit sequential paper review</li>
+<li><a href="https://github.com/aspi6246/GeminiCodeTools">GeminiCodeTools</a> — “The Editor” persona for seven-audit sequential paper review</li>
 </ul>
 <p><strong>Origin:</strong></p>
 <ul>

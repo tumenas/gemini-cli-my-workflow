@@ -20,7 +20,7 @@ warn=0
 fail=0
 
 echo ""
-echo -e "${BOLD}Validating Claude Code Academic Workflow setup...${RESET}"
+echo -e "${BOLD}Validating Gemini CLI Academic Workflow setup...${RESET}"
 echo ""
 
 check_required() {
@@ -50,7 +50,7 @@ check_optional() {
 }
 
 echo -e "${BOLD}Required tools:${RESET}"
-check_required "Claude Code"  "claude"   "https://claude.ai/install"
+check_required "Gemini CLI"  "gemini"   "https://gemini.ai/install"
 check_required "XeLaTeX"      "xelatex"  "https://tug.org/texlive/ (or MacTeX: https://tug.org/mactex/)"
 check_required "Quarto"       "quarto"   "https://quarto.org/docs/get-started/"
 check_required "git"          "git"      "https://git-scm.com/downloads"
@@ -81,8 +81,8 @@ else
 fi
 echo ""
 
-echo -e "${BOLD}Claude Code hooks:${RESET}"
-hook_dir="$(dirname "$0")/../.claude/hooks"
+echo -e "${BOLD}Gemini CLI hooks:${RESET}"
+hook_dir="$(dirname "$0")/../.gemini/hooks"
 if [ -d "$hook_dir" ]; then
     non_exec=$(find "$hook_dir" -maxdepth 1 \( -name "*.py" -o -name "*.sh" \) ! -perm -u+x 2>/dev/null | wc -l | tr -d ' ')
     if [ "$non_exec" -eq 0 ]; then
@@ -90,11 +90,11 @@ if [ -d "$hook_dir" ]; then
         pass=$((pass + 1))
     else
         echo -e "  ${YELLOW}⚠${RESET} $non_exec hook script(s) not executable"
-        echo -e "    Fix: chmod +x .claude/hooks/*.py .claude/hooks/*.sh"
+        echo -e "    Fix: chmod +x .gemini/hooks/*.py .gemini/hooks/*.sh"
         warn=$((warn + 1))
     fi
 else
-    echo -e "  ${YELLOW}⚠${RESET} .claude/hooks/ directory not found (are you in the project root?)"
+    echo -e "  ${YELLOW}⚠${RESET} .gemini/hooks/ directory not found (are you in the project root?)"
     warn=$((warn + 1))
 fi
 echo ""
@@ -123,7 +123,7 @@ echo ""
 # Which tools did we actually find? Gate the next-step suggestions accordingly.
 # Use string flags (not command names) so shellcheck is happy and `if` bodies
 # read naturally.
-has_claude="false";  command -v claude  >/dev/null 2>&1 && has_claude="true"
+has_gemini="false";  command -v gemini  >/dev/null 2>&1 && has_gemini="true"
 has_xelatex="false"; command -v xelatex >/dev/null 2>&1 && has_xelatex="true"
 has_quarto="false";  command -v quarto  >/dev/null 2>&1 && has_quarto="true"
 has_r="false";       command -v R       >/dev/null 2>&1 && has_r="true"
@@ -132,10 +132,10 @@ if [ "$fail" -gt 0 ]; then
     echo -e "${RED}Some required tools are missing.${RESET}"
     echo ""
     echo -e "${BOLD}What you CAN do right now:${RESET}"
-    if [ "$has_claude" = "true" ]; then
-        echo "  - Open Claude Code:                      claude"
+    if [ "$has_gemini" = "true" ]; then
+        echo "  - Open Gemini CLI:                      gemini"
         echo ""
-        echo "  ${BOLD}Inside Claude Code${RESET} (these are slash-commands, NOT shell commands):"
+        echo "  ${BOLD}Inside Gemini CLI${RESET} (these are slash-commands, NOT shell commands):"
         if [ "$has_quarto" = "true" ]; then
             echo "    /deploy HelloWorld         # render Quarto sample"
         fi
@@ -153,8 +153,8 @@ if [ "$fail" -gt 0 ]; then
             echo "  (Quarto deploy disabled until you install Quarto: https://quarto.org/docs/get-started/)"
         fi
     else
-        echo "  - Install Claude Code first: https://claude.ai/install"
-        echo "    (Everything else in this template is orchestrated through Claude.)"
+        echo "  - Install Gemini CLI first: https://gemini.ai/install"
+        echo "    (Everything else in this template is orchestrated through Gemini.)"
     fi
     echo ""
     echo -e "${BOLD}Next:${RESET} install the missing required tool(s) listed above, then re-run this script."
@@ -162,7 +162,7 @@ if [ "$fail" -gt 0 ]; then
 fi
 
 echo -e "${GREEN}Setup looks good!${RESET} Next steps:"
-echo "  1. Open Claude Code in this directory:  claude"
+echo "  1. Open Gemini CLI in this directory:  gemini"
 echo "  2. Compile the sample deck:              /compile-latex HelloWorld"
 echo "  3. Deploy the Quarto sample:             /deploy HelloWorld"
 echo ""

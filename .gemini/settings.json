@@ -1,0 +1,89 @@
+{
+  "hooksConfig": {
+    "enabled": true,
+    "notifications": true
+  },
+  "hooks": {
+    "Notification": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ./.gemini/hooks/notify.sh",
+            "timeout": 5000,
+            "name": "Notify"
+          }
+        ]
+      }
+    ],
+    "PreCompress": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 ./.gemini/hooks/pre-compact.py",
+            "timeout": 10000,
+            "name": "Pre-Compress"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "matcher": "compact|resume",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 ./.gemini/hooks/post-compact-restore.py",
+            "timeout": 5000,
+            "name": "Post-Restore"
+          }
+        ]
+      }
+    ],
+    "AfterTool": [
+      {
+        "matcher": "run_shell_command|codebase_investigator|generalist",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 ./.gemini/hooks/context-monitor.py",
+            "timeout": 5000,
+            "name": "Context-Monitor"
+          }
+        ]
+      },
+      {
+        "matcher": "write_file|replace",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 ./.gemini/hooks/verify-reminder.py",
+            "timeout": 5000,
+            "name": "Verify-Reminder"
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 ./.gemini/hooks/log-reminder.py",
+            "timeout": 10000,
+            "name": "Log-Reminder"
+          }
+        ]
+      }
+    ]
+  },
+  "security": {
+    "folderTrust": { "enabled": true },
+    "enableConseca": true
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "bash ./.gemini/scripts/statusline.sh"
+  }
+}

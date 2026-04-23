@@ -51,7 +51,7 @@ When a mistake is corrected, append a `[LEARN:category]` entry below.
 
 ## Skill Creation
 
-[LEARN:skills] Effective skill descriptions use trigger phrases users actually say: "check citations", "format results", "validate protocol" → Claude knows when to load skill.
+[LEARN:skills] Effective skill descriptions use trigger phrases users actually say: "check citations", "format results", "validate protocol" → Gemini knows when to load skill.
 
 [LEARN:skills] Skills need 3 sections minimum: Instructions (step-by-step), Examples (concrete scenarios), Troubleshooting (common errors) → users can debug independently.
 
@@ -77,7 +77,7 @@ When a mistake is corrected, append a `[LEARN:category]` entry below.
 
 [LEARN:drift] Guard against false positives when scanning for template counts: `"3 parallel agents"`, `"17 specialized agents"` (clo-author attribution), `"start with 2-3 skills"` are all legitimate non-template uses of `N + category` phrases. Use compound patterns requiring multiple template-specific tokens on the same line.
 
-## Claude Code Hooks
+## Gemini CLI Hooks
 
 [LEARN:hooks] Stop-hook block protocol has TWO valid forms: (a) legacy — `exit 2` + reason on stderr; (b) modern — `exit 0` + JSON `{"decision":"block","reason":"..."}` on stdout. `log-reminder.py` uses the modern form. Audit agents unfamiliar with the modern protocol will flag this as "should exit 2" — false alarm. Documented in `/deep-audit` skill's false-alarm list.
 
@@ -89,7 +89,7 @@ When a mistake is corrected, append a `[LEARN:category]` entry below.
 
 ## Privacy in Diagnostic Skills
 
-[LEARN:privacy] Diagnostic skills that read host-global config (e.g., `~/.claude/`, VSCode user settings) must require **explicit user confirmation** before crossing the repo boundary — especially in template repos that get forked. Phase the skill: repo-local auto, host-global opt-in with key redaction. Codex correctly flagged this pattern as a template-adopter privacy risk in PR #75.
+[LEARN:privacy] Diagnostic skills that read host-global config (e.g., `~/.gemini/`, VSCode user settings) must require **explicit user confirmation** before crossing the repo boundary — especially in template repos that get forked. Phase the skill: repo-local auto, host-global opt-in with key redaction. Codex correctly flagged this pattern as a template-adopter privacy risk in PR #75.
 
 ## Claim-vs-Reality Framing
 
@@ -105,7 +105,7 @@ When a mistake is corrected, append a `[LEARN:category]` entry below.
 
 [LEARN:audit] "Claim-vs-reality" is the highest-ROI audit lens for a governance-heavy template repo. More valuable than skill-consistency or doc-drift checks because it surfaces where the template oversells itself — the exact thing forkers will discover and call out.
 
-[LEARN:audit] Whack-a-mole anti-pattern on summary paragraphs: when Copilot/Codex flag a summary paragraph, surgically fixing the flagged phrase almost always introduces a new drift elsewhere in the same paragraph (observed 3× in a row on the v1.6.1 CHANGELOG opening, PRs #88–#90). Rule: two review-bot flags on the same paragraph = rewrite structurally (abstract up, remove enumeration), don't patch word-by-word. Prefer "no new directories on disk" over "no new skills, rules, or hooks." See `.claude/rules/summary-parity.md`.
+[LEARN:audit] Whack-a-mole anti-pattern on summary paragraphs: when Copilot/Codex flag a summary paragraph, surgically fixing the flagged phrase almost always introduces a new drift elsewhere in the same paragraph (observed 3× in a row on the v1.6.1 CHANGELOG opening, PRs #88–#90). Rule: two review-bot flags on the same paragraph = rewrite structurally (abstract up, remove enumeration), don't patch word-by-word. Prefer "no new directories on disk" over "no new skills, rules, or hooks." See `.gemini/rules/summary-parity.md`.
 
 ## Verification Architecture (three complementary patterns)
 
@@ -123,14 +123,14 @@ The key insight: each pattern enforces independence differently. Critic-fixer us
 
 [LEARN:audit] Skill frontmatter `allowed-tools` must cover every tool the skill body invokes, but this is easy to miss — the body reads as English ("spawn the verifier via Task") while the frontmatter reads as a bureaucratic array. Caught on PR #92 when Codex + Copilot both flagged 4 skills that promised `Task` in the body but had no `Task` in `allowed-tools`. Runtime failure mode: tool-permission error, or silent bypass of the promised protocol. Deep-audit Agent 3 now includes this check explicitly. Sibling check: if rule X's `paths:` includes skill Y, confirm skill Y actually implements rule X's protocol (rule-vs-implementation drift is the same class of bug at a different layer).
 
-[LEARN:audit] Mechanical vs agent-based audits: classes of bug that are deterministic (frontmatter field exists, anchor resolves, count matches disk) belong in a mechanical script, not an agent prompt. Agents miss these because the prompt lists them as one of many checks, and agent attention drifts. The script never drifts. Reserve audit agents for judgment calls (is this claim misleading? does this rule contradict that one?). `scripts/check-skill-integrity.py` shipped the first batch (frontmatter↔body tool parity, argument-hint↔body flag parity, anchor resolution, rule↔skill keyword parity). `.claude/references/audit-pet-peeves.md` catalogues the subtler classes that still need agent judgment so /deep-audit agents inherit past bot findings.
+[LEARN:audit] Mechanical vs agent-based audits: classes of bug that are deterministic (frontmatter field exists, anchor resolves, count matches disk) belong in a mechanical script, not an agent prompt. Agents miss these because the prompt lists them as one of many checks, and agent attention drifts. The script never drifts. Reserve audit agents for judgment calls (is this claim misleading? does this rule contradict that one?). `scripts/check-skill-integrity.py` shipped the first batch (frontmatter↔body tool parity, argument-hint↔body flag parity, anchor resolution, rule↔skill keyword parity). `.gemini/references/audit-pet-peeves.md` catalogues the subtler classes that still need agent judgment so /deep-audit agents inherit past bot findings.
 
 [LEARN:audit] When writing a parity-check regex, always strip inline code spans (` `` `) and fenced code blocks (` ``` `) before pattern-matching. Docs use example syntax like `[text](path#anchor)` inside backticks to illustrate; a naive regex treats those as real links. Replace matched code with spaces (preserving line numbers) before running the rest of the check.
 
-[LEARN:audit] Audit-scope creep — or rather, audit-scope ATROPHY. Deep-audit Agent 2 was scoped to `.claude/hooks/*.py|sh`. When PR #93 added new Python + bash code under `scripts/`, the audit didn't look. Copilot + Codex caught 6 bugs the audit missed, all five of which were in `scripts/`. Root cause: audit agents only check what their prompt scopes; any new directory bypasses audit by default. **Rule: when adding a new code location, expand audit scope first, or audit-debt accumulates silently.** Agent 2 now scoped to all executable code (hooks + scripts + .claude/scripts). Pet-peeves entries 13-16 capture the specific classes that motivated this widening (docstring-contract drift, fail-open narrow-except, bash set-u not enough, dead config-map entries).
+[LEARN:audit] Audit-scope creep — or rather, audit-scope ATROPHY. Deep-audit Agent 2 was scoped to `.gemini/hooks/*.py|sh`. When PR #93 added new Python + bash code under `scripts/`, the audit didn't look. Copilot + Codex caught 6 bugs the audit missed, all five of which were in `scripts/`. Root cause: audit agents only check what their prompt scopes; any new directory bypasses audit by default. **Rule: when adding a new code location, expand audit scope first, or audit-debt accumulates silently.** Agent 2 now scoped to all executable code (hooks + scripts + .gemini/scripts). Pet-peeves entries 13-16 capture the specific classes that motivated this widening (docstring-contract drift, fail-open narrow-except, bash set-u not enough, dead config-map entries).
 
 ## Scheduling Autonomous Work
 
-[LEARN:scheduling] `CronCreate` (the local Claude Code cron) is **session-only** in practice even with `durable: true` — it dies if the Claude Code REPL isn't running when the cron time arrives. Hit this on 2026-04-16 when the user's usage got rate-limited, the session terminated, and the scheduled audit-hardening trigger never fired. For any autonomous work that must survive session termination (rate limits, Claude Code restarts, sleep), use **Claude Code Routines** (released Apr 14, 2026) instead — they run on Anthropic's web infrastructure, not the local REPL. `CronCreate` is fine for short-delay polling within an active session (check a build every 5 min), but not for "run this in an hour." See `.claude/references/audit-pet-peeves.md` entry 17.
+[LEARN:scheduling] `CronCreate` (the local Gemini CLI cron) is **session-only** in practice even with `durable: true` — it dies if the Gemini CLI REPL isn't running when the cron time arrives. Hit this on 2026-04-16 when the user's usage got rate-limited, the session terminated, and the scheduled audit-hardening trigger never fired. For any autonomous work that must survive session termination (rate limits, Gemini CLI restarts, sleep), use **Gemini CLI Routines** (released Apr 14, 2026) instead — they run on Anthropic's web infrastructure, not the local REPL. `CronCreate` is fine for short-delay polling within an active session (check a build every 5 min), but not for "run this in an hour." See `.gemini/references/audit-pet-peeves.md` entry 17.
 
-[LEARN:hooks] PreCompact hooks now support blocking via the modern protocol (exit 0 + `{"decision":"block","reason":"..."}` on stdout). `.claude/hooks/pre-compact.py` gained an opt-in DRAFT-plan guard (env var `CLAUDE_PRECOMPACT_BLOCK_ON_DRAFT=1`): blocks compaction once when an active plan is still marked DRAFT, so the user has a chance to approve the plan before losing mid-plan context. Default off — users who prefer the old save-and-continue behavior get no change. Fires at most once per plan to avoid lock-out loops.
+[LEARN:hooks] PreCompact hooks now support blocking via the modern protocol (exit 0 + `{"decision":"block","reason":"..."}` on stdout). `.gemini/hooks/pre-compact.py` gained an opt-in DRAFT-plan guard (env var `CLAUDE_PRECOMPACT_BLOCK_ON_DRAFT=1`): blocks compaction once when an active plan is still marked DRAFT, so the user has a chance to approve the plan before losing mid-plan context. Default off — users who prefer the old save-and-continue behavior get no change. Fires at most once per plan to avoid lock-out loops.

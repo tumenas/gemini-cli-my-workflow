@@ -1,5 +1,5 @@
 # ==============================================================================
-# .gitignore for Academic Claude Code Projects
+# .gitignore for Academic Gemini CLI Projects
 # ==============================================================================
 
 # LaTeX build artifacts
@@ -36,9 +36,9 @@ __pycache__/
 .DS_Store
 Thumbs.db
 
-# Claude Code local files (not shared across machines)
-.claude/settings.local.json
-.claude/state/
+# Gemini CLI local files (not shared across machines)
+.gemini/settings.local.json
+.gemini/state/
 CLAUDE.local.md
 
 # IDE

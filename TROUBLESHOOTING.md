@@ -4,9 +4,9 @@ Top failure modes newcomers hit, with the fix. If you're stuck somewhere else, r
 
 ## Environment / setup
 
-### `claude: command not found`
+### `gemini: command not found`
 
-Claude Code isn't installed. Install it from [claude.ai/install](https://claude.ai/install) (or your OS's package manager). Then re-run `./scripts/validate-setup.sh`.
+Gemini CLI isn't installed. Install it from [gemini.ai/install](https://gemini.ai/install) (or your OS's package manager). Then re-run `./scripts/validate-setup.sh`.
 
 ### `xelatex: command not found`
 
@@ -20,14 +20,14 @@ Install Quarto from [quarto.org/docs/get-started](https://quarto.org/docs/get-st
 
 Required by `/extract-tikz`. `brew install pdf2svg` (macOS) / `apt install pdf2svg` (Debian/Ubuntu) / `dnf install pdf2svg` (Fedora).
 
-### Claude keeps asking permission for every tool
+### Gemini keeps asking permission for every tool
 
 Default permission mode prompts on every `Bash`, `Edit`, `Write`. Two fixes:
 
-- **Auto-accept edits** — keybinding in Claude Code; see guide's [permission modes section](https://psantanna.com/claude-code-my-workflow/workflow-guide.html#settings---permissions-and-hooks).
-- **Bypass mode** — `claude --permission-mode acceptEdits` (auto-approves edits but still prompts for sensitive ops) or `claude --permission-mode bypassPermissions` (skips prompts entirely — use only on trusted repos).
+- **Auto-accept edits** — keybinding in Gemini CLI; see guide's [permission modes section](https://psantanna.com/gemini-code-my-workflow/workflow-guide.html#settings---permissions-and-hooks).
+- **Bypass mode** — `gemini --permission-mode acceptEdits` (auto-approves edits but still prompts for sensitive ops) or `gemini --permission-mode bypassPermissions` (skips prompts entirely — use only on trusted repos).
 
-The template's `.claude/settings.json` pre-approves ~100 common patterns, so even at default most routine work is unattended.
+The template's `.gemini/settings.json` pre-approves ~100 common patterns, so even at default most routine work is unattended.
 
 ## Compilation / rendering
 
@@ -49,25 +49,25 @@ You likely invoked `quarto render` from the wrong cwd. Run it from the repo root
 
 ### `/extract-tikz` halts at prevention pre-check
 
-Good — the pre-check caught a P3 (bare `scale=`) or P4 (missing directional keyword on an edge label) violation. Fix the offending line in the Beamer source and re-run. See `.claude/rules/tikz-prevention.md`.
+Good — the pre-check caught a P3 (bare `scale=`) or P4 (missing directional keyword on an edge label) violation. Fix the offending line in the Beamer source and re-run. See `.gemini/rules/tikz-prevention.md`.
 
 ## Git / hooks / CI
 
 ### Hook script permission denied
 
-`chmod +x .claude/hooks/*.py .claude/hooks/*.sh`. `./scripts/validate-setup.sh` also reports non-executable hooks.
+`chmod +x .gemini/hooks/*.py .gemini/hooks/*.sh`. `./scripts/validate-setup.sh` also reports non-executable hooks.
 
 ### Pre-compact hook didn't save the plan
 
-The PreCompact hook (`.claude/hooks/pre-compact.py`) writes state to `~/.claude/sessions/<hash>/`. If the state isn't there after compaction:
+The PreCompact hook (`.gemini/hooks/pre-compact.py`) writes state to `~/.gemini/sessions/<hash>/`. If the state isn't there after compaction:
 
-- Check the hook's exit code: `echo '{}' | python3 .claude/hooks/pre-compact.py` should exit 0.
-- Check permissions on `~/.claude/sessions/`.
+- Check the hook's exit code: `echo '{}' | python3 .gemini/hooks/pre-compact.py` should exit 0.
+- Check permissions on `~/.gemini/sessions/`.
 - Check the session hash matches — compaction logs the hash.
 
 ### `/commit` fails with `quality_score.py` below threshold
 
-The script detected issues in changed files. Either fix them (recommended) or re-run `/commit` and explicitly tell Claude **"commit anyway"** or **"skip quality gate"** with a reason — the override is logged in the commit message. (There is no `--skip-quality-gate` CLI flag; the override is a natural-language signal to the skill.)
+The script detected issues in changed files. Either fix them (recommended) or re-run `/commit` and explicitly tell Gemini **"commit anyway"** or **"skip quality gate"** with a reason — the override is logged in the commit message. (There is no `--skip-quality-gate` CLI flag; the override is a natural-language signal to the skill.)
 
 ## Palette / theming
 
@@ -89,25 +89,25 @@ You ran `03_analyze.R` directly instead of `00_run_all.R`. Re-run `00_run_all.R`
 
 ### "Prompts fire despite `bypassPermissions`"
 
-Mid-session permission-mode toggles override file settings until session end. The 6-tier stack (VSCode user → VSCode workspace → CLI user `~/.claude/settings.json` → project `.claude/settings.json` → project-local `.claude/settings.local.json` → in-session runtime) is **last-wins**. Run `/permission-check` — it diffs every layer and reports which wins. Then either exit and restart the session, or `/permission-mode bypassPermissions` to set it for the current session.
+Mid-session permission-mode toggles override file settings until session end. The 6-tier stack (VSCode user → VSCode workspace → CLI user `~/.gemini/settings.json` → project `.gemini/settings.json` → project-local `.gemini/settings.local.json` → in-session runtime) is **last-wins**. Run `/permission-check` — it diffs every layer and reports which wins. Then either exit and restart the session, or `/permission-mode bypassPermissions` to set it for the current session.
 
-### `/permission-check` asks before reading `~/.claude/`
+### `/permission-check` asks before reading `~/.gemini/`
 
 That's intentional. Host-global config can contain unrelated paths and secrets. Phase A (repo-local) is automatic; Phase B (host-global, with key redaction) requires explicit confirmation. See [CHANGELOG v1.6.0 — privacy boundary](CHANGELOG.md) for context.
 
 ### Seeing too many permission prompts?
 
-If `/permission-check` confirms your config is permissive but you're still being prompted, the built-in Claude Code skill **`/less-permission-prompts`** (Apr 2026) scans your transcripts for common read-only Bash and MCP tool calls and proposes a prioritized allowlist for `.claude/settings.json`. Pairs with our `/permission-check`: `permission-check` diagnoses; `less-permission-prompts` remediates.
+If `/permission-check` confirms your config is permissive but you're still being prompted, the built-in Gemini CLI skill **`/less-permission-prompts`** (Apr 2026) scans your transcripts for common read-only Bash and MCP tool calls and proposes a prioritized allowlist for `.gemini/settings.json`. Pairs with our `/permission-check`: `permission-check` diagnoses; `less-permission-prompts` remediates.
 
 ### Statusline shows `[UNKNOWN]` or blank
 
-Session JSON parse failure. Check `.claude/scripts/statusline.sh` is executable (`chmod +x`) and that `python3` is on `PATH`. Fallback output is `[?] <model> @ <pwd>` — if you see that, the hook caught a malformed session file. Restart Claude Code.
+Session JSON parse failure. Check `.gemini/scripts/statusline.sh` is executable (`chmod +x`) and that `python3` is on `PATH`. Fallback output is `[?] <model> @ <pwd>` — if you see that, the hook caught a malformed session file. Restart Gemini CLI.
 
 ## Peer-review pipeline (v1.5.0)
 
 ### `/review-paper --peer AER` fails with "journal not found"
 
-The target must be in [`.claude/references/journal-profiles.md`](.claude/references/journal-profiles.md). Ships with AER / QJE / JPE / ECMA / ReStud. To add your field's journal, copy [`templates/journal-profile-template.md`](templates/journal-profile-template.md) into `journal-profiles.md` and fill in the 7 schema sections (focus, bar, domain adjustments, methods adjustments, typical concerns, referee-pool weights, optional table format).
+The target must be in [`.gemini/references/journal-profiles.md`](.gemini/references/journal-profiles.md). Ships with AER / QJE / JPE / ECMA / ReStud. To add your field's journal, copy [`templates/journal-profile-template.md`](templates/journal-profile-template.md) into `journal-profiles.md` and fill in the 7 schema sections (focus, bar, domain adjustments, methods adjustments, typical concerns, referee-pool weights, optional table format).
 
 ### Referees return near-identical reports
 
@@ -125,7 +125,7 @@ Use `--r2` / `--r3` to continue a prior review. The editor agent reloads the pre
 
 ### Adding a new skill / agent / rule breaks the gate
 
-Expected. The gate counts `.claude/skills/` on disk vs prose assertions. After adding a skill, update the counts in README.md, CLAUDE.md (if mentioned), `guide/workflow-guide.qmd`, `docs/index.html` og:description, and `templates/skill-template.md`. The script tells you which are stale.
+Expected. The gate counts `.gemini/skills/` on disk vs prose assertions. After adding a skill, update the counts in README.md, GEMINI.md (if mentioned), `guide/workflow-guide.qmd`, `docs/index.html` og:description, and `templates/skill-template.md`. The script tells you which are stale.
 
 ## Pre-Flight Reports (v1.6.0)
 
@@ -215,9 +215,9 @@ If a finding looks wrong (e.g., a shell command flag being treated as a skill fl
 
 ### `CronCreate` dies when my session closes
 
-By design. `CronCreate` schedules in the Claude Code REPL's own event loop — when the REPL exits (you close the window, Claude Code crashes, your usage hits a rate limit and the session terminates), the cron goes with it. Even `durable: true` doesn't save you if no REPL is running at fire time.
+By design. `CronCreate` schedules in the Gemini CLI REPL's own event loop — when the REPL exits (you close the window, Gemini CLI crashes, your usage hits a rate limit and the session terminates), the cron goes with it. Even `durable: true` doesn't save you if no REPL is running at fire time.
 
-For **short-delay polling within an active session** (e.g. "check the build every 5 minutes while I work"), `CronCreate` is fine. For anything that must **survive session termination**, use **Claude Code Routines** (Apr 2026) instead. Routines run on Anthropic's web infrastructure — your Mac does not need to be online for each fire. Use Routines for: scheduled audits, overnight batch work, autonomous execution while you're away. See `.claude/references/audit-pet-peeves.md` entry 17 for the full comparison.
+For **short-delay polling within an active session** (e.g. "check the build every 5 minutes while I work"), `CronCreate` is fine. For anything that must **survive session termination**, use **Gemini CLI Routines** (Apr 2026) instead. Routines run on Anthropic's web infrastructure — your Mac does not need to be online for each fire. Use Routines for: scheduled audits, overnight batch work, autonomous execution while you're away. See `.gemini/references/audit-pet-peeves.md` entry 17 for the full comparison.
 
 ### PreCompact keeps blocking even after I approved the plan
 
@@ -225,5 +225,5 @@ You probably have `CLAUDE_PRECOMPACT_BLOCK_ON_DRAFT=1` set in your environment. 
 
 ## Still stuck?
 
-- Read the [guide's troubleshooting section](https://psantanna.com/claude-code-my-workflow/workflow-guide.html#troubleshooting) for longer-form recovery scenarios.
-- Open an issue at <https://github.com/pedrohcgs/claude-code-my-workflow/issues> — the bug-report template asks for the environment details we need to help.
+- Read the [guide's troubleshooting section](https://psantanna.com/gemini-code-my-workflow/workflow-guide.html#troubleshooting) for longer-form recovery scenarios.
+- Open an issue at <https://github.com/pedrohcgs/gemini-code-my-workflow/issues> — the bug-report template asks for the environment details we need to help.

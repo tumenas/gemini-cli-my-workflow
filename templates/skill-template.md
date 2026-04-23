@@ -7,7 +7,7 @@
 ## When to Create a Custom Skill
 
 Create a skill when you find yourself:
-- Repeatedly explaining the same 3+ step workflow to Claude
+- Repeatedly explaining the same 3+ step workflow to Gemini
 - Needing domain-specific quality checks (citation style, notation consistency, lab protocols)
 - Enforcing field-specific output formats (thesis structure, journal templates, lab notebooks)
 - Coordinating multi-tool workflows (Figma → R → LaTeX, data → analysis → manuscript)
@@ -21,7 +21,7 @@ Create a skill when you find yourself:
 
 ## Template Structure
 
-Copy the structure below to `.claude/skills/[your-skill-name]/SKILL.md`:
+Copy the structure below to `.gemini/skills/[your-skill-name]/SKILL.md`:
 
 ```markdown
 ---
@@ -87,10 +87,10 @@ Beyond the basic fields shown above, skills support additional YAML frontmatter 
 |-------|---------|---------|
 | `effort` | Override reasoning effort level | `high` (for review skills), `low` (for formatting) |
 | `context` | Set to `fork` to run in an isolated subagent context | Protects main conversation from verbose output |
-| `agent` | Link to an agent definition in `.claude/agents/` | `proofreader` |
+| `agent` | Link to an agent definition in `.gemini/agents/` | `proofreader` |
 | `hooks` | Skill-specific hooks (same syntax as settings.json) | Custom pre/post actions |
 | `model` | Force a specific model | `haiku` (cheaper), `opus` (smarter) |
-| `disable-model-invocation` | Prevent Claude from auto-triggering | `true` (only invoked via `/skill-name`) |
+| `disable-model-invocation` | Prevent Gemini from auto-triggering | `true` (only invoked via `/skill-name`) |
 
 **Dynamic content** — skills can include live data using string substitutions:
 
@@ -99,13 +99,13 @@ Beyond the basic fields shown above, skills support additional YAML frontmatter 
 - `${CLAUDE_SKILL_DIR}` — path to the skill's directory (for bundled supporting files)
 - `` `!git log --oneline -5` `` — dynamic command output injected when skill loads
 
-See the [guide's Skill Frontmatter Reference](https://psantanna.com/claude-code-my-workflow/workflow-guide.html#skill-frontmatter) for details and examples.
+See the [guide's Skill Frontmatter Reference](https://psantanna.com/gemini-code-my-workflow/workflow-guide.html#skill-frontmatter) for details and examples.
 
 ---
 
 ## Writing Effective Descriptions
 
-The `description` field determines when Claude loads your skill. Use this structure:
+The `description` field determines when Gemini loads your skill. Use this structure:
 
 ```
 [What it does] + [When to use it] + [Key capabilities]
@@ -150,7 +150,7 @@ description: Reviews econometric specifications for common errors. Use when user
 
 ### Example 1: Citation Cross-Reference Checker
 
-**File:** `.claude/skills/validate-citations/SKILL.md`
+**File:** `.gemini/skills/validate-citations/SKILL.md`
 
 ```markdown
 ---
@@ -206,7 +206,7 @@ Step 4: **Report findings**
 
 ### Example 2: Regression Output Formatter
 
-**File:** `.claude/skills/format-regression-tables/SKILL.md`
+**File:** `.gemini/skills/format-regression-tables/SKILL.md`
 
 ```markdown
 ---
@@ -288,7 +288,7 @@ Step 4: **Save and verify**
 
 ### Example 3: Experimental Protocol Validator
 
-**File:** `.claude/skills/validate-protocol/SKILL.md`
+**File:** `.gemini/skills/validate-protocol/SKILL.md`
 
 ```markdown
 ---
@@ -349,7 +349,7 @@ Step 4: **Generate report**
 ## Testing Your Skill
 
 ### Step 1: Manual Test
-1. Create skill directory: `mkdir -p .claude/skills/your-skill-name`
+1. Create skill directory: `mkdir -p .gemini/skills/your-skill-name`
 2. Copy SKILL.md template and customize
 3. Skills hot-reload automatically --- changes are detected without restarting
 4. Trigger skill: Use one of your trigger phrases
@@ -401,6 +401,6 @@ When adapting this template to your domain:
 
 - **File:** `templates/skill-template.md`
 - **Purpose:** Starter for domain-specific skills
-- **Usage:** Copy to `.claude/skills/[name]/SKILL.md`, customize for your field
+- **Usage:** Copy to `.gemini/skills/[name]/SKILL.md`, customize for your field
 
-For existing skills examples, see `.claude/skills/` directory (28 skills for LaTeX, R, Quarto, and research workflows).
+For existing skills examples, see `.gemini/skills/` directory (28 skills for LaTeX, R, Quarto, and research workflows).

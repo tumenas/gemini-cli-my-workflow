@@ -44,8 +44,10 @@ REPO = Path(__file__).resolve().parent.parent
 # ---- Known tool names the harness exposes ------------------------------------
 
 TOOLS = {
-    "Task", "Bash", "Edit", "Write", "MultiEdit", "Read", "Grep", "Glob",
-    "WebFetch", "WebSearch", "NotebookEdit",
+    "run_shell_command", "read_file", "write_file", "replace", "list_directory",
+    "glob", "grep_search", "ask_user", "google_web_search", "web_fetch",
+    "save_memory", "activate_skill", "enter_plan_mode", "exit_plan_mode",
+    "codebase_investigator", "cli_help", "generalist"
 }
 
 # ---- Frontmatter parse -------------------------------------------------------
@@ -114,32 +116,19 @@ def _parse_block_list(fm_raw: str, key: str) -> list[str]:
 # ---- Check 1: Frontmatter ↔ body tool parity --------------------------------
 
 TOOL_INVOCATION_PATTERNS = {
-    # The primary check. Task is the most common missing-permission bug
-    # (see PR #92 — 4 skills each promised to spawn claim-verifier via Task
-    # but forgot to declare Task in allowed-tools).
-    "Task": [
-        r"\bvia\s+`?Task`?\b",
+    # The primary check. codebase_investigator is the most common sub-agent
+    "codebase_investigator": [
+        r"\bvia\s+`?codebase_investigator`?\b",
         r"\bsubagent_type\s*=",
-        r"\bspawn\b[^.\n]{0,80}\bvia\s+Task\b",
-        r"`Task`\s+with\b",
-        r"\bTask:\s*subagent_type",
-        r"\bTask\s+tool\b",
+        r"\bspawn\b[^.\n]{0,80}\bvia\s+codebase_investigator\b",
+        r"`codebase_investigator`\s+with\b",
     ],
-    # Edit/Write/MultiEdit require explicit "use X tool" or imperative
-    # language — prose like "edit the file" shouldn't match.
-    "Edit": [r"`Edit`\s+tool\b", r"\bEdit\s+tool\b"],
-    "Write": [r"`Write`\s+tool\b", r"\bWrite\s+tool\b"],
-    "MultiEdit": [r"`MultiEdit`\s+tool\b"],
-    "NotebookEdit": [r"\bNotebookEdit\b"],
-    # WebSearch/WebFetch are deliberately omitted. A skill body that
-    # describes a forked agent's use of WebSearch is NOT the same as the
-    # skill invoking WebSearch directly. Prose mentions dominate. The cost
-    # of false positives on these tools exceeds the benefit. If a real
-    # WebSearch-permission bug slips through, Copilot/Codex catch it.
-    #
-    # Read/Grep/Glob/Bash similarly omitted — too many false positives
-    # from prose ("read the file", "run the script") and from bash code
-    # fences that illustrate for the user rather than invoke the Bash tool.
+    "replace": [r"`replace`\s+tool\b", r"\breplace\s+tool\b"],
+    "write_file": [r"`write_file`\s+tool\b", r"\bwrite_file\s+tool\b"],
+    "read_file": [r"`read_file`\s+tool\b", r"\bread_file\s+tool\b"],
+    "run_shell_command": [r"`run_shell_command`\s+tool\b", r"\brun_shell_command\s+tool\b"],
+    "glob": [r"`glob`\s+tool\b", r"\bglob\s+tool\b"],
+    "grep_search": [r"`grep_search`\s+tool\b", r"\bgrep_search\s+tool\b"],
 }
 
 
@@ -157,7 +146,7 @@ def tools_invoked_in_body(body: str) -> set[str]:
 def check_tool_parity() -> list[tuple[str, str, str]]:
     """Return list of (severity, file, msg)."""
     findings: list[tuple[str, str, str]] = []
-    for skill_md in sorted(REPO.glob(".claude/skills/*/SKILL.md")):
+    for skill_md in sorted(REPO.glob(".gemini/skills/*/SKILL.md")):
         try:
             text = skill_md.read_text(encoding="utf-8")
         except (OSError, UnicodeError) as e:
@@ -230,7 +219,7 @@ def check_flag_parity() -> list[tuple[str, str, str]]:
     # documentation context (option-keywords) would double-fail many legit
     # skills that list flags only in a reference table without option verbs.
     any_code_flag_re = re.compile(r"`(--[a-z][a-z0-9-]*)`")
-    for skill_md in sorted(REPO.glob(".claude/skills/*/SKILL.md")):
+    for skill_md in sorted(REPO.glob(".gemini/skills/*/SKILL.md")):
         try:
             text = skill_md.read_text(encoding="utf-8")
         except (OSError, UnicodeError) as e:
@@ -335,12 +324,12 @@ def strip_code(text: str) -> str:
 def check_anchor_resolution() -> list[tuple[str, str, str]]:
     findings: list[tuple[str, str, str]] = []
     scan_roots = [
-        REPO / ".claude",
+        REPO / ".gemini",
         REPO / "guide",
         REPO / "templates",
         REPO / "CHANGELOG.md",
         REPO / "README.md",
-        REPO / "CLAUDE.md",
+        REPO / "GEMINI.md",
         REPO / "MEMORY.md",
         REPO / "TROUBLESHOOTING.md",
     ]
@@ -402,7 +391,7 @@ RULE_KEYWORDS: dict[str, list[str]] = {
     # authors — and a dead entry here misleads future maintainers.
     "post-flight-verification.md": ["claim-verifier", "Post-Flight"],
     "summary-parity.md": [],  # empty = explicitly skipped; applies to edits
-    # Add more as new rules ship that include `.claude/skills/*/SKILL.md`
+    # Add more as new rules ship that include `.gemini/skills/*/SKILL.md`
     # in their paths: or globs: frontmatter.
 }
 
@@ -415,7 +404,7 @@ def check_rule_skill_parity() -> list[tuple[str, str, str]]:
     keywords. Dead entries (scope targets non-skill files) yield nothing.
     """
     findings: list[tuple[str, str, str]] = []
-    for rule_md in sorted(REPO.glob(".claude/rules/*.md")):
+    for rule_md in sorted(REPO.glob(".gemini/rules/*.md")):
         rule_name = rule_md.name
         keywords = RULE_KEYWORDS.get(rule_name)
         if keywords is None or not keywords:
@@ -432,7 +421,7 @@ def check_rule_skill_parity() -> list[tuple[str, str, str]]:
         for pattern in scope:
             if not isinstance(pattern, str):
                 continue
-            if ".claude/skills/" not in pattern:
+            if ".gemini/skills/" not in pattern:
                 continue
             for skill_md in REPO.glob(pattern):
                 try:

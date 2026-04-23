@@ -1,5 +1,5 @@
 ---
-title: "My Claude Code Setup"
+title: "My Gemini CLI Setup"
 subtitle: "A Comprehensive Guide to AI-Assisted Academic Workflows: Slides, Papers, Analysis, and Beyond"
 author: "Pedro H. C. Sant'Anna"
 date: "2026-04-15"
@@ -36,27 +36,27 @@ format:
 
 If you've ever done serious academic work --- built lecture slides, drafted a research paper, run a data analysis pipeline --- you know the pain:
 
-- **Context loss between sessions.** You pick up where you left off, but Claude doesn't remember *why* you chose that notation, *what* the instructor approved, or *which* bugs were fixed last time.
+- **Context loss between sessions.** You pick up where you left off, but Gemini doesn't remember *why* you chose that notation, *what* the instructor approved, or *which* bugs were fixed last time.
 - **Quality is inconsistent.** One slide has perfect spacing; the next overflows. One regression table has proper formatting; the next is missing standard errors. Citations compile in Overleaf but break locally.
 - **Review is manual and exhausting.** You proofread 140 slides by hand. You re-read your paper for the fifth time looking for the same kinds of errors. You miss a typo in an equation. A student or referee catches it.
 - **No one checks the math.** Grammar checkers catch "teh" but not a flipped sign in a decomposition theorem, a misspecified regression, or a broken replication.
 
-This workflow solves all of these problems. You describe what you want --- "translate Lecture 5 to Quarto," "review my paper before submission," or "analyze this dataset and produce publication-ready tables" --- and Claude handles the rest: plans the approach, implements it, runs [specialized reviewers](#sec-system), fixes issues, verifies quality, and presents results. Like a contractor who manages the entire job.
+This workflow solves all of these problems. You describe what you want --- "translate Lecture 5 to Quarto," "review my paper before submission," or "analyze this dataset and produce publication-ready tables" --- and Gemini handles the rest: plans the approach, implements it, runs [specialized reviewers](#sec-system), fixes issues, verifies quality, and presents results. Like a contractor who manages the entire job.
 
-## What Makes Claude Code Different
+## What Makes Gemini CLI Different
 
-Claude Code runs on your computer with full access to your file system, terminal, and git. It works as a **CLI tool**, a **VS Code extension**, or through the **Claude Desktop app** --- same capabilities, same configuration, different interface. Here is what that enables:
+Gemini CLI runs on your computer with full access to your file system, terminal, and git. It works as a **CLI tool**, a **VS Code extension**, or through the **Gemini Desktop app** --- same capabilities, same configuration, different interface. Here is what that enables:
 
 | Capability | What It Means for You |
 |-----------|----------------------|
 | Read & edit your files | Surgical edits to `.tex`, `.qmd`, `.R` files in place |
 | Run shell commands | Compile LaTeX, run R scripts, render Quarto --- directly |
 | Access git history | Commits, PRs, branches --- all from the conversation |
-| Persistent memory | CLAUDE.md + MEMORY.md survive across sessions |
+| Persistent memory | GEMINI.md + MEMORY.md survive across sessions |
 | Orchestrator pattern | Specific skills (`/qa-quarto`, `/review-paper --adversarial`, `/create-lecture`, …) run a 6-step verify-review-fix-score loop internally |
 | Multi-agent workflows | 14 specialized agents for proofreading, layout, pedagogy, code review, fact-checking |
 | Quality review | Advisory scoring inside `/commit` (halt + ask to override); targets: 80 commit, 90 PR, 95 excellence |
-| CLI/headless mode | Run from scripts: `claude -p "compile all lectures"` |
+| CLI/headless mode | Run from scripts: `gemini -p "compile all lectures"` |
 | Browser bridge | Continue sessions on your phone via `/remote-control` |
 
 ::: {.callout-tip}
@@ -69,13 +69,13 @@ While this case study centers on slides, every component --- agents, orchestrato
 
 ## How It All Works Together
 
-Before diving into setup, here is the key insight: **skills hide most of the mechanics**. You describe what you want in plain English, Claude figures out which skill fits, and the skill runs the right agents and checks. There is no repo-wide daemon watching for plan approvals — the work happens *inside* the skill you invoke.
+Before diving into setup, here is the key insight: **skills hide most of the mechanics**. You describe what you want in plain English, Gemini figures out which skill fits, and the skill runs the right agents and checks. There is no repo-wide daemon watching for plan approvals — the work happens *inside* the skill you invoke.
 
 ### What You Do vs What the Skill Does
 
 | You Do | The Skill Does (once invoked) |
 |--------|-------------------------------|
-| Describe what you want | Claude selects and runs the right skill |
+| Describe what you want | Gemini selects and runs the right skill |
 | Approve plans | The skill runs the orchestrator pattern internally |
 | Review final output | Hooks fire on events (edit, save, compact) |
 | Say "commit" when ready | Rules load based on files you touch |
@@ -85,7 +85,7 @@ Before diving into setup, here is the key insight: **skills hide most of the mec
 ```
 You: "Review my lecture slides and fix all issues before tomorrow's class"
      ↓
-Claude automatically:
+Gemini automatically:
   → Runs /proofread (grammar, typos, consistency)
   → Runs /visual-audit (overflow, layout, spacing)
   → Runs /pedagogy-review (narrative flow, notation clarity)
@@ -97,7 +97,7 @@ Claude automatically:
 You see: "Done. Fixed 12 issues. Score: 88/100. Ready to commit?"
 You: "Yes"
      ↓
-Claude runs /commit (only because you explicitly approved)
+Gemini runs /commit (only because you explicitly approved)
 ```
 
 ::: {.panel-tabset}
@@ -107,7 +107,7 @@ Claude runs /commit (only because you explicitly approved)
 ```
 You: "Review my paper draft and prepare it for submission"
      ↓
-Claude automatically:
+Gemini automatically:
   → Runs /review-paper (argument structure, methods, citations)
   → Runs /proofread (grammar, consistency, formatting)
   → Runs /validate-bib (cross-reference citations)
@@ -124,7 +124,7 @@ You see: "Done. Fixed 18 issues. Score: 91/100. Ready to commit?"
 ```
 You: "Analyze this dataset and produce publication-ready output"
      ↓
-Claude automatically:
+Gemini automatically:
   → Runs /data-analysis (explore, model, tables, figures)
   → Runs /review-r (code quality, reproducibility)
   → Produces R script, tables, and figures
@@ -146,35 +146,35 @@ You see: "Analysis complete. 3 tables, 4 figures. Score: 85/100."
 Skills like `/proofread` or `/compile-latex` can be invoked two ways:
 
 1. **Explicitly** --- You type `/proofread MySlides.tex`
-2. **Automatically** --- Claude invokes them when relevant to your request
+2. **Automatically** --- Gemini invokes them when relevant to your request
 
-Most of the time, you just describe what you want and Claude handles the rest. Explicit skill invocation is there when you want precise control.
+Most of the time, you just describe what you want and Gemini handles the rest. Explicit skill invocation is there when you want precise control.
 
 ::: {.callout-important}
 ## The Bottom Line
 
-**You talk, Claude orchestrates.** The 14 agents, 28 skills, and 24 rules exist so you don't have to think about them. Describe your goal, approve the plan, and let the system work.
+**You talk, Gemini orchestrates.** The 14 agents, 28 skills, and 24 rules exist so you don't have to think about them. Describe your goal, approve the plan, and let the system work.
 :::
 
 ::: {.callout-note}
 ## You Don't Need All of This on Day One
 
-This guide describes the full system --- 14 agents, 28 skills, 24 rules. That is the ceiling, not the floor. **Start with just CLAUDE.md and 2--3 skills** (`/compile-latex`, `/proofread`, `/commit`). Add rules and agents as you discover what you need. The template is designed for progressive adoption: fork it, fill in the placeholders, and start working. Everything else is there when you're ready.
+This guide describes the full system --- 14 agents, 28 skills, 24 rules. That is the ceiling, not the floor. **Start with just GEMINI.md and 2--3 skills** (`/compile-latex`, `/proofread`, `/commit`). Add rules and agents as you discover what you need. The template is designed for progressive adoption: fork it, fill in the placeholders, and start working. Everything else is there when you're ready.
 :::
 
 ---
 
 # Getting Started {#sec-setup}
 
-You need three things: install Claude Code, fork the repo, and paste a prompt. Claude handles everything else.
+You need three things: install Gemini CLI, fork the repo, and paste a prompt. Gemini handles everything else.
 
 ## Prerequisites {#sec-prerequisites}
 
 | Requirement | What It Is | How to Get It |
 |-------------|-----------|---------------|
-| **Claude Code** | The AI tool that powers this workflow | `curl -fsSL https://claude.ai/install.sh | bash` ([docs](https://code.claude.com/docs/en/overview)) |
-| **Node.js 18+** | Required to run Claude Code | [nodejs.org](https://nodejs.org) |
-| **Claude account** | Authentication for Claude | [Claude Pro or Max subscription](https://claude.ai) or [Anthropic API key](https://console.anthropic.com) (pay per token) |
+| **Gemini CLI** | The AI tool that powers this workflow | `curl -fsSL https://gemini.ai/install.sh | bash` ([docs](https://code.gemini.com/docs/en/overview)) |
+| **Node.js 18+** | Required to run Gemini CLI | [nodejs.org](https://nodejs.org) |
+| **Gemini account** | Authentication for Gemini | [Gemini Pro or Max subscription](https://gemini.ai) or [Anthropic API key](https://console.anthropic.com) (pay per token) |
 | **git** | Version control (for fork/clone) | Pre-installed on Mac; `brew install git` or [git-scm.com](https://git-scm.com) |
 
 **Optional** (install only what your project uses):
@@ -189,23 +189,23 @@ You need three things: install Claude Code, fork the repo, and paste a prompt. C
 ::: {.callout-note}
 ## What Does This Cost?
 
-**Claude Pro or Max subscription**: Includes Claude Code usage with generous limits. Check [claude.ai](https://claude.ai) for current pricing and tier details. Best for most academics.
+**Gemini Pro or Max subscription**: Includes Gemini CLI usage with generous limits. Check [gemini.ai](https://gemini.ai) for current pricing and tier details. Best for most academics.
 
 **API access** (pay per token): For heavy users or CI/CD. Use [effort levels](#sec-effort) and the [multi-model strategy](#multi-model-strategy-cost-vs-quality) to control costs.
 
-Claude Code itself is free and open source. You pay only for the Claude model usage.
+Gemini CLI itself is free and open source. You pay only for the Gemini model usage.
 :::
 
 ::: {.callout-tip}
 ## Day 1 Checklist
 
-- [ ] Install Claude Code: `curl -fsSL https://claude.ai/install.sh | bash`
+- [ ] Install Gemini CLI: `curl -fsSL https://gemini.ai/install.sh | bash`
 - [ ] Fork the repo and clone it locally
-- [ ] Run `claude` in the project directory (first run will prompt for authentication)
+- [ ] Run `gemini` in the project directory (first run will prompt for authentication)
 - [ ] Paste the starter prompt (fill in your project details)
-- [ ] Wait for Claude to customize `CLAUDE.md` for your project
+- [ ] Wait for Gemini to customize `GEMINI.md` for your project
 - [ ] Approve the configuration plan
-- [ ] Ask Claude to do something: *"Review my slides"* or *"Create a lecture on [topic]"*
+- [ ] Ask Gemini to do something: *"Review my slides"* or *"Create a lecture on [topic]"*
 - [ ] Approve the task plan, watch it work, review the output
 
 That's it. Everything else — agents, hooks, rules — runs automatically in the background.
@@ -214,13 +214,13 @@ That's it. Everything else — agents, hooks, rules — runs automatically in th
 ::: {.callout-tip collapse="true"}
 ## Trouble on Day 1?
 
-**"command not found: claude":** Install Claude Code first: `curl -fsSL https://claude.ai/install.sh | bash`. Requires Node.js 18+ (`node --version` to check).
+**"command not found: gemini":** Install Gemini CLI first: `curl -fsSL https://gemini.ai/install.sh | bash`. Requires Node.js 18+ (`node --version` to check).
 
-**Claude seems to ignore the configuration files:** Make sure you ran `claude` from inside the project directory (not a parent folder). Claude reads `.claude/` and `CLAUDE.md` from the current working directory.
+**Gemini seems to ignore the configuration files:** Make sure you ran `gemini` from inside the project directory (not a parent folder). Gemini reads `.gemini/` and `GEMINI.md` from the current working directory.
 
-**Hooks not firing (no notifications, no reminders):** Check that Python 3 is installed (`python3 --version`) and hook files are executable (`chmod +x .claude/hooks/*`).
+**Hooks not firing (no notifications, no reminders):** Check that Python 3 is installed (`python3 --version`) and hook files are executable (`chmod +x .gemini/hooks/*`).
 
-**"What does plan approval look like?"** Claude presents a numbered plan and asks for your input. Say "approved", "looks good", or "revise step 3". That's it --- no special commands needed.
+**"What does plan approval look like?"** Gemini presents a numbered plan and asks for your input. Say "approved", "looks good", or "revise step 3". That's it --- no special commands needed.
 
 For more, see [Troubleshooting](#troubleshooting) in the Appendix.
 :::
@@ -229,20 +229,20 @@ For more, see [Troubleshooting](#troubleshooting) in the Appendix.
 
 ```bash
 # Fork this repo on GitHub (click "Fork" on the repo page), then:
-git clone https://github.com/YOUR_USERNAME/claude-code-my-workflow.git my-project
+git clone https://github.com/YOUR_USERNAME/gemini-code-my-workflow.git my-project
 cd my-project
 ```
 
 Replace `YOUR_USERNAME` with your GitHub username.
 
-## Step 2: Start Claude Code and Paste This Prompt {#sec-first-session}
+## Step 2: Start Gemini CLI and Paste This Prompt {#sec-first-session}
 
-Open your terminal in the project directory, run `claude`, and paste the following. Fill in the **bolded placeholders** with your project details:
+Open your terminal in the project directory, run `gemini`, and paste the following. Fill in the **bolded placeholders** with your project details:
 
 ::: {.callout-note collapse="true"}
-## Using VS Code or Claude Desktop instead of the terminal?
+## Using VS Code or Gemini Desktop instead of the terminal?
 
-Everything in this guide works the same in any Claude Code interface. In **VS Code**, open the Claude Code panel (click the Claude icon in the sidebar or press Cmd+Shift+P → "Claude Code: Open"). In **Claude Desktop**, open your project folder and start a local session. Then paste the starter prompt below.
+Everything in this guide works the same in any Gemini CLI interface. In **VS Code**, open the Gemini CLI panel (click the Gemini icon in the sidebar or press Cmd+Shift+P → "Gemini CLI: Open"). In **Gemini Desktop**, open your project folder and start a local session. Then paste the starter prompt below.
 
 The guide shows terminal commands because they are the most universal way to explain things, but every skill, agent, hook, and rule works identically regardless of which interface you use.
 :::
@@ -254,23 +254,23 @@ I am starting to work on **[PROJECT NAME]** in this repo. **[Describe your proje
 
 I want our collaboration to be structured, precise, and rigorous --- even if it takes more time. When creating visuals, everything must be polished and publication-ready. I don't want to repeat myself, so our workflow should be smart about remembering decisions and learning from corrections.
 
-I've set up the Claude Code academic workflow (forked from `pedrohcgs/claude-code-my-workflow`). The configuration files are already in this repo (`.claude/`, `CLAUDE.md`, templates, scripts). Please read them, understand the workflow, and then **update all configuration files to fit my project** --- fill in placeholders in `CLAUDE.md`, adjust rules if needed, and propose any customizations specific to my use case.
+I've set up the Gemini CLI academic workflow (forked from `pedrohcgs/gemini-code-my-workflow`). The configuration files are already in this repo (`.gemini/`, `GEMINI.md`, templates, scripts). Please read them, understand the workflow, and then **update all configuration files to fit my project** --- fill in placeholders in `GEMINI.md`, adjust rules if needed, and propose any customizations specific to my use case.
 
 After that, use the plan-first workflow for all non-trivial tasks. Once I approve a plan, switch to contractor mode --- coordinate everything autonomously and only come back to me when there's ambiguity or a decision to make. For our first few sessions, check in with me a bit more often so I can learn how the workflow operates.
 
 Enter plan mode and start by adapting the workflow configuration for this project.
 :::
 
-**What this does:** Claude will read `CLAUDE.md` and all the rules, fill in your project name, institution, Beamer environments, CSS classes, and project state table, then propose any rule adjustments for your specific use case. You approve the plan, and Claude handles the rest. From there, you just describe what you want to build.
+**What this does:** Gemini will read `GEMINI.md` and all the rules, fill in your project name, institution, Beamer environments, CSS classes, and project state table, then propose any rule adjustments for your specific use case. You approve the plan, and Gemini handles the rest. From there, you just describe what you want to build.
 
 ## Optional: Manual Setup
 
-If you prefer to configure things yourself instead of letting Claude handle it:
+If you prefer to configure things yourself instead of letting Gemini handle it:
 
 ::: {.callout-note collapse="true"}
 ## Manual Configuration Steps (click to expand)
 
-**Customize CLAUDE.md** --- Open `CLAUDE.md` and replace all `[BRACKETED PLACEHOLDERS]`:
+**Customize GEMINI.md** --- Open `GEMINI.md` and replace all `[BRACKETED PLACEHOLDERS]`:
 
 1. **Project name and institution**
 2. **Folder structure** (adjust to your layout)
@@ -278,18 +278,18 @@ If you prefer to configure things yourself instead of letting Claude handle it:
 4. **Beamer environments** (your custom LaTeX environments)
 5. **CSS classes** (your Quarto theme classes)
 
-**Create your knowledge base** --- Open `.claude/rules/knowledge-base-template.md` and fill in:
+**Create your knowledge base** --- Open `.gemini/rules/knowledge-base-template.md` and fill in:
 
 1. **Notation registry** --- every symbol you use, where it's introduced, and anti-patterns
 2. **Applications database** --- datasets, papers, and R packages you reference
 3. **Design principles** --- what you've approved and what you've overridden
 
-**Configure permissions** --- Review `.claude/settings.json`. The template includes permissions for git, LaTeX, Quarto, R, and utility scripts. Add any additional tools you use.
+**Configure permissions** --- Review `.gemini/settings.json`. The template includes permissions for git, LaTeX, Quarto, R, and utility scripts. Add any additional tools you use.
 
 **Test it:**
 
 ```bash
-# In Claude Code, type:
+# In Gemini CLI, type:
 /compile-latex MyFirstLecture
 /proofread Slides/MyFirstLecture.tex
 python scripts/quality_score.py Slides/MyFirstLecture.tex
@@ -300,7 +300,7 @@ You don't need to fill everything in upfront. Start with 5--10 notation entries 
 
 ## Requirements Specification (For Complex Tasks) {#sec-spec-then-plan}
 
-For complex or ambiguous tasks, Claude may ask 3-5 clarifying questions to create a requirements specification before planning. This catches ambiguity early and reduces rework.
+For complex or ambiguous tasks, Gemini may ask 3-5 clarifying questions to create a requirements specification before planning. This catches ambiguity early and reduces rework.
 
 ::: {.panel-tabset}
 
@@ -308,7 +308,7 @@ For complex or ambiguous tasks, Claude may ask 3-5 clarifying questions to creat
 ```
 You: "Improve my lecture on hypothesis testing"
 
-Claude: "Let me clarify:
+Gemini: "Let me clarify:
 1. What needs improvement (clarity, examples, pacing)?
 2. Any student feedback to address?
 3. Constraints (time, notation changes)?
@@ -323,7 +323,7 @@ Claude: "Let me clarify:
 ```
 You: "Analyze the survey data"
 
-Claude: "Let me clarify:
+Gemini: "Let me clarify:
 1. What's the research question?
 2. Expected output format (tables, plots, report)?
 3. Any replication targets or baselines?
@@ -334,7 +334,7 @@ Claude: "Let me clarify:
 ```
 You: "Clean up my analysis scripts"
 
-Claude: "Let me clarify:
+Gemini: "Let me clarify:
 1. What's the pain point (speed, readability, bugs)?
 2. Breaking changes okay or preserve compatibility?
 3. Testing infrastructure available?
@@ -343,14 +343,14 @@ Claude: "Let me clarify:
 
 :::
 
-After 3-5 questions, Claude creates a specification document in `quality_reports/specs/` with:
+After 3-5 questions, Gemini creates a specification document in `quality_reports/specs/` with:
 
 - **MUST** have (non-negotiable requirements)
 - **SHOULD** have (preferred features)
 - **MAY** have (optional enhancements)
 - **Clarity status** (CLEAR/ASSUMED/BLOCKED for each aspect)
 
-You approve the spec, then Claude plans implementation. This reduces mid-plan pivots by 30-50%.
+You approve the spec, then Gemini plans implementation. This reduces mid-plan pivots by 30-50%.
 
 **Template:** `templates/requirements-spec.md`
 
@@ -362,11 +362,11 @@ With setup covered, here is what the system actually *does*. This section walks 
 
 ## Why Specialized Agents Beat One-Size-Fits-All
 
-Consider proofreading a 140-slide lecture deck. You could ask Claude:
+Consider proofreading a 140-slide lecture deck. You could ask Gemini:
 
 > "Review these slides for grammar, layout, math correctness, code quality, and pedagogical flow."
 
-Claude will skim everything and catch some issues. But it will miss:
+Gemini will skim everything and catch some issues. But it will miss:
 
 - The equation on slide 42 where a subscript changed from $m_t^{d=0}$ to $m_t^0$
 - The TikZ diagram where two labels overlap at presentation resolution
@@ -413,7 +413,7 @@ APPROVED   NEEDS WORK
           ... (up to 5 rounds)
 ```
 
-**Why it works:** The critic can't fix files (read-only), so it has no incentive to downplay issues. The fixer can't approve itself (the critic re-audits). This prevents the common failure of Claude saying "looks good" about its own work.
+**Why it works:** The critic can't fix files (read-only), so it has no incentive to downplay issues. The fixer can't approve itself (the critic re-audits). This prevents the common failure of Gemini saying "looks good" about its own work.
 
 ::: {.callout-tip}
 ## Real Example
@@ -425,7 +425,7 @@ In Econ 730 Lecture 6, the critic caught that the Quarto version used `\cdots` (
 
 Individual agents are specialists. Skills like `/slide-excellence` and `/qa-quarto` coordinate a few agents for specific tasks. In day-to-day work, you don't have to think about which agents to run — the right skill runs the right agents for you.
 
-The **orchestrator protocol** (`.claude/rules/orchestrator-protocol.md`) defines the 6-step loop (IMPLEMENT → VERIFY → REVIEW → FIX → RE-VERIFY → SCORE) that skills implement internally. It is **not** a runtime daemon: plan approval does NOT auto-trigger this loop. You invoke a skill (e.g., `/create-lecture`, `/qa-quarto`, `/review-paper --adversarial`) and the skill runs the pattern within its own scope.
+The **orchestrator protocol** (`.gemini/rules/orchestrator-protocol.md`) defines the 6-step loop (IMPLEMENT → VERIFY → REVIEW → FIX → RE-VERIFY → SCORE) that skills implement internally. It is **not** a runtime daemon: plan approval does NOT auto-trigger this loop. You invoke a skill (e.g., `/create-lecture`, `/qa-quarto`, `/review-paper --adversarial`) and the skill runs the pattern within its own scope.
 
 What's mechanically implemented today: `/commit` (verifier + quality_score), `/qa-quarto` (critic-fixer loop), `/review-paper --adversarial` (critic-fixer loop), `/slide-excellence` (multi-agent fanout), `/review-paper --peer` (editor + 2 referees + cross-artifact). See [Pattern 2](#pattern-2-contractor-mode-orchestrator) for the complete workflow.
 
@@ -455,7 +455,7 @@ Points are deducted for issues:
 
 ### Mandatory Verification
 
-The verification protocol (`.claude/rules/verification-protocol.md`) requires that Claude compile, render, or otherwise verify every output before reporting a task as complete. Skills that implement the orchestrator pattern enforce this as Step 2: VERIFY. This means Claude **cannot** say "done" from within those skills without actually checking the output.
+The verification protocol (`.gemini/rules/verification-protocol.md`) requires that Gemini compile, render, or otherwise verify every output before reporting a task as complete. Skills that implement the orchestrator pattern enforce this as Step 2: VERIFY. This means Gemini **cannot** say "done" from within those skills without actually checking the output.
 
 ::: {.callout-warning}
 ## Don't Skip Verification
@@ -479,7 +479,7 @@ Every domain can benefit from these five review lenses:
 | **Code-Theory Alignment** | Does code implement the formula? | R script matches the slide equation? | Simulation parameters match theory? |
 | **Logic Chain** | Does the reasoning flow? | Can a PhD student follow backwards? | Are prerequisites established? |
 
-To customize, open `.claude/agents/domain-reviewer.md` and fill in:
+To customize, open `.gemini/agents/domain-reviewer.md` and fill in:
 
 1. Your domain's common assumption types
 2. Typical derivation patterns to verify
@@ -491,13 +491,13 @@ To customize, open `.claude/agents/domain-reviewer.md` and fill in:
 
 # The Building Blocks {#sec-blocks}
 
-Understanding the configuration layers helps you customize the workflow and debug when things go wrong. Claude Code's power comes from five configuration layers that work together --- think of them as the operating system for your academic project.
+Understanding the configuration layers helps you customize the workflow and debug when things go wrong. Gemini CLI's power comes from five configuration layers that work together --- think of them as the operating system for your academic project.
 
-## CLAUDE.md --- Your Project's Constitution
+## GEMINI.md --- Your Project's Constitution
 
-`CLAUDE.md` is the single most important file. Claude reads it at the start of every session. But here is the critical insight: **Claude reliably follows about 100--150 custom instructions.** Your system prompt already uses ~50, leaving ~100--150 for your project. CLAUDE.md and always-on rules share this budget.
+`GEMINI.md` is the single most important file. Gemini reads it at the start of every session. But here is the critical insight: **Gemini reliably follows about 100--150 custom instructions.** Your system prompt already uses ~50, leaving ~100--150 for your project. GEMINI.md and always-on rules share this budget.
 
-This means CLAUDE.md should be a **slim constitution** --- short directives and pointers, not comprehensive documentation. Aim for ~120 lines:
+This means GEMINI.md should be a **slim constitution** --- short directives and pointers, not comprehensive documentation. Aim for ~120 lines:
 
 - **Core principles** --- 4--5 bullets (plan-first, verify-after, quality gates, LEARN tags)
 - **Folder structure** --- where everything lives
@@ -506,7 +506,7 @@ This means CLAUDE.md should be a **slim constitution** --- short directives and 
 - **Current state** --- what's done, what's in progress
 - **Skill quick reference** --- table of available slash commands
 
-Move everything else into `.claude/rules/` files (with path-scoping so they only load when relevant).
+Move everything else into `.gemini/rules/` files (with path-scoping so they only load when relevant).
 
 ```markdown
 # CLAUDE.MD --- My Course Development
@@ -532,17 +532,17 @@ Move everything else into `.claude/rules/` files (with path-scoping so they only
 ::: {.callout-important}
 ## Keep It Lean
 
-CLAUDE.md loads every session. If it exceeds ~150 lines, Claude starts ignoring rules silently. Put detailed standards in path-scoped rules (`.claude/rules/`) instead --- they only load when Claude works on matching files, so they don't compete for attention.
+GEMINI.md loads every session. If it exceeds ~150 lines, Gemini starts ignoring rules silently. Put detailed standards in path-scoped rules (`.gemini/rules/`) instead --- they only load when Gemini works on matching files, so they don't compete for attention.
 :::
 
 ## Rules --- Domain Knowledge That Auto-Loads {#rules---domain-knowledge-that-auto-loads}
 
-Rules are markdown files in `.claude/rules/` that Claude loads automatically. They encode your project's standards. The key design principle is **path-scoping**: rules with a `paths:` YAML frontmatter only load when Claude works on matching files.
+Rules are markdown files in `.gemini/rules/` that Gemini loads automatically. They encode your project's standards. The key design principle is **path-scoping**: rules with a `paths:` YAML frontmatter only load when Gemini works on matching files.
 
 **Always-on rules** (no `paths:` frontmatter) load every session. Keep these few and focused:
 
 ```
-.claude/rules/
+.gemini/rules/
 ├── plan-first-workflow.md       # ~83 lines — plan before you build
 ├── orchestrator-protocol.md     # ~42 lines — contractor mode loop
 ├── session-logging.md           # ~23 lines — three logging triggers
@@ -552,7 +552,7 @@ Rules are markdown files in `.claude/rules/` that Claude loads automatically. Th
 **Path-scoped rules** load only when relevant:
 
 ```
-.claude/rules/
+.gemini/rules/
 ├── r-code-conventions.md        # paths: ["**/*.R"] — R standards
 ├── quality-gates.md             # paths: ["*.tex", "*.qmd", "*.R"] — scoring
 ├── verification-protocol.md     # paths: ["*.tex", "*.qmd", "docs/"] — verify before done
@@ -562,11 +562,11 @@ Rules are markdown files in `.claude/rules/` that Claude loads automatically. Th
 └── ...20 path-scoped rules total
 ```
 
-The first three always-on rules total ~148 lines of actionable instructions. `meta-governance` is a reference document for the template's dual nature (working project vs. public template) and loads passively. Path-scoped rules add rich, domain-specific guidance exactly when Claude needs it.
+The first three always-on rules total ~148 lines of actionable instructions. `meta-governance` is a reference document for the template's dual nature (working project vs. public template) and loads passively. Path-scoped rules add rich, domain-specific guidance exactly when Gemini needs it.
 
 **Sync vs. translate:** The `beamer-quarto-sync` rule handles incremental edits --- fix a typo in Beamer, same fix goes to Quarto. The `/translate-to-quarto` skill is for full initial translation of a new lecture. Translate once, sync thereafter.
 
-**Why rules matter:** Without them, Claude will use generic defaults. With them, Claude follows *your* standards consistently across sessions.
+**Why rules matter:** Without them, Gemini will use generic defaults. With them, Gemini follows *your* standards consistently across sessions.
 
 ### Example: Path-Scoped R Code Conventions Rule
 
@@ -592,7 +592,7 @@ primary_blue  <- "#012169"
 primary_gold  <- "#f2a900"
 ```
 
-The `paths:` block means this rule only loads when Claude reads or edits an `.R` file. When Claude works on a `.tex` file, this rule doesn't consume any of the instruction budget.
+The `paths:` block means this rule only loads when Gemini reads or edits an `.R` file. When Gemini works on a `.tex` file, this rule doesn't consume any of the instruction budget.
 
 ## Constitutional Governance (Optional)
 
@@ -619,7 +619,7 @@ Use constitutional governance **after** you've established 3-7 recurring pattern
 
 ## Skills --- Reusable Slash Commands {#skills---reusable-slash-commands}
 
-Skills are multi-step workflows invoked with `/command`. Each skill lives in `.claude/skills/[name]/SKILL.md`:
+Skills are multi-step workflows invoked with `/command`. Each skill lives in `.gemini/skills/[name]/SKILL.md`:
 
 ```yaml
 ---
@@ -653,7 +653,7 @@ argument-hint: "[filename without .tex extension]"
 ::: {.callout-note}
 ## Built-In Skills
 
-Claude Code ships with built-in skills beyond this template's 28: `/batch` orchestrates parallel refactoring across your codebase (using git worktrees for isolation), `/simplify` runs 3-agent code review and applies fixes, and `/debug` helps troubleshoot sessions. These complement the academic skills above.
+Gemini CLI ships with built-in skills beyond this template's 28: `/batch` orchestrates parallel refactoring across your codebase (using git worktrees for isolation), `/simplify` runs 3-agent code review and applies fixes, and `/debug` helps troubleshoot sessions. These complement the academic skills above.
 :::
 
 ## Agents --- Specialized Reviewers {#agents---specialized-reviewers}
@@ -661,7 +661,7 @@ Claude Code ships with built-in skills beyond this template's 28: `/batch` orche
 Agents are the real power of this system. Each agent is an expert in one dimension of quality:
 
 ```
-.claude/agents/
+.gemini/agents/
 +-- proofreader.md        # Grammar, typos, consistency
 +-- slide-auditor.md      # Visual layout, overflow, spacing
 +-- pedagogy-reviewer.md  # Narrative arc, notation clarity, pacing
@@ -707,9 +707,9 @@ Save findings to: quality_reports/[FILENAME]_report.md
 ::: {.callout-note}
 ## Why Specialized Agents?
 
-A single Claude prompt trying to check grammar, layout, math, and code simultaneously will do a mediocre job at all of them. Specialized agents focus on one dimension and do it thoroughly. The `/slide-excellence` skill runs them all in parallel, then synthesizes results.
+A single Gemini prompt trying to check grammar, layout, math, and code simultaneously will do a mediocre job at all of them. Specialized agents focus on one dimension and do it thoroughly. The `/slide-excellence` skill runs them all in parallel, then synthesizes results.
 
-Claude Code also offers experimental **Agent Teams** --- multiple independent sessions that coordinate, share findings, and challenge each other's approaches. This is a research preview feature; the orchestrator + subagent pattern described here is more mature for academic workflows.
+Gemini CLI also offers experimental **Agent Teams** --- multiple independent sessions that coordinate, share findings, and challenge each other's approaches. This is a research preview feature; the orchestrator + subagent pattern described here is more mature for academic workflows.
 :::
 
 ### Multi-Model Strategy: Cost vs. Quality {#multi-model-strategy-cost-vs-quality}
@@ -770,7 +770,7 @@ Use `maxTurns` to prevent review agents from looping indefinitely, and `tools` t
 
 ## Settings --- Permissions and Hooks {#settings---permissions-and-hooks}
 
-`.claude/settings.json` controls what Claude is allowed to do. Here is a simplified excerpt --- the template includes additional permission entries for git, GitHub CLI, PDF tools, and more:
+`.gemini/settings.json` controls what Gemini is allowed to do. Here is a simplified excerpt --- the template includes additional permission entries for git, GitHub CLI, PDF tools, and more:
 
 ```json
 {
@@ -788,7 +788,7 @@ Use `maxTurns` to prevent review agents from looping indefinitely, and `tools` t
       {
         "hooks": [{
           "type": "command",
-          "command": "python3 \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/log-reminder.py",
+          "command": "python3 \"$CLAUDE_PROJECT_DIR\"/.gemini/hooks/log-reminder.py",
           "timeout": 10
         }]
       }
@@ -797,7 +797,7 @@ Use `maxTurns` to prevent review agents from looping indefinitely, and `tools` t
 }
 ```
 
-**Permission modes.** Claude Code has five permission modes that control how much autonomy Claude gets:
+**Permission modes.** Gemini CLI has five permission modes that control how much autonomy Gemini gets:
 
 | Mode | Internal Name | Behavior | When to Use |
 |------|--------------|----------|-------------|
@@ -807,19 +807,19 @@ Use `maxTurns` to prevent review agents from looping indefinitely, and `tools` t
 | **Plan** | `plan` | Read-only --- no edits allowed | Exploring code, reviewing before acting |
 | **Bypass** | `bypassPermissions` | Skips all permission prompts | CI/CD pipelines, headless scripts (still blocks `.git/`) |
 
-Set via CLI flag (`claude --permission-mode plan`), the `/config` command, or `permissions.defaultMode` in `settings.json`.
+Set via CLI flag (`gemini --permission-mode plan`), the `/config` command, or `permissions.defaultMode` in `settings.json`.
 
 ### The Six-Layer Permission Stack
 
-Permission mode is not resolved from a single file. Claude Code honors **six layers**, with later layers overriding earlier ones:
+Permission mode is not resolved from a single file. Gemini CLI honors **six layers**, with later layers overriding earlier ones:
 
 | # | Layer | Location | Key |
 |---|---|---|---|
-| 1 | VSCode user | `~/Library/Application Support/Code/User/settings.json` (macOS), `~/.config/Code/User/settings.json` (Linux), `%APPDATA%/Code/User/settings.json` (Windows) | `claudeCode.initialPermissionMode` |
-| 2 | VSCode workspace | `<repo>/.vscode/settings.json` | `claudeCode.initialPermissionMode` |
-| 3 | CLI user | `~/.claude/settings.json` | `permissions.defaultMode` |
-| 4 | CLI project | `<repo>/.claude/settings.json` | `permissions.defaultMode` |
-| 5 | CLI project-local (gitignored) | `<repo>/.claude/settings.local.json` | `permissions.defaultMode` |
+| 1 | VSCode user | `~/Library/Application Support/Code/User/settings.json` (macOS), `~/.config/Code/User/settings.json` (Linux), `%APPDATA%/Code/User/settings.json` (Windows) | `geminiCode.initialPermissionMode` |
+| 2 | VSCode workspace | `<repo>/.vscode/settings.json` | `geminiCode.initialPermissionMode` |
+| 3 | CLI user | `~/.gemini/settings.json` | `permissions.defaultMode` |
+| 4 | CLI project | `<repo>/.gemini/settings.json` | `permissions.defaultMode` |
+| 5 | CLI project-local (gitignored) | `<repo>/.gemini/settings.local.json` | `permissions.defaultMode` |
 | 6 | **In-session runtime** | (ephemeral) | toggled via `Shift+Tab` / `/permission-mode` |
 
 **Layer 6 is authoritative** and catches most users off-guard. `initialPermissionMode` only fires at **session start** --- if you (or `Shift+Tab`) change modes mid-session, every file-level layer is ignored until the session ends.
@@ -828,11 +828,11 @@ Permission mode is not resolved from a single file. Claude Code honors **six lay
 
 This is the single most common source of confusion. Work through the checklist in order:
 
-1. **Look at the status line** at the top of the Claude Code panel. With this repo's `statusLine` configured, it prints `[BYPASS]`, `[PLAN]`, `[AUTO-EDIT]`, or `[PROMPT]` for the four standard modes. Any other mode Claude Code reports (e.g., `dontAsk`) is shown as a bracketed raw name like `[dontAsk]`. If it doesn't say `[BYPASS]`, you have an in-session override --- press `Shift+Tab` to cycle modes until you land on bypass.
+1. **Look at the status line** at the top of the Gemini CLI panel. With this repo's `statusLine` configured, it prints `[BYPASS]`, `[PLAN]`, `[AUTO-EDIT]`, or `[PROMPT]` for the four standard modes. Any other mode Gemini CLI reports (e.g., `dontAsk`) is shown as a bracketed raw name like `[dontAsk]`. If it doesn't say `[BYPASS]`, you have an in-session override --- press `Shift+Tab` to cycle modes until you land on bypass.
 2. **Run `/permission-check`** to see every layer's value, the resolved merged state, and any drift (e.g., project says bypass but project-local says default).
 3. **Check for stale sessions.** If settings changed recently but the session predates the change, it still runs under the old mode. Reload the window (`Cmd+Shift+P` → "Developer: Reload Window") and start a new session.
 4. **Check `deny` lists.** A match in any layer's `deny` blocks the tool regardless of `allow` entries elsewhere.
-5. **VSCode vs CLI split.** If the VSCode layers say bypass but no CLI layer does, a terminal-launched Claude Code will still prompt. Align them.
+5. **VSCode vs CLI split.** If the VSCode layers say bypass but no CLI layer does, a terminal-launched Gemini CLI will still prompt. Align them.
 
 ### The Plan → Bypass Handoff (Recommended Daily Driver)
 
@@ -849,11 +849,11 @@ Treat this flow as a convenience pattern, not a security control. If you need a 
 The flow:
 
 ```
-Start session in plan mode  (Shift+Tab at startup, or claude --permission-mode plan)
+Start session in plan mode  (Shift+Tab at startup, or gemini --permission-mode plan)
      |
      | Read-only exploration + planning
-     |   Claude can Read, Grep, run Bash readonly, spawn Explore/Plan agents
-     |   Claude CANNOT edit files (except the plan file itself)
+     |   Gemini can Read, Grep, run Bash readonly, spawn Explore/Plan agents
+     |   Gemini CANNOT edit files (except the plan file itself)
      |
      v
 Plan drafted, saved to quality_reports/plans/YYYY-MM-DD_description.md
@@ -861,7 +861,7 @@ Plan drafted, saved to quality_reports/plans/YYYY-MM-DD_description.md
      v
 User approves via ExitPlanMode UI
      |
-     | Claude Code returns the session to defaultMode.
+     | Gemini CLI returns the session to defaultMode.
      | If defaultMode = bypassPermissions, execution now runs
      | without approval prompts.
      v
@@ -880,7 +880,7 @@ Orchestrator executes the plan end-to-end --- no prompts.
 ::: {.callout-warning}
 ## Plans Directory
 
-By default, Claude saves plans to a global directory (`~/.claude/plans/`), not your project. To keep plans with your project (and in git), add this to `.claude/settings.json`:
+By default, Gemini saves plans to a global directory (`~/.gemini/plans/`), not your project. To keep plans with your project (and in git), add this to `.gemini/settings.json`:
 
 ```json
 {
@@ -889,11 +889,11 @@ By default, Claude saves plans to a global directory (`~/.claude/plans/`), not y
 ```
 :::
 
-The **Stop hook** runs a fast Python script after every response. No LLM call, no latency. It checks whether the session log is current and reminds Claude to update it if not. Behavioral rules like verification and Beamer-Quarto sync are enforced via auto-loaded rules in `.claude/rules/`, which is the right tool for nuanced judgment that Claude can evaluate in-context.
+The **Stop hook** runs a fast Python script after every response. No LLM call, no latency. It checks whether the session log is current and reminds Gemini to update it if not. Behavioral rules like verification and Beamer-Quarto sync are enforced via auto-loaded rules in `.gemini/rules/`, which is the right tool for nuanced judgment that Gemini can evaluate in-context.
 
 ## Effort Levels --- Cost vs. Thoroughness {#sec-effort}
 
-Claude Code lets you control how deeply it reasons about each task. Higher effort means more "thinking tokens" and better results --- but higher cost.
+Gemini CLI lets you control how deeply it reasons about each task. Higher effort means more "thinking tokens" and better results --- but higher cost.
 
 | Level | Thinking Budget | Academic Use Case | Relative Cost |
 |-------|----------------|-------------------|---------------|
@@ -918,7 +918,7 @@ Effort levels compose with model selection for fine-grained cost control. For ex
 
 ## Memory --- Cross-Session Persistence {#memory---cross-session-persistence}
 
-Claude Code has an auto-memory system at `~/.claude/projects/[project]/memory/MEMORY.md`. This file persists across sessions and is loaded into every conversation.
+Gemini CLI has an auto-memory system at `~/.gemini/projects/[project]/memory/MEMORY.md`. This file persists across sessions and is loaded into every conversation.
 
 Use it for:
 - Key project facts that never change
@@ -950,36 +950,36 @@ See Pattern 1 in [Workflow Patterns](#sec-patterns) for the full protocol.
 
 ### Session Logs --- Why-Not-Just-What History (with Automated Reminders)
 
-Git commits record what changed, but not *why*. Session logs fill this gap. Claude writes to `quality_reports/session_logs/` at three points: right after plan approval, incrementally during implementation (as decisions happen), and at session end. This means the log captures reasoning *as it happens*, before auto-compression can discard it.
+Git commits record what changed, but not *why*. Session logs fill this gap. Gemini writes to `quality_reports/session_logs/` at three points: right after plan approval, incrementally during implementation (as decisions happen), and at session end. This means the log captures reasoning *as it happens*, before auto-compression can discard it.
 
-Because relying on instructions alone is fragile (Claude forgets during long sessions), a **Stop hook** (`.claude/hooks/log-reminder.py`) fires after every response. It tracks how many responses have passed since the session log was last updated. After a threshold, it blocks Claude from stopping until the log is current. This turns a best practice into an enforced behavior.
+Because relying on instructions alone is fragile (Gemini forgets during long sessions), a **Stop hook** (`.gemini/hooks/log-reminder.py`) fires after every response. It tracks how many responses have passed since the session log was last updated. After a threshold, it blocks Gemini from stopping until the log is current. This turns a best practice into an enforced behavior.
 
 New sessions can read these logs to understand not just the current state of the project, but the reasoning behind it. See Pattern 1 in [Workflow Patterns](#sec-patterns) for the full protocol.
 
 ### How It All Fits Together
 
-With CLAUDE.md, MEMORY.md, plans, and session logs, the system has four distinct memory layers. Here is what each one does and when it matters:
+With GEMINI.md, MEMORY.md, plans, and session logs, the system has four distinct memory layers. Here is what each one does and when it matters:
 
 | Layer | File | Survives Compression? | Updated When | Purpose |
 |-------|------|----------------------|--------------|---------|
-| Project context | `CLAUDE.md` | Yes (on disk) | Rarely | Project rules, folder structure, commands |
+| Project context | `GEMINI.md` | Yes (on disk) | Rarely | Project rules, folder structure, commands |
 | Corrections | `MEMORY.md` | Yes (on disk) | On `[LEARN]` tag | Prevent repeating past mistakes |
 | Task strategy | `quality_reports/plans/` | Yes (on disk) | Once per task | Plan survives planning-to-implementation handoff |
 | Decision reasoning | `quality_reports/session_logs/` | Yes (on disk) | Incrementally | Record *why* decisions were made |
-| Conversation | Claude's context window | **No** (compressed) | Every response | Current working memory |
+| Conversation | Gemini's context window | **No** (compressed) | Every response | Current working memory |
 
 The first four layers are your safety net. Anything written to disk survives indefinitely. The conversation context is ephemeral --- auto-compression will eventually discard details. The workflow's design ensures that anything worth keeping is written to one of the four persistent layers before compression can erase it.
 
 ### Hooks --- Automated Enforcement {#hooks---automated-enforcement}
 
-The session log reminder above is one example of a broader pattern: using **hooks** to enforce rules that Claude might otherwise forget during long sessions. Rules live in context and can be compressed away. Hooks live in `.claude/settings.json` and fire every time, regardless of context state.
+The session log reminder above is one example of a broader pattern: using **hooks** to enforce rules that Gemini might otherwise forget during long sessions. Rules live in context and can be compressed away. Hooks live in `.gemini/settings.json` and fire every time, regardless of context state.
 
 The template includes hooks for logging, notifications, and context survival:
 
 | Hook | Event | What It Does |
 |------|-------|-------------|
 | Session log reminder | `Stop` | Reminds about session logs after every response |
-| Desktop notification | `Notification` | Desktop alert when Claude needs attention (macOS/Linux) |
+| Desktop notification | `Notification` | Desktop alert when Gemini needs attention (macOS/Linux) |
 | Context state capture | `PreCompact` | Saves plan state before auto-compaction |
 | Context restoration | `SessionStart[compact|resume]` | Restores context after compaction or resume |
 | Context monitor | `PostToolUse[Bash|Task]` | Progressive warnings at 40%/55%/65%/80%/90% context |
@@ -987,12 +987,12 @@ The template includes hooks for logging, notifications, and context survival:
 
 Verification and Beamer-Quarto sync are enforced via auto-loaded rules, which are the right tool for nuanced judgment. Hooks are reserved for enforcement that *must* survive context compression.
 
-**Hook handler types.** The examples above use `command` hooks (shell scripts), but Claude Code supports four handler types:
+**Hook handler types.** The examples above use `command` hooks (shell scripts), but Gemini CLI supports four handler types:
 
 | Type | How It Works | Best For |
 |------|-------------|----------|
 | **`command`** | Runs a shell script. Exit 0 = allow, exit 2 = block (PreToolUse only) | File protection, state capture, notifications |
-| **`prompt`** | Injects text into Claude's conversation --- no script needed | Soft reminders: "Check that equations compile before saving" |
+| **`prompt`** | Injects text into Gemini's conversation --- no script needed | Soft reminders: "Check that equations compile before saving" |
 | **`http`** | POSTs to an external endpoint | CI/CD integration, logging to external services |
 | **`agent`** | Spawns a subagent that can use tools to verify conditions | Complex validation requiring multi-step checks |
 
@@ -1000,12 +1000,12 @@ Verification and Beamer-Quarto sync are enforced via auto-loaded rules, which ar
 
 ::: {.callout-tip}
 ## Hook Design Principle
-Use **command hooks** for fast, mechanical checks (file exists? counter threshold?). Use **prompt hooks** for soft guidance that doesn't need a script. Use **rules** for nuanced judgment (did Claude verify correctly?). Avoid prompt hooks that fire on high-frequency events --- the injected text adds up in context.
+Use **command hooks** for fast, mechanical checks (file exists? counter threshold?). Use **prompt hooks** for soft guidance that doesn't need a script. Use **rules** for nuanced judgment (did Gemini verify correctly?). Avoid prompt hooks that fire on high-frequency events --- the injected text adds up in context.
 :::
 
 ### Context Survival System (Advanced) {#context-survival-system-advanced}
 
-When context compaction happens, Claude loses working memory. The **context survival system** ensures you can recover seamlessly.
+When context compaction happens, Gemini loses working memory. The **context survival system** ensures you can recover seamlessly.
 
 #### How It Works
 
@@ -1026,14 +1026,14 @@ Session running → context fills up → PreCompact fires
                                     post-compact-restore.py:
                                     • Reads saved state
                                     • Prints context summary
-                                    • Claude knows where it left off
+                                    • Gemini knows where it left off
 ```
 
 #### What Gets Saved
 
 | State | Location | Purpose |
 |-------|----------|---------|
-| Plan path | Session cache | So Claude can read the plan file |
+| Plan path | Session cache | So Gemini can read the plan file |
 | Current task | Session cache | First unchecked `- [ ]` item |
 | Recent decisions | Session cache | Last 3 decision-like entries from session log |
 | Compaction note | Session log | Timestamp marker for reference |
@@ -1054,19 +1054,19 @@ Note: the monitor uses tool call count as a proxy for context usage, so warnings
 
 #### Recovery After Compaction
 
-If compaction happens mid-task, Claude will automatically see:
+If compaction happens mid-task, Gemini will automatically see:
 
 1. **Restoration message** --- what plan was active, what task was in progress
 2. **Recovery actions** --- read the plan, check git status, continue
 
-You can also manually point Claude to the right context:
+You can also manually point Gemini to the right context:
 
 > "We just had compaction. Read `quality_reports/plans/2026-02-06_translate-lecture5.md` and continue from where we left off."
 
 ::: {.callout-note}
 ## 2026 Feature Coverage
 
-Now that you understand the building blocks, here's what's new: Claude Code has added [effort levels](#sec-effort) for cost control, [expanded hook events](#hooks---automated-enforcement), [skill frontmatter fields](#skill-frontmatter) for fine-grained skill configuration, [permission modes](#settings---permissions-and-hooks) for controlling Claude's autonomy, [advanced agent configuration](#sec-agent-config), plugins, `/batch` for parallel refactoring, and headless CLI mode. Each is covered in its respective section above.
+Now that you understand the building blocks, here's what's new: Gemini CLI has added [effort levels](#sec-effort) for cost control, [expanded hook events](#hooks---automated-enforcement), [skill frontmatter fields](#skill-frontmatter) for fine-grained skill configuration, [permission modes](#settings---permissions-and-hooks) for controlling Gemini's autonomy, [advanced agent configuration](#sec-agent-config), plugins, `/batch` for parallel refactoring, and headless CLI mode. Each is covered in its respective section above.
 :::
 
 ---
@@ -1085,9 +1085,9 @@ The most common failure mode in AI-assisted development is not bad code --- it i
 
 Without a plan:
 
-- Claude starts editing immediately, discovers a dependency on slide 3 that changes the approach, and has to undo work
-- Context compression discards the reasoning behind a design choice, and Claude makes a contradictory decision later
-- The user and Claude have different mental models of what "done" looks like
+- Gemini starts editing immediately, discovers a dependency on slide 3 that changes the approach, and has to undo work
+- Context compression discards the reasoning behind a design choice, and Gemini makes a contradictory decision later
+- The user and Gemini have different mental models of what "done" looks like
 
 With a plan:
 
@@ -1100,7 +1100,7 @@ With a plan:
 ```
 Non-trivial task arrives
   |
-  +-- Step 1: Claude enters plan mode (automatic, or say "plan this first")
+  +-- Step 1: Gemini enters plan mode (automatic, or say "plan this first")
   +-- Step 2: Draft plan (approach, files, verification)
   +-- Step 3: Save to quality_reports/plans/YYYY-MM-DD_description.md
   +-- Step 4: Present plan to user
@@ -1134,12 +1134,12 @@ Session logs (`quality_reports/session_logs/YYYY-MM-DD_description.md`) are a ru
 **Incremental logging is the key.** A 4-hour session that only logs at the start and end loses everything in the middle. Appending decisions as they happen means auto-compression can never erase them --- they are already on disk.
 :::
 
-Claude writes all three log entries automatically --- no need to ask.
+Gemini writes all three log entries automatically --- no need to ask.
 
 ::: {.callout-tip collapse="true"}
 ## Weekly Reviews
 
-For multi-project academics, start each week by asking Claude to read all session logs from the past week and synthesize a status report with priorities and open questions. The session log infrastructure already captures what you need --- the weekly review is just a synthesis prompt: *"Read all session logs from this week. Summarize: what was accomplished, what's blocked, what should I prioritize next?"*
+For multi-project academics, start each week by asking Gemini to read all session logs from the past week and synthesize a status report with priorities and open questions. The session log infrastructure already captures what you need --- the weekly review is just a synthesis prompt: *"Read all session logs from this week. Summarize: what was accomplished, what's blocked, what should I prioritize next?"*
 :::
 
 ## Pattern 2: Contractor Mode (Orchestrator) {#pattern-2-contractor-mode-orchestrator}
@@ -1226,7 +1226,7 @@ The difference: when you invoke a skill directly, it runs its specific workflow.
 ::: {.callout-tip collapse="true"}
 ## When to Use Skills vs. the Orchestrator
 
-**Natural-language task** → Claude picks a skill: "Translate Lecture 5 to Quarto" → Claude invokes `/translate-to-quarto`, and that skill runs the orchestrator pattern (translate → verify → review → fix → score) internally.
+**Natural-language task** → Gemini picks a skill: "Translate Lecture 5 to Quarto" → Gemini invokes `/translate-to-quarto`, and that skill runs the orchestrator pattern (translate → verify → review → fix → score) internally.
 
 **Explicit skill call:** `/qa-quarto Lecture5` — you specifically want the adversarial critic-fixer loop, nothing else.
 
@@ -1258,7 +1258,7 @@ The `/create-lecture` skill guides you through a structured lecture creation wor
 
 Writing TikZ from a blank page reliably produces label-over-arrow collisions because the compiler doesn't warn about them. The template ships three reinforcing layers:
 
-- **[`templates/tikz-snippets/`](https://github.com/pedrohcgs/claude-code-my-workflow/tree/main/templates/tikz-snippets)** — 8 production-ready standalone diagrams (DAG basic, DAG mediation, two-period DiD, event study, timeline, regression scatter, 3-step flowchart, supply-demand). Each embeds the prevention rules (explicit node dimensions, coordinate map, directional edge labels) by construction.
+- **[`templates/tikz-snippets/`](https://github.com/pedrohcgs/gemini-code-my-workflow/tree/main/templates/tikz-snippets)** — 8 production-ready standalone diagrams (DAG basic, DAG mediation, two-period DiD, event study, timeline, regression scatter, 3-step flowchart, supply-demand). Each embeds the prevention rules (explicit node dimensions, coordinate map, directional edge labels) by construction.
 - **Rules `tikz-prevention.md` + `tikz-measurement.md`** — Upstream authoring rules (P1–P6) and the six-pass collision protocol with formulas (Bézier depth, character widths, 0.4 cm boundary clearance). Adapted from Scott Cunningham's [MixtapeTools](https://github.com/scunning1975/MixtapeTools).
 - **[`/new-diagram`](#all-skills) skill** — Scaffolds from the gallery, runs the P3/P4 grep pre-check before compiling, invokes `tikz-reviewer` with measurement citations, loops until APPROVED.
 
@@ -1342,7 +1342,7 @@ Every correction gets tagged for future reference in MEMORY.md:
 - [LEARN:workflow] Every Beamer edit must auto-sync to Quarto
 ```
 
-These tags are searchable and persist across sessions. When Claude encounters a similar situation, it checks memory first.
+These tags are searchable and persist across sessions. When Gemini encounters a similar situation, it checks memory first.
 
 ### Automated Skill Capture: /learn
 
@@ -1360,11 +1360,11 @@ Phase 1: EVALUATE
   → If YES to any, continue
          ↓
 Phase 2: CHECK EXISTING
-  Search .claude/skills/ for related skills
+  Search .gemini/skills/ for related skills
   → Nothing related? Create new. Overlap? Update existing.
          ↓
 Phase 3: CREATE SKILL
-  Write to .claude/skills/[name]/SKILL.md
+  Write to .gemini/skills/[name]/SKILL.md
   • Problem statement
   • Trigger conditions (exact errors, symptoms)
   • Step-by-step solution
@@ -1399,7 +1399,7 @@ The context monitor suggests `/learn` at 40%, 55%, and 65% context usage. Consid
 | Error + root cause + solution | `/learn` if reusable, `[LEARN]` if not |
 | Package quirk | `/learn` if affects multiple projects |
 
-Skills saved to `.claude/skills/` survive compaction and session boundaries --- if you discover something valuable late in a session, extract it with `/learn` before compaction erases the details.
+Skills saved to `.gemini/skills/` survive compaction and session boundaries --- if you discover something valuable late in a session, extract it with `/learn` before compaction erases the details.
 
 ## Pattern 8: Devil's Advocate {#pattern-8-devils-advocate}
 
@@ -1418,7 +1418,7 @@ This catches:
 ::: {.callout-tip collapse="true"}
 ## Fresh-Context Critique
 
-A stronger variant: when Claude reviews its own work in the same conversation, it suffers **confirmation bias** --- it has internalized its own reasoning and will systematically find the work acceptable. The fix: spawn a new agent via the Task tool with NO access to the original conversation. Give it only the artifact and a critique prompt. The fresh agent has no sunk cost in the work and will be ruthless.
+A stronger variant: when Gemini reviews its own work in the same conversation, it suffers **confirmation bias** --- it has internalized its own reasoning and will systematically find the work acceptable. The fix: spawn a new agent via the Task tool with NO access to the original conversation. Give it only the artifact and a critique prompt. The fresh agent has no sunk cost in the work and will be ruthless.
 
 > "Spawn a new agent. Have it read only my paper draft --- not our conversation. Ask it to find the 5 weakest points and suggest how a hostile referee would attack each one."
 
@@ -1431,7 +1431,7 @@ Patterns 1--8 apply broadly, with course materials as the primary example. The n
 
 ### Pattern 9: Parallel Agents for Research Tasks {#pattern-9-parallel-agents}
 
-Claude Code can spawn **multiple agents simultaneously** using the Task tool. This is not limited to review --- you can use it for any research or analysis task where independent subtasks can run at the same time.
+Gemini CLI can spawn **multiple agents simultaneously** using the Task tool. This is not limited to review --- you can use it for any research or analysis task where independent subtasks can run at the same time.
 
 #### When to Use Parallel Agents
 
@@ -1451,7 +1451,7 @@ You can also request parallelism explicitly:
 
 > "Read these three papers in parallel. For each, extract the key identification assumption, the main estimator, and whether they have a replication package. Summarize in a table."
 
-Either way, Claude spawns up to 3 Task agents, each processing one paper simultaneously, then synthesizes the results.
+Either way, Gemini spawns up to 3 Task agents, each processing one paper simultaneously, then synthesizes the results.
 
 #### Agent Debates
 
@@ -1520,15 +1520,15 @@ Decision point (1-2 hours):
   └── Abandon → Archive with brief explanation
 ```
 
-The **kill switch** is explicit: at any point, you can stop, archive with a one-paragraph explanation, and move on. No guilt, no sunk cost. See `.claude/rules/exploration-folder-protocol.md` and `.claude/rules/exploration-fast-track.md` for the full protocols.
+The **kill switch** is explicit: at any point, you can stop, archive with a one-paragraph explanation, and move on. No guilt, no sunk cost. See `.gemini/rules/exploration-folder-protocol.md` and `.gemini/rules/exploration-fast-track.md` for the full protocols.
 
 #### Simplified Orchestrator for Research
 
-The full orchestrator (Pattern 2) is designed for course materials with multi-agent review loops. For research projects, the **simple variant** strips this down to: implement → verify → score → done. No multi-round reviews, no parallel agent spawning. This lives in its own path-scoped rule (`.claude/rules/orchestrator-research.md`) that loads only when working on R scripts or explorations.
+The full orchestrator (Pattern 2) is designed for course materials with multi-agent review loops. For research projects, the **simple variant** strips this down to: implement → verify → score → done. No multi-round reviews, no parallel agent spawning. This lives in its own path-scoped rule (`.gemini/rules/orchestrator-research.md`) that loads only when working on R scripts or explorations.
 
 #### Merge-Only Quality Reporting
 
-In research projects, commits are frequent and incremental. Generating a quality report for each commit creates noise. Instead, quality reports are generated **only at merge time** --- a permanent snapshot of what was merged and why. Session logs capture the ongoing reasoning. See `.claude/rules/session-logging.md`.
+In research projects, commits are frequent and incremental. Generating a quality report for each commit creates noise. Instead, quality reports are generated **only at merge time** --- a permanent snapshot of what was merged and why. Session logs capture the ongoing reasoning. See `.gemini/rules/session-logging.md`.
 
 ### Pattern 11: Research Skills {#pattern-11-research-skills}
 
@@ -1579,7 +1579,7 @@ Git worktrees create a **separate working directory** linked to the same reposit
 
 ```
 your-project/                     ← main branch (stays clean)
-.worktrees/lecture-06-quarto/     ← isolated branch (Claude works here)
+.worktrees/lecture-06-quarto/     ← isolated branch (Gemini works here)
 ```
 
 #### Why Use Worktrees?
@@ -1590,7 +1590,7 @@ your-project/                     ← main branch (stays clean)
 | **Clean history** | 50 intermediate commits squash into one clean commit |
 | **Easy discard** | Wrong approach? Delete worktree, no trace in main |
 | **Multi-session work** | Resume worktree next day, no context loss |
-| **Parallel work** | Work on slides (main) while Claude translates (worktree) |
+| **Parallel work** | Work on slides (main) while Gemini translates (worktree) |
 
 #### The Workflow
 
@@ -1730,7 +1730,7 @@ project/
 └── results/                # Output tables, figures
 ```
 
-These standards load automatically via the path-scoped rule mechanism: when Claude edits files matching `replication-protocol.md`'s path globs, the rule is injected into context without any manual invocation. Ask Claude to *"prepare a replication package"* and the rule's directory structure and checklist above guide the work from the first file touched.
+These standards load automatically via the path-scoped rule mechanism: when Gemini edits files matching `replication-protocol.md`'s path globs, the rule is injected into context without any manual invocation. Ask Gemini to *"prepare a replication package"* and the rule's directory structure and checklist above guide the work from the first file touched.
 
 ::: {.callout-tip collapse="true"}
 ## Reproducibility as Architecture
@@ -1791,12 +1791,12 @@ The most original contribution of this framework --- applying marginal analysis 
 
 #### How Existing Agents Support This
 
-The `/slide-excellence` skill already invokes the pedagogy-reviewer and slide-auditor, which enforce many of these principles automatically. To enforce *all* of them --- including title-as-assertion and MB/MC smoothness --- customize the **domain-reviewer** agent (`.claude/agents/domain-reviewer.md`) with rhetoric-of-decks lenses. The orchestrator will then apply them during every review cycle without manual invocation.
+The `/slide-excellence` skill already invokes the pedagogy-reviewer and slide-auditor, which enforce many of these principles automatically. To enforce *all* of them --- including title-as-assertion and MB/MC smoothness --- customize the **domain-reviewer** agent (`.gemini/agents/domain-reviewer.md`) with rhetoric-of-decks lenses. The orchestrator will then apply them during every review cycle without manual invocation.
 
 ::: {.callout-note collapse="true"}
 ## The Full Framework
 
-For the complete philosophical treatment --- from Aristotle's three modes of persuasion through neuroaesthetics and the Netflix analogy --- see [The Rhetoric of Decks](https://github.com/scunning1975/MixtapeTools/tree/main/presentations). The repository includes a full essay, example Beamer decks with professional color palettes, a `theme_rhetoric()` ggplot2 theme, and a tested deck generation prompt for Claude Code.
+For the complete philosophical treatment --- from Aristotle's three modes of persuasion through neuroaesthetics and the Netflix analogy --- see [The Rhetoric of Decks](https://github.com/scunning1975/MixtapeTools/tree/main/presentations). The repository includes a full essay, example Beamer decks with professional color palettes, a `theme_rhetoric()` ggplot2 theme, and a tested deck generation prompt for Gemini CLI.
 :::
 
 ### Pattern 15: Sequential Adversarial Audits {#pattern-15-sequential-audits}
@@ -1807,7 +1807,7 @@ This pattern differs from the parallel multi-agent review in [Pattern 6](#patter
 
 #### The Seven-Audit Protocol (for Papers)
 
-Inspired by [ClaudeCodeTools "The Editor"](https://github.com/aspi6246/ClaudeCodeTools), this protocol runs seven sequential passes before submission:
+Inspired by [GeminiCodeTools "The Editor"](https://github.com/aspi6246/GeminiCodeTools), this protocol runs seven sequential passes before submission:
 
 1. **Abstract audit** --- Does the abstract accurately reflect findings? Is it a compelling "storefront"?
 2. **Introduction structure** --- Does the intro follow a recognized template (classic, puzzle-first, contribution-first)?
@@ -1823,7 +1823,7 @@ Use `/review-paper` for a comprehensive single-pass review. When you need deeper
 
 ```
 You: "Run the seven-audit protocol on my paper"
-Claude: [Runs 7 sequential forked reviews, each blind to the others]
+Gemini: [Runs 7 sequential forked reviews, each blind to the others]
        → Produces 7 independent reports
        → Synthesizes into prioritized revision checklist
 ```
@@ -1843,18 +1843,18 @@ This repository provides the foundation --- the infrastructure patterns (plan-fi
 | Adversarial review (not self-review) | All | Use fresh-context critique ([Pattern 8](#pattern-8-devils-advocate)) or worker-critic pairs |
 | Structured intermediate files | Xu & Yang | Save every computed object to disk; agents communicate via files |
 | Phase-appropriate rigor | clo-author | Light review for exploration (60/100), full adversarial for submission (95/100) |
-| Voice preservation | claudeblattman | Maintain a reference doc with your writing style; load as context |
+| Voice preservation | geminiblattman | Maintain a reference doc with your writing style; load as context |
 | Template-executor separation | Xu & Yang | Spec = what to measure, orchestrator = how to execute |
-| Self-improving configuration | claudeblattman | Use `/learn` to capture discoveries; review MEMORY.md periodically |
-| Human judgment, AI execution | Xu & Yang | You design the diagnostic; Claude runs it |
+| Self-improving configuration | geminiblattman | Use `/learn` to capture discoveries; review MEMORY.md periodically |
+| Human judgment, AI execution | Xu & Yang | You design the diagnostic; Gemini runs it |
 | Beauty is function | MixtapeTools | Every visual element earns its presence; decoration without function is noise |
-| Constraint-based autonomy | autoresearch | Define boundaries in Markdown (what CAN/CANNOT change); let Claude explore within |
-| Sequential independent audits | ClaudeCodeTools | Run N blind audit passes; independence prevents groupthink ([Pattern 15](#pattern-15-sequential-audits)) |
+| Constraint-based autonomy | autoresearch | Define boundaries in Markdown (what CAN/CANNOT change); let Gemini explore within |
+| Sequential independent audits | GeminiCodeTools | Run N blind audit passes; independence prevents groupthink ([Pattern 15](#pattern-15-sequential-audits)) |
 
 ::: {.callout-tip}
 ## Which Ecosystem Project Should I Start With?
 
-If you write **papers**: start with clo-author (adversarial review pairs) or ClaudeCodeTools (seven-audit protocol, see [Pattern 15](#pattern-15-sequential-audits)). If you give **presentations**: MixtapeTools. If you run **computational experiments**: autoresearch. If you're a **non-technical academic**: claudeblattman. All of them build on the same foundation patterns from this template — the [orchestrator](#sec-system), [quality gates](#sec-quality), and [adversarial review](#the-adversarial-pattern-critic-fixer).
+If you write **papers**: start with clo-author (adversarial review pairs) or GeminiCodeTools (seven-audit protocol, see [Pattern 15](#pattern-15-sequential-audits)). If you give **presentations**: MixtapeTools. If you run **computational experiments**: autoresearch. If you're a **non-technical academic**: geminiblattman. All of them build on the same foundation patterns from this template — the [orchestrator](#sec-system), [quality gates](#sec-quality), and [adversarial review](#the-adversarial-pattern-critic-fixer).
 :::
 
 Here is what each project does and when you should use it.
@@ -1879,13 +1879,13 @@ clo-author reorients the entire workflow from slides to **research papers**. The
 
 **When to use it:** Your primary output is research papers and you want production-grade infrastructure for the full lifecycle --- from literature review through journal submission and revise-and-resubmit.
 
-## claudeblattman: Workflows for Non-Technical Academics
+## geminiblattman: Workflows for Non-Technical Academics
 
-**Website:** [claudeblattman.com](https://claudeblattman.com)
-**Repository:** [chrisblattman/claudeblattman](https://github.com/chrisblattman/claudeblattman)
+**Website:** [geminiblattman.com](https://geminiblattman.com)
+**Repository:** [chrisblattman/geminiblattman](https://github.com/chrisblattman/geminiblattman)
 **Author:** Chris Blattman (University of Chicago)
 
-claudeblattman is a comprehensive guide for academics who do not write code, built by a political economist who describes himself as someone who "has never written a line of code." It demonstrates that Claude Code workflows extend far beyond technical tasks into daily academic life.
+geminiblattman is a comprehensive guide for academics who do not write code, built by a political economist who describes himself as someone who "has never written a line of code." It demonstrates that Gemini CLI workflows extend far beyond technical tasks into daily academic life.
 
 **What it adds:**
 
@@ -1898,7 +1898,7 @@ claudeblattman is a comprehensive guide for academics who do not write code, bui
 - **Graceful degradation** --- every skill works with partial infrastructure. Missing MCP integrations produce explanations, not errors
 - **Writing style rules** --- numbers over adjectives, topic sentences make claims, no throat-clearing, hedge only with a reason or number
 
-**When to use it:** You are new to Claude Code, want practical daily workflows beyond coding, or want to see how an academic non-programmer built a sophisticated system.
+**When to use it:** You are new to Gemini CLI, want practical daily workflows beyond coding, or want to see how an academic non-programmer built a sophisticated system.
 
 ## Xu & Yang (2026): Reproducibility as Architecture
 
@@ -1928,7 +1928,7 @@ MixtapeTools provides the philosophical and practical framework for academic pre
 - **Example decks** with professional color palettes, custom ggplot2 themes (`theme_rhetoric()`), and complete Beamer templates
 - **Zero-warning compilation standard** --- even 0.5pt overfull hbox must be fixed
 
-**When to use it:** You want to make your presentations genuinely beautiful and rhetorically effective, or you want a tested deck generation workflow for Claude Code.
+**When to use it:** You want to make your presentations genuinely beautiful and rhetorically effective, or you want a tested deck generation workflow for Gemini CLI.
 
 ## AEA Data Editor Template
 
@@ -1951,7 +1951,7 @@ An autonomous research agent that runs continuous experiments --- modifying code
 - **Structured results logging** --- every experiment is recorded in a TSV file with branch name, metric, and status
 - **Time-budgeted iterations** --- fixed training windows make experiments comparable
 
-**When to use it:** You are running iterative computational experiments (Monte Carlo simulations, hyperparameter searches, model comparisons) and want Claude to explore the space semi-autonomously within defined constraints.
+**When to use it:** You are running iterative computational experiments (Monte Carlo simulations, hyperparameter searches, model comparisons) and want Gemini to explore the space semi-autonomously within defined constraints.
 
 **Example:** Adapting the `program.md` pattern for a Monte Carlo study:
 
@@ -1972,11 +1972,11 @@ An autonomous research agent that runs continuous experiments --- modifying code
 RMSE of ATT estimate. Lower is better. Report coverage rate alongside.
 ```
 
-## ClaudeCodeTools: The Editor Persona
+## GeminiCodeTools: The Editor Persona
 
-**Repository:** [aspi6246/ClaudeCodeTools](https://github.com/aspi6246/ClaudeCodeTools)
+**Repository:** [aspi6246/GeminiCodeTools](https://github.com/aspi6246/GeminiCodeTools)
 
-A collection of Claude Code personas, including "The Editor" --- a deeply structured academic paper reviewer that runs seven sequential audit passes (see [Pattern 15](#pattern-15-sequential-audits)). Notable features:
+A collection of Gemini CLI personas, including "The Editor" --- a deeply structured academic paper reviewer that runs seven sequential audit passes (see [Pattern 15](#pattern-15-sequential-audits)). Notable features:
 
 - **R&R mode** --- tracks referee reports and cross-references each concern against revisions
 - **Blunt, specific feedback** --- "This paragraph is incoherent" not "might benefit from clarity"
@@ -1992,7 +1992,7 @@ As of March 2026, **15+ research groups** across multiple disciplines have forke
 - **Energy** --- Nepal and global energy economics, PV module reliability
 - **Teaching** --- ECN 152 course development, Econ 730 causal panel data
 
-Each adaptation follows the same pattern: fork the template, fill in `CLAUDE.md` placeholders, customize the domain reviewer, and add field-specific skills. The infrastructure (orchestrator, hooks, quality gates) transfers without modification.
+Each adaptation follows the same pattern: fork the template, fill in `GEMINI.md` placeholders, customize the domain reviewer, and add field-specific skills. The infrastructure (orchestrator, hooks, quality gates) transfers without modification.
 
 ---
 
@@ -2000,7 +2000,7 @@ Each adaptation follows the same pattern: fork the template, fill in `CLAUDE.md`
 
 ## Step 1: Build Your Knowledge Base
 
-The knowledge base (`.claude/rules/knowledge-base-template.md`) is the most domain-specific component — it's a [path-scoped rule](#rules---domain-knowledge-that-auto-loads) that loads automatically when Claude works on your content files. It provides skeleton tables for notation conventions, lecture progression, applications, design principles, anti-patterns, and R code pitfalls. Fill them in as you develop your project --- you don't need everything upfront.
+The knowledge base (`.gemini/rules/knowledge-base-template.md`) is the most domain-specific component — it's a [path-scoped rule](#rules---domain-knowledge-that-auto-loads) that loads automatically when Gemini works on your content files. It provides skeleton tables for notation conventions, lecture progression, applications, design principles, anti-patterns, and R code pitfalls. Fill them in as you develop your project --- you don't need everything upfront.
 
 ### Notation Registry
 
@@ -2030,7 +2030,7 @@ The knowledge base (`.claude/rules/knowledge-base-template.md`) is the most doma
 
 ## Step 2: Create Your Domain Reviewer
 
-Copy `.claude/agents/domain-reviewer.md` and customize the [5-lens framework](#sec-domain-reviewer) for your field. The template provides the structure; you fill in domain-specific checks.
+Copy `.gemini/agents/domain-reviewer.md` and customize the [5-lens framework](#sec-domain-reviewer) for your field. The template provides the structure; you fill in domain-specific checks.
 
 ## Step 3: Adapt Your Theme
 
@@ -2050,7 +2050,7 @@ The guide includes 24 [skills](#skills---reusable-slash-commands) for common aca
 ### When to Create a Skill
 
 Create a skill when:
-- You repeatedly explain the same 3+ step workflow to Claude
+- You repeatedly explain the same 3+ step workflow to Gemini
 - You need domain-specific quality checks (citation style, notation consistency, lab protocols)
 - You enforce field-specific output formats (thesis structure, journal templates)
 - You coordinate multi-tool workflows (data → analysis → manuscript)
@@ -2062,7 +2062,7 @@ Create a skill when:
 
 ### Skill Structure
 
-Each skill is a directory in `.claude/skills/` with a `SKILL.md` file:
+Each skill is a directory in `.gemini/skills/` with a `SKILL.md` file:
 
 ```markdown
 ---
@@ -2095,15 +2095,15 @@ The YAML frontmatter controls how your skill behaves. Here are all available fie
 | Field | Purpose | Example |
 |-------|---------|---------|
 | `name` | Display name in `/` menu | `compile-latex` |
-| `description` | **Most important.** Controls when Claude auto-loads the skill | `Compile Beamer slides...` |
+| `description` | **Most important.** Controls when Gemini auto-loads the skill | `Compile Beamer slides...` |
 | `argument-hint` | Placeholder shown after `/skill-name` | `<filename>` |
 | `allowed-tools` | Restrict which tools the skill can use | `["Read", "Bash", "Glob"]` |
 | `effort` | Override reasoning effort level | `high` |
 | `context` | Set to `fork` to run in an isolated subagent | `fork` |
-| `agent` | Link to an agent definition in `.claude/agents/` | `proofreader` |
+| `agent` | Link to an agent definition in `.gemini/agents/` | `proofreader` |
 | `hooks` | Skill-specific hooks (same syntax as settings.json) | `{PreToolUse: [...]}` |
 | `model` | Force a specific model | `haiku` |
-| `disable-model-invocation` | Prevent Claude from auto-triggering | `true` |
+| `disable-model-invocation` | Prevent Gemini from auto-triggering | `true` |
 | `user-invocable` | Whether it appears in the `/` menu | `true` (default) |
 
 ::: {.callout-note}
@@ -2136,11 +2136,11 @@ Recent changes: `!git log --oneline -5`
 Available lectures: `!ls Slides/*.tex`
 ```
 
-When Claude loads the skill, it runs these commands and injects the live output into the skill text. This is powerful for skills that need to adapt to the current project state.
+When Gemini loads the skill, it runs these commands and injects the live output into the skill text. This is powerful for skills that need to adapt to the current project state.
 
 ### Writing Effective Trigger Descriptions
 
-The `description` field is the single most important thing you write when creating a skill. Claude reads the description of every available skill on every turn and uses it to decide whether to auto-invoke without the user typing a slash command. A vague description means a skill that only runs when the user remembers its name --- defeating the point of auto-invocation.
+The `description` field is the single most important thing you write when creating a skill. Gemini reads the description of every available skill on every turn and uses it to decide whether to auto-invoke without the user typing a slash command. A vague description means a skill that only runs when the user remembers its name --- defeating the point of auto-invocation.
 
 **The gold-standard pattern has three parts:**
 
@@ -2150,12 +2150,12 @@ The `description` field is the single most important thing you write when creati
 
 **Example: refactoring a weak description into an A-grade one.**
 
-Before (weak --- the skill exists but Claude won't auto-pick it):
+Before (weak --- the skill exists but Gemini won't auto-pick it):
 ```yaml
 description: Run the proofreading protocol on lecture files. Checks grammar, typos, overflow, consistency.
 ```
 
-After (strong --- Claude will match this from cold prompts):
+After (strong --- Gemini will match this from cold prompts):
 ```yaml
 description: Read-only proofreading pass over lecture .tex or .qmd files.
   Checks grammar, typos, overflow, terminology consistency, and academic
@@ -2164,7 +2164,7 @@ description: Read-only proofreading pass over lecture .tex or .qmd files.
   this", "any writing errors?", or before a lecture release.
 ```
 
-**The test:** imagine a teammate who has never seen your skill list types `"can you look for writing errors in Lecture 3?"`. Does your description contain enough lexical overlap that Claude would match it against competing skills? If not, add more trigger phrases.
+**The test:** imagine a teammate who has never seen your skill list types `"can you look for writing errors in Lecture 3?"`. Does your description contain enough lexical overlap that Gemini would match it against competing skills? If not, add more trigger phrases.
 
 **Another good example (disambiguation):**
 ```yaml
@@ -2175,7 +2175,7 @@ description: Interactive interview that formalizes a fuzzy research idea into
   NOT for lit review (/lit-review) or ideation from scratch (/research-ideation).
 ```
 
-The final sentence --- "NOT for X, use /Y instead" --- is the disambiguation clause. Two skills with overlapping descriptions will split Claude's routing probability; the explicit "not for" resolves the tie.
+The final sentence --- "NOT for X, use /Y instead" --- is the disambiguation clause. Two skills with overlapping descriptions will split Gemini's routing probability; the explicit "not for" resolves the tie.
 
 **Bad (too vague --- will never auto-invoke):**
 ```yaml
@@ -2188,7 +2188,7 @@ description: Helps with citations
 - [ ] Has a "Use when:" clause with at least 3 trigger phrases.
 - [ ] Includes at least one verbatim quote a user might literally type.
 - [ ] Disambiguates from any sibling skills in the same domain.
-- [ ] Fits in roughly 2--4 lines (longer descriptions get truncated in Claude's skill index).
+- [ ] Fits in roughly 2--4 lines (longer descriptions get truncated in Gemini's skill index).
 
 ### Domain-Specific Examples
 
@@ -2230,8 +2230,8 @@ Cross-references in-text citations against bibliography entries. Identifies miss
 
 1. **Copy the template:**
    ```bash
-   mkdir -p .claude/skills/your-skill-name
-   cp templates/skill-template.md .claude/skills/your-skill-name/SKILL.md
+   mkdir -p .gemini/skills/your-skill-name
+   cp templates/skill-template.md .gemini/skills/your-skill-name/SKILL.md
    ```
 
 2. **Customize for your domain:**
@@ -2261,24 +2261,24 @@ This is the `/learn` lifecycle in action: discover a repeating workflow → extr
 
 ## Tips from 6+ Sessions of Iteration
 
-1. **Keep CLAUDE.md under 150 lines.** Claude follows ~150 instructions reliably. A 400-line CLAUDE.md means rules get silently ignored. Use path-scoped rules for detailed standards.
+1. **Keep GEMINI.md under 150 lines.** Gemini follows ~150 instructions reliably. A 400-line GEMINI.md means rules get silently ignored. Use path-scoped rules for detailed standards.
 2. **Add rules incrementally.** Don't try to write all rules upfront. Add them when you discover patterns. Use `paths:` frontmatter so they only load when relevant.
 3. **Use the [LEARN] format.** Every correction gets tagged and persisted in MEMORY.md. This prevents repeating mistakes across sessions.
 4. **Trust the adversarial pattern.** The critic-fixer loop catches things you won't. Let it run.
 5. **Verify everything.** The verification rule exists for a reason. Never skip compilation or rendering checks.
 6. **Session logs matter.** Document design decisions, not just what changed. Future-you will thank present-you.
 7. **Devil's Advocate early.** Challenge slide structure before you've built 50 slides on a shaky foundation.
-8. **Progressive disclosure.** Start with CLAUDE.md + 2--3 rules. Add more as your workflow matures. Newcomers should not face 24 rules on day one.
-9. **Use `CLAUDE.local.md` for personal overrides.** This file is automatically gitignored and loaded alongside `CLAUDE.md`. Put machine-specific paths, personal preferences, and local tool versions here --- they won't pollute the shared repo.
+8. **Progressive disclosure.** Start with GEMINI.md + 2--3 rules. Add more as your workflow matures. Newcomers should not face 24 rules on day one.
+9. **Use `CLAUDE.local.md` for personal overrides.** This file is automatically gitignored and loaded alongside `GEMINI.md`. Put machine-specific paths, personal preferences, and local tool versions here --- they won't pollute the shared repo.
 
 ::: {.callout-note collapse="true"}
 ## Extending with MCP Servers
 
-For capabilities beyond file editing and shell commands --- web search during literature review, database queries for replication, or reference manager integration (Zotero, Mendeley) --- Claude Code supports [MCP servers](https://modelcontextprotocol.io). Configure them in `.claude/settings.json` under `"mcpServers"`. Start with skills and agents first; add MCP when you need external integrations.
+For capabilities beyond file editing and shell commands --- web search during literature review, database queries for replication, or reference manager integration (Zotero, Mendeley) --- Gemini CLI supports [MCP servers](https://modelcontextprotocol.io). Configure them in `.gemini/settings.json` under `"mcpServers"`. Start with skills and agents first; add MCP when you need external integrations.
 
 ## Extending with Plugins
 
-Claude Code supports **plugins** --- bundled collections of skills, agents, hooks, and MCP servers that can be installed from git repositories. Use `/plugin` to browse and manage plugins (it has a Discover tab for finding new ones). Plugins are a newer extension point; start with skills and rules (which you control entirely) before adopting third-party plugins.
+Gemini CLI supports **plugins** --- bundled collections of skills, agents, hooks, and MCP servers that can be installed from git repositories. Use `/plugin` to browse and manage plugins (it has a Discover tab for finding new ones). Plugins are a newer extension point; start with skills and rules (which you control entirely) before adopting third-party plugins.
 :::
 
 ---
@@ -2289,50 +2289,50 @@ Claude Code supports **plugins** --- bundled collections of skills, agents, hook
 
 | Agent | File | Purpose |
 |-------|------|---------|
-| Proofreader | `.claude/agents/proofreader.md` | Grammar, typos, consistency |
-| Slide Auditor | `.claude/agents/slide-auditor.md` | Visual layout, overflow, spacing |
-| Pedagogy Reviewer | `.claude/agents/pedagogy-reviewer.md` | Narrative arc, notation clarity |
-| R Reviewer | `.claude/agents/r-reviewer.md` | R code quality, reproducibility |
-| TikZ Reviewer | `.claude/agents/tikz-reviewer.md` | Diagram visual quality |
-| Beamer Translator | `.claude/agents/beamer-translator.md` | LaTeX to Quarto translation |
-| Quarto Critic | `.claude/agents/quarto-critic.md` | Adversarial Quarto QA |
-| Quarto Fixer | `.claude/agents/quarto-fixer.md` | Applies critic's fixes |
-| Verifier | `.claude/agents/verifier.md` | Task completion verification |
-| Domain Reviewer | `.claude/agents/domain-reviewer.md` | Your domain-specific review |
-| Claim Verifier | `.claude/agents/claim-verifier.md` | Chain-of-Verification (fresh-context) fact-checker (v1.7.0) |
+| Proofreader | `.gemini/agents/proofreader.md` | Grammar, typos, consistency |
+| Slide Auditor | `.gemini/agents/slide-auditor.md` | Visual layout, overflow, spacing |
+| Pedagogy Reviewer | `.gemini/agents/pedagogy-reviewer.md` | Narrative arc, notation clarity |
+| R Reviewer | `.gemini/agents/r-reviewer.md` | R code quality, reproducibility |
+| TikZ Reviewer | `.gemini/agents/tikz-reviewer.md` | Diagram visual quality |
+| Beamer Translator | `.gemini/agents/beamer-translator.md` | LaTeX to Quarto translation |
+| Quarto Critic | `.gemini/agents/quarto-critic.md` | Adversarial Quarto QA |
+| Quarto Fixer | `.gemini/agents/quarto-fixer.md` | Applies critic's fixes |
+| Verifier | `.gemini/agents/verifier.md` | Task completion verification |
+| Domain Reviewer | `.gemini/agents/domain-reviewer.md` | Your domain-specific review |
+| Claim Verifier | `.gemini/agents/claim-verifier.md` | Chain-of-Verification (fresh-context) fact-checker (v1.7.0) |
 
 ## All Skills
 
 | Skill | Directory | Purpose |
 |-------|-----------|---------|
-| `/compile-latex` | `.claude/skills/compile-latex/` | XeLaTeX 3-pass compilation |
-| `/deploy` | `.claude/skills/deploy/` | Quarto render + GitHub Pages sync |
-| `/extract-tikz` | `.claude/skills/extract-tikz/` | TikZ to SVG conversion |
-| `/new-diagram` | `.claude/skills/new-diagram/` | Scaffold a TikZ diagram from the gallery |
-| `/proofread` | `.claude/skills/proofread/` | Run proofreading agent |
-| `/visual-audit` | `.claude/skills/visual-audit/` | Run layout audit agent |
-| `/pedagogy-review` | `.claude/skills/pedagogy-review/` | Run pedagogy review agent |
-| `/review-r` | `.claude/skills/review-r/` | Run R code review agent |
-| `/qa-quarto` | `.claude/skills/qa-quarto/` | Critic-fixer adversarial loop |
-| `/slide-excellence` | `.claude/skills/slide-excellence/` | Combined multi-agent review |
-| `/translate-to-quarto` | `.claude/skills/translate-to-quarto/` | Beamer to Quarto translation |
-| `/validate-bib` | `.claude/skills/validate-bib/` | Bibliography validation |
-| `/devils-advocate` | `.claude/skills/devils-advocate/` | Design challenge questions |
-| `/create-lecture` | `.claude/skills/create-lecture/` | Full lecture creation |
-| `/commit` | `.claude/skills/commit/` | Stage, commit, PR, and merge |
-| `/lit-review` | `.claude/skills/lit-review/` | Literature search and synthesis |
-| `/research-ideation` | `.claude/skills/research-ideation/` | Research questions and strategies |
-| `/interview-me` | `.claude/skills/interview-me/` | Interactive research interview |
-| `/review-paper` | `.claude/skills/review-paper/` | Manuscript review |
-| `/respond-to-referees` | `.claude/skills/respond-to-referees/` | R&R cross-reference and response draft |
-| `/data-analysis` | `.claude/skills/data-analysis/` | End-to-end R analysis |
-| `/audit-reproducibility` | `.claude/skills/audit-reproducibility/` | Enforce replication tolerance thresholds on paper ↔ code |
-| `/learn` | `.claude/skills/learn/` | Extract discoveries into persistent skills |
-| `/context-status` | `.claude/skills/context-status/` | Show session health and context usage |
-| `/deep-audit` | `.claude/skills/deep-audit/` | Repository-wide consistency audit |
-| `/seven-pass-review` | `.claude/skills/seven-pass-review/` | Seven-pass adversarial manuscript review (parallel forked subagents) |
-| `/permission-check` | `.claude/skills/permission-check/` | Diagnose permission layers (6-tier stack) |
-| `/verify-claims` | `.claude/skills/verify-claims/` | Chain-of-Verification fact-check on any draft (v1.7.0) |
+| `/compile-latex` | `.gemini/skills/compile-latex/` | XeLaTeX 3-pass compilation |
+| `/deploy` | `.gemini/skills/deploy/` | Quarto render + GitHub Pages sync |
+| `/extract-tikz` | `.gemini/skills/extract-tikz/` | TikZ to SVG conversion |
+| `/new-diagram` | `.gemini/skills/new-diagram/` | Scaffold a TikZ diagram from the gallery |
+| `/proofread` | `.gemini/skills/proofread/` | Run proofreading agent |
+| `/visual-audit` | `.gemini/skills/visual-audit/` | Run layout audit agent |
+| `/pedagogy-review` | `.gemini/skills/pedagogy-review/` | Run pedagogy review agent |
+| `/review-r` | `.gemini/skills/review-r/` | Run R code review agent |
+| `/qa-quarto` | `.gemini/skills/qa-quarto/` | Critic-fixer adversarial loop |
+| `/slide-excellence` | `.gemini/skills/slide-excellence/` | Combined multi-agent review |
+| `/translate-to-quarto` | `.gemini/skills/translate-to-quarto/` | Beamer to Quarto translation |
+| `/validate-bib` | `.gemini/skills/validate-bib/` | Bibliography validation |
+| `/devils-advocate` | `.gemini/skills/devils-advocate/` | Design challenge questions |
+| `/create-lecture` | `.gemini/skills/create-lecture/` | Full lecture creation |
+| `/commit` | `.gemini/skills/commit/` | Stage, commit, PR, and merge |
+| `/lit-review` | `.gemini/skills/lit-review/` | Literature search and synthesis |
+| `/research-ideation` | `.gemini/skills/research-ideation/` | Research questions and strategies |
+| `/interview-me` | `.gemini/skills/interview-me/` | Interactive research interview |
+| `/review-paper` | `.gemini/skills/review-paper/` | Manuscript review |
+| `/respond-to-referees` | `.gemini/skills/respond-to-referees/` | R&R cross-reference and response draft |
+| `/data-analysis` | `.gemini/skills/data-analysis/` | End-to-end R analysis |
+| `/audit-reproducibility` | `.gemini/skills/audit-reproducibility/` | Enforce replication tolerance thresholds on paper ↔ code |
+| `/learn` | `.gemini/skills/learn/` | Extract discoveries into persistent skills |
+| `/context-status` | `.gemini/skills/context-status/` | Show session health and context usage |
+| `/deep-audit` | `.gemini/skills/deep-audit/` | Repository-wide consistency audit |
+| `/seven-pass-review` | `.gemini/skills/seven-pass-review/` | Seven-pass adversarial manuscript review (parallel forked subagents) |
+| `/permission-check` | `.gemini/skills/permission-check/` | Diagnose permission layers (6-tier stack) |
+| `/verify-claims` | `.gemini/skills/verify-claims/` | Chain-of-Verification fact-check on any draft (v1.7.0) |
 
 ## All Rules
 
@@ -2374,14 +2374,14 @@ Claude Code supports **plugins** --- bundled collections of skills, agents, hook
 
 | Hook | Type | Configuration |
 |------|------|--------------|
-| Session log reminder | Stop (command) | `.claude/hooks/log-reminder.py` |
-| Desktop notification | Notification (command) | `.claude/hooks/notify.sh` |
-| Context state capture | PreCompact (command) | `.claude/hooks/pre-compact.py` |
-| Context restoration | SessionStart[compact\|resume] (command) | `.claude/hooks/post-compact-restore.py` |
-| Context monitor | PostToolUse[Bash\|Task] (command) | `.claude/hooks/context-monitor.py` |
-| Verification reminder | PostToolUse[Write\|Edit] (command) | `.claude/hooks/verify-reminder.py` |
+| Session log reminder | Stop (command) | `.gemini/hooks/log-reminder.py` |
+| Desktop notification | Notification (command) | `.gemini/hooks/notify.sh` |
+| Context state capture | PreCompact (command) | `.gemini/hooks/pre-compact.py` |
+| Context restoration | SessionStart[compact\|resume] (command) | `.gemini/hooks/post-compact-restore.py` |
+| Context monitor | PostToolUse[Bash\|Task] (command) | `.gemini/hooks/context-monitor.py` |
+| Verification reminder | PostToolUse[Write\|Edit] (command) | `.gemini/hooks/verify-reminder.py` |
 
-**Additional hook events** available in Claude Code (not used in this template but available for custom hooks):
+**Additional hook events** available in Gemini CLI (not used in this template but available for custom hooks):
 
 | Event | When It Fires | Use Case |
 |-------|--------------|----------|
@@ -2422,25 +2422,25 @@ Claude Code supports **plugins** --- bundled collections of skills, agents, hook
 **Symptom:** No context warnings, no verification reminders.
 
 **Fix:**
-1. Check hooks are configured: `cat .claude/settings.json | grep hooks`
+1. Check hooks are configured: `cat .gemini/settings.json | grep hooks`
 2. Ensure Python 3 is available: `which python3`
-3. Check hook file permissions: `ls -la .claude/hooks/`
+3. Check hook file permissions: `ls -la .gemini/hooks/`
 
-### Claude Ignores Rules
+### Gemini Ignores Rules
 
-**Symptom:** Claude doesn't follow conventions in `.claude/rules/`.
+**Symptom:** Gemini doesn't follow conventions in `.gemini/rules/`.
 
 **Fix:**
 1. Rules use `paths:` frontmatter — check the path matches your files
-2. Too many rules? Claude follows ~150 instructions reliably. Consolidate.
-3. Try: *"Read `.claude/rules/[rule].md` and follow it for this task"*
+2. Too many rules? Gemini follows ~150 instructions reliably. Consolidate.
+3. Try: *"Read `.gemini/rules/[rule].md` and follow it for this task"*
 
 ### Context Lost After Compaction
 
-**Symptom:** Claude forgets what you were working on.
+**Symptom:** Gemini forgets what you were working on.
 
 **Fix:**
-1. Point Claude to the plan: *"Read `quality_reports/plans/[latest].md`"*
+1. Point Gemini to the plan: *"Read `quality_reports/plans/[latest].md`"*
 2. Check session log: *"Read `quality_reports/session_logs/[latest].md`"*
 3. The `post-compact-restore.py` hook should print recovery info automatically
 
@@ -2451,23 +2451,23 @@ Claude Code supports **plugins** --- bundled collections of skills, agents, hook
 **Fix:**
 1. Run `/slide-excellence` to get detailed issue breakdown
 2. Fix critical issues first (they cost -10 to -20 points each)
-3. Ask Claude: *"What are the remaining critical issues?"*
+3. Ask Gemini: *"What are the remaining critical issues?"*
 
 ### Skills Not Auto-Invoked
 
-**Symptom:** Claude doesn't use skills when you describe a task.
+**Symptom:** Gemini doesn't use skills when you describe a task.
 
 **Fix:**
 1. Be explicit in your request: *"Review my slides for grammar and layout issues"*
 2. Check skill has auto-invocation enabled (no `disable-model-invocation: true`)
-3. Skill descriptions help Claude know when to use them — check they're clear
+3. Skill descriptions help Gemini know when to use them — check they're clear
 
 ### Plans Saved to Wrong Directory
 
-**Symptom:** Plans save to `~/.claude/plans/` instead of your project directory. Can't track plans in git.
+**Symptom:** Plans save to `~/.gemini/plans/` instead of your project directory. Can't track plans in git.
 
 **Fix:**
-Add to `.claude/settings.json`:
+Add to `.gemini/settings.json`:
 
 ```json
 {
@@ -2475,7 +2475,7 @@ Add to `.claude/settings.json`:
 }
 ```
 
-This tells Claude Code to save plans inside your project where they can be version-controlled.
+This tells Gemini CLI to save plans inside your project where they can be version-controlled.
 
 ---
 
@@ -2485,12 +2485,12 @@ This guide builds on the work of many. We are grateful to these projects and the
 
 **Core Infrastructure:**
 
-- [Claude Code](https://code.claude.com/docs/en/overview) by Anthropic --- the CLI tool, VS Code extension, and Desktop app that makes all of this possible
+- [Gemini CLI](https://code.gemini.com/docs/en/overview) by Anthropic --- the CLI tool, VS Code extension, and Desktop app that makes all of this possible
 
 **Research Workflows:**
 
 - [clo-author](https://github.com/hugosantanna/clo-author) by Hugo Sant'Anna (UAB) --- paper-centric research workflows with adversarial agent pairs, simulated peer review, and full research lifecycle management
-- [claudeblattman](https://github.com/chrisblattman/claudeblattman) by Chris Blattman (University of Chicago) --- comprehensive workflows for non-technical academics: executive assistant, proposal writing, project management, and the fresh-context critique pattern
+- [geminiblattman](https://github.com/chrisblattman/geminiblattman) by Chris Blattman (University of Chicago) --- comprehensive workflows for non-technical academics: executive assistant, proposal writing, project management, and the fresh-context critique pattern
 
 **Reproducibility & Data Management:**
 
@@ -2502,7 +2502,7 @@ This guide builds on the work of many. We are grateful to these projects and the
 - [MixtapeTools / The Rhetoric of Decks](https://github.com/scunning1975/MixtapeTools/tree/main/presentations) by Scott Cunningham (Baylor) --- the philosophical and practical framework for beautiful, rhetorically effective academic presentations
 - Scott Cunningham, *[Causal Inference: The Mixtape](https://mixtape.scunning.com)* --- the textbook whose author developed the presentation framework above
 - [autoresearch](https://github.com/karpathy/autoresearch) by Andrej Karpathy --- constraint-based autonomous research with `program.md` as constitutional document
-- [ClaudeCodeTools](https://github.com/aspi6246/ClaudeCodeTools) --- "The Editor" persona for seven-audit sequential paper review
+- [GeminiCodeTools](https://github.com/aspi6246/GeminiCodeTools) --- "The Editor" persona for seven-audit sequential paper review
 
 **Origin:**
 

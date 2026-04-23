@@ -1,53 +1,53 @@
-# My Claude Code Setup
+# My Gemini CLI Setup
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Changelog](https://img.shields.io/badge/See-CHANGELOG-blue.svg)](CHANGELOG.md)
 [![Contributing](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](.github/CONTRIBUTING.md)
 
-> **Actively maintained.** A summary of how I use Claude Code for academic work — slides, papers, data analysis, and more — packaged so you can fork it for your own research. See [CHANGELOG.md](CHANGELOG.md) for the latest changes.
+> **Actively maintained.** A summary of how I use Gemini CLI for academic work — slides, papers, data analysis, and more — packaged so you can fork it for your own research. See [CHANGELOG.md](CHANGELOG.md) for the latest changes.
 
-**Live site:** [psantanna.com/claude-code-my-workflow](https://psantanna.com/claude-code-my-workflow/)
+**Live site:** [psantanna.com/gemini-code-my-workflow](https://psantanna.com/gemini-code-my-workflow/)
 
-A ready-to-fork foundation for AI-assisted academic work. You describe what you want — lecture slides, a research paper, a data analysis, a replication package — and Claude plans the approach, runs specialized agents, fixes issues, verifies quality, and presents results. Like a contractor who handles the entire job. Extracted from a production PhD course and extended by a growing [community](#community--extensions).
+A ready-to-fork foundation for AI-assisted academic work. You describe what you want — lecture slides, a research paper, a data analysis, a replication package — and Gemini plans the approach, runs specialized agents, fixes issues, verifies quality, and presents results. Like a contractor who handles the entire job. Extracted from a production PhD course and extended by a growing [community](#community--extensions).
 
 ---
 
 ## Quick Start (5–10 minutes, plus ~30 min for first-time installs)
 
-> **Before you start:** Claude Code + git are the minimum. To run the included `HelloWorld` demos end-to-end you also need XeLaTeX (Beamer sample) and Quarto (Quarto sample). R and the GitHub CLI are recommended. Python 3 is used by a few internal scripts (`check-palette-sync.py`, `check-tikz-prevention.py`) and is pre-installed on macOS/Linux. Full list in [Prerequisites](#prerequisites) below. Fastest path: clone first, then run `./scripts/validate-setup.sh` — it reports exactly what's missing with install links.
+> **Before you start:** Gemini CLI + git are the minimum. To run the included `HelloWorld` demos end-to-end you also need XeLaTeX (Beamer sample) and Quarto (Quarto sample). R and the GitHub CLI are recommended. Python 3 is used by a few internal scripts (`check-palette-sync.py`, `check-tikz-prevention.py`) and is pre-installed on macOS/Linux. Full list in [Prerequisites](#prerequisites) below. Fastest path: clone first, then run `./scripts/validate-setup.sh` — it reports exactly what's missing with install links.
 >
 > **Only need Python/R/markdown?** You don't need XeLaTeX or Quarto. The agents, rules, skills, and orchestration patterns work for any text/code artifact. Skip the `HelloWorld` demos and head straight to `/data-analysis`, `/review-paper`, `/lit-review`, or `/review-r`.
 >
-> **Session 2 onwards:** [MEMORY.md](MEMORY.md) (committed) collects generic `[LEARN]` entries that help all forkers; `.claude/state/personal-memory.md` (gitignored) is for machine-specific notes. See [`.claude/rules/meta-governance.md`](.claude/rules/meta-governance.md) for the distinction.
+> **Session 2 onwards:** [MEMORY.md](MEMORY.md) (committed) collects generic `[LEARN]` entries that help all forkers; `.gemini/state/personal-memory.md` (gitignored) is for machine-specific notes. See [`.gemini/rules/meta-governance.md`](.gemini/rules/meta-governance.md) for the distinction.
 
 ### 1. Fork & Clone
 
 ```bash
 # Fork this repo on GitHub (click "Fork" on the repo page), then:
-git clone https://github.com/YOUR_USERNAME/claude-code-my-workflow.git my-project
+git clone https://github.com/YOUR_USERNAME/gemini-code-my-workflow.git my-project
 cd my-project
 ./scripts/validate-setup.sh        # reports missing tools with install links
 ```
 
 Replace `YOUR_USERNAME` with your GitHub username.
 
-### 2. Start Claude Code and Paste This Prompt
+### 2. Start Gemini CLI and Paste This Prompt
 
 ```bash
-claude
+gemini
 ```
 
-**Using VS Code?** Open the Claude Code panel instead. Everything works the same — see the [full guide](https://psantanna.com/claude-code-my-workflow/workflow-guide.html#sec-setup) for details.
+**Using VS Code?** Open the Gemini CLI panel instead. Everything works the same — see the [full guide](https://psantanna.com/gemini-code-my-workflow/workflow-guide.html#sec-setup) for details.
 
-> **Avoid prompt fatigue.** Out of the box, Claude Code asks permission for every tool invocation. After the first few approvals, toggle **Auto-accept edits** mode (a keybinding; see the [permission modes section](https://psantanna.com/claude-code-my-workflow/workflow-guide.html#settings---permissions-and-hooks) of the guide) or run `claude --permission-mode acceptEdits`. For fully-autonomous runs on a trusted repo, **Bypass** mode skips prompts entirely. The template's `.claude/settings.json` pre-approves ~100 common Bash and Edit/Write patterns, so even at default permissions most work is unattended.
+> **Avoid prompt fatigue.** Out of the box, Gemini CLI asks permission for every tool invocation. After the first few approvals, toggle **Auto-accept edits** mode (a keybinding; see the [permission modes section](https://psantanna.com/gemini-code-my-workflow/workflow-guide.html#settings---permissions-and-hooks) of the guide) or run `gemini --permission-mode acceptEdits`. For fully-autonomous runs on a trusted repo, **Bypass** mode skips prompts entirely. The template's `.gemini/settings.json` pre-approves ~100 common Bash and Edit/Write patterns, so even at default permissions most work is unattended.
 
-Then paste the [starter prompt](https://psantanna.com/claude-code-my-workflow/workflow-guide.html#sec-first-session) from the guide, filling in your project details:
+Then paste the [starter prompt](https://psantanna.com/gemini-code-my-workflow/workflow-guide.html#sec-first-session) from the guide, filling in your project details:
 
-> I am starting to work on **[PROJECT NAME]** in this repo. **[Describe your project in 2–3 sentences.]** I've set up the Claude Code academic workflow... Please read the configuration files and adapt them for my project. Enter plan mode and start.
+> I am starting to work on **[PROJECT NAME]** in this repo. **[Describe your project in 2–3 sentences.]** I've set up the Gemini CLI academic workflow... Please read the configuration files and adapt them for my project. Enter plan mode and start.
 
-The [full guide](https://psantanna.com/claude-code-my-workflow/workflow-guide.html#sec-first-session) has the complete starter prompt with all the details.
+The [full guide](https://psantanna.com/gemini-code-my-workflow/workflow-guide.html#sec-first-session) has the complete starter prompt with all the details.
 
-**What this does:** Claude reads all the configuration files, fills in your project name, institution, and preferences, then enters contractor mode — planning, implementing, and (within the skill you invoke) running the review + verify loop. You approve the plan, invoke a skill, and the skill handles the rest within its scope.
+**What this does:** Gemini reads all the configuration files, fills in your project name, institution, and preferences, then enters contractor mode — planning, implementing, and (within the skill you invoke) running the review + verify loop. You approve the plan, invoke a skill, and the skill handles the rest within its scope.
 
 ### 3. Verify Your Setup
 
@@ -57,7 +57,7 @@ Before building real lectures, confirm your environment works:
 ./scripts/validate-setup.sh        # Checks XeLaTeX, Quarto, Python, git, etc.
 ```
 
-Then inside Claude:
+Then inside Gemini:
 
 ```text
 /compile-latex HelloWorld          # Compiles Slides/HelloWorld.tex to PDF
@@ -72,7 +72,7 @@ If both succeed, delete `Slides/HelloWorld.tex` and `Quarto/HelloWorld.qmd` and 
 
 ### Contractor Mode
 
-You describe a task. For complex or ambiguous requests, Claude first creates a requirements specification with MUST/SHOULD/MAY priorities and clarity status (CLEAR/ASSUMED/BLOCKED). You approve the spec, then Claude plans the approach and invokes the right skill (e.g. `/create-lecture`, `/qa-quarto`, `/review-paper --adversarial`). That skill implements the orchestrator pattern internally — implement, verify, review, fix, re-verify, score — and returns a summary when the work meets quality standards. Say "just do it" and it auto-commits when the score clears 80.
+You describe a task. For complex or ambiguous requests, Gemini first creates a requirements specification with MUST/SHOULD/MAY priorities and clarity status (CLEAR/ASSUMED/BLOCKED). You approve the spec, then Gemini plans the approach and invokes the right skill (e.g. `/create-lecture`, `/qa-quarto`, `/review-paper --adversarial`). That skill implements the orchestrator pattern internally — implement, verify, review, fix, re-verify, score — and returns a summary when the work meets quality standards. Say "just do it" and it auto-commits when the score clears 80.
 
 ### Specialized Agents
 
@@ -103,26 +103,26 @@ Every artifact gets a score (0–100). Scores below threshold halt the workflow 
 
 ### Context Survival
 
-Plans, specifications, and session logs survive auto-compression and session boundaries. The PreCompact hook saves a context snapshot before Claude's auto-compression triggers, ensuring critical decisions are never lost. MEMORY.md accumulates learning across sessions, so patterns discovered in one session inform future work.
+Plans, specifications, and session logs survive auto-compression and session boundaries. The PreCompact hook saves a context snapshot before Gemini's auto-compression triggers, ensuring critical decisions are never lost. MEMORY.md accumulates learning across sessions, so patterns discovered in one session inform future work.
 
 ---
 
 ## The Guide
 
-For a comprehensive walkthrough, read the **[full guide](https://psantanna.com/claude-code-my-workflow/workflow-guide.html)** (or see the [source](guide/workflow-guide.qmd)).
+For a comprehensive walkthrough, read the **[full guide](https://psantanna.com/gemini-code-my-workflow/workflow-guide.html)** (or see the [source](guide/workflow-guide.qmd)).
 
 It covers:
 1. **Why This Workflow Exists** — the problem and the vision
-2. **Getting Started** — fork, paste one prompt, and Claude sets up the rest
+2. **Getting Started** — fork, paste one prompt, and Gemini sets up the rest
 3. **The System in Action** — specialized agents, adversarial QA, quality scoring
-4. **The Building Blocks** — CLAUDE.md, rules, skills, agents, hooks, memory
+4. **The Building Blocks** — GEMINI.md, rules, skills, agents, hooks, memory
 5. **Workflow Patterns** — slides, research, reproducibility, presentation rhetoric, sequential adversarial audits, and more
-6. **The Ecosystem** — extensions by clo-author, claudeblattman, MixtapeTools, autoresearch, ClaudeCodeTools, and a growing community
+6. **The Ecosystem** — extensions by clo-author, geminiblattman, MixtapeTools, autoresearch, GeminiCodeTools, and a growing community
 7. **Customizing for Your Domain** — creating your own reviewers and knowledge bases
 
 ### 2026 Features
 
-The guide covers Claude Code's latest capabilities:
+The guide covers Gemini CLI's latest capabilities:
 
 - **Effort levels** — `/effort` command for cost vs. thoroughness tradeoffs (low/medium/high/max)
 - **Skill frontmatter** — `effort`, `context: fork`, `agent`, `hooks`, and dynamic content (`$ARGUMENTS`, `!command` syntax)
@@ -152,7 +152,7 @@ The guide covers Claude Code's latest capabilities:
 <details>
 <summary><strong>14 agents, 28 skills, 24 rules, 6 hooks</strong> (click to expand)</summary>
 
-### Agents (`.claude/agents/`)
+### Agents (`.gemini/agents/`)
 
 | Agent | What It Does |
 |-------|-------------|
@@ -167,7 +167,7 @@ The guide covers Claude Code's latest capabilities:
 | `verifier` | End-to-end task completion verification |
 | `domain-reviewer` | **Template** for your field-specific substance reviewer |
 
-### Skills (`.claude/skills/`)
+### Skills (`.gemini/skills/`)
 
 | Skill | What It Does |
 |-------|-------------|
@@ -209,11 +209,11 @@ The guide covers Claude Code's latest capabilities:
 | Enhanced session logging | Structured tables for changes, decisions, verification |
 | Merge-only reporting | Quality reports at merge time only |
 | Math line-length exception | Long lines acceptable for documented formulas |
-| Workflow quick reference | One-page cheat sheet at `.claude/WORKFLOW_QUICK_REF.md` |
+| Workflow quick reference | One-page cheat sheet at `.gemini/WORKFLOW_QUICK_REF.md` |
 
-### Rules (`.claude/rules/`)
+### Rules (`.gemini/rules/`)
 
-Rules use path-scoped loading: **always-on** rules load every session (~100 lines total); **path-scoped** rules load only when Claude works on matching files. Claude follows ~150 instructions reliably, so less is more.
+Rules use path-scoped loading: **always-on** rules load every session (~100 lines total); **path-scoped** rules load only when Gemini works on matching files. Gemini follows ~150 instructions reliably, so less is more.
 
 **Always-on** (no `paths:` frontmatter — load every session):
 
@@ -263,7 +263,7 @@ Rules use path-scoped loading: **always-on** rules load every session (~100 line
 
 | Tool | Required For | Install |
 |------|-------------|---------|
-| [Claude Code](https://code.claude.com/docs/en/overview) | Everything | [claude.ai/install](https://claude.ai/install) |
+| [Gemini CLI](https://code.gemini.com/docs/en/overview) | Everything | [gemini.ai/install](https://gemini.ai/install) |
 | git | Clone + version control | [git-scm.com](https://git-scm.com/downloads) |
 | Python 3 (3.9+) | Internal checkers (palette sync, TikZ prevention) | Preinstalled on macOS/Linux; [python.org](https://www.python.org/) for Windows |
 | XeLaTeX | LaTeX compilation (Beamer `HelloWorld`, real lectures) | [TeX Live](https://tug.org/texlive/) or [MacTeX](https://tug.org/mactex/) |
@@ -272,7 +272,7 @@ Rules use path-scoped loading: **always-on** rules load every session (~100 line
 | pdf2svg | TikZ → SVG for Quarto (`/extract-tikz`) | `brew install pdf2svg` (macOS), `apt install pdf2svg` (Debian) |
 | [gh CLI](https://cli.github.com/) | PR / issue workflow | `brew install gh` (macOS), `apt install gh` (Debian) |
 
-**Minimum to fork this template:** Claude Code + git + Python 3 (Python is already installed on macOS/Linux).
+**Minimum to fork this template:** Gemini CLI + git + Python 3 (Python is already installed on macOS/Linux).
 
 **Minimum to run the included HelloWorld demos end-to-end:** add XeLaTeX (for `/compile-latex HelloWorld`) and Quarto (for `/deploy HelloWorld`).
 
@@ -282,26 +282,26 @@ Rules use path-scoped loading: **always-on** rules load every session (~100 line
 
 ## Adapting for Your Field
 
-1. **Fill in the knowledge base** (`.claude/rules/knowledge-base-template.md`) with your notation, applications, and design principles
-2. **Customize the domain reviewer** (`.claude/agents/domain-reviewer.md`) with review lenses specific to your field
+1. **Fill in the knowledge base** (`.gemini/rules/knowledge-base-template.md`) with your notation, applications, and design principles
+2. **Customize the domain reviewer** (`.gemini/agents/domain-reviewer.md`) with review lenses specific to your field
 3. **Update the color palette** — this is a **two-surface contract**: change the HEX values at the top of **both** [`Preambles/header.tex`](Preambles/header.tex) (Beamer/TikZ) **and** [`Quarto/theme-template.scss`](Quarto/theme-template.scss) (Quarto slides) so they agree. Then run `./scripts/check-palette-sync.sh` to verify. Forgetting one surface silently produces mismatched Beamer vs. Quarto renderings. See [`Preambles/README.md`](Preambles/README.md) for the full contract and the TikZ style library.
-4. **Add field-specific R pitfalls** to `.claude/rules/r-code-conventions.md`
-5. **Fill in the lecture mapping** in `.claude/rules/beamer-quarto-sync.md`
-6. **Customize the workflow quick reference** (`.claude/WORKFLOW_QUICK_REF.md`) with your non-negotiables and preferences
+4. **Add field-specific R pitfalls** to `.gemini/rules/r-code-conventions.md`
+5. **Fill in the lecture mapping** in `.gemini/rules/beamer-quarto-sync.md`
+6. **Customize the workflow quick reference** (`.gemini/WORKFLOW_QUICK_REF.md`) with your non-negotiables and preferences
 7. **Set up the exploration folder** (`explorations/`) for experimental work
 
 ---
 
 ## Additional Resources
 
-- [Claude Code Documentation](https://code.claude.com/docs/en/overview)
-- [Writing a Good CLAUDE.md](https://code.claude.com/docs/en/memory) — official guidance on project memory
+- [Gemini CLI Documentation](https://code.gemini.com/docs/en/overview)
+- [Writing a Good GEMINI.md](https://code.gemini.com/docs/en/memory) — official guidance on project memory
 
 ---
 
 ## Origin
 
-This infrastructure was extracted from **Econ 730: Causal Panel Data** at Emory University, developed by Pedro Sant'Anna using Claude Code over 6+ sessions. The course produced 6 complete PhD lecture decks with 800+ slides, interactive Quarto versions with plotly charts, and full R replication packages — all managed through this multi-agent workflow. The patterns are domain-agnostic: the same agents, rules, and orchestrator work for any academic project.
+This infrastructure was extracted from **Econ 730: Causal Panel Data** at Emory University, developed by Pedro Sant'Anna using Gemini CLI over 6+ sessions. The course produced 6 complete PhD lecture decks with 800+ slides, interactive Quarto versions with plotly charts, and full R replication packages — all managed through this multi-agent workflow. The patterns are domain-agnostic: the same agents, rules, and orchestrator work for any academic project.
 
 ---
 
@@ -312,12 +312,12 @@ As of March 2026, **15+ research groups** across economics, energy, political sc
 **Extended workflows:**
 
 - **[clo-author](https://github.com/hugosantanna/clo-author)** by Hugo Sant'Anna (UAB) — Paper-centric research workflows with 17 specialized agents (6 worker-critic pairs plus referees, data-engineer, verifier), simulated blind peer review, AEA replication compliance, and full research lifecycle management. **The `/review-paper --peer <journal>` pipeline in this template is adapted from clo-author with Hugo's permission** (pipeline shape, 6-way disposition taxonomy, journal-calibration schema, paper-type branching). Thanks, Hugo.
-- **[claudeblattman](https://github.com/chrisblattman/claudeblattman)** by Chris Blattman (U Chicago) — Comprehensive guide for non-technical academics: executive assistant workflows, proposal writing, agent debates, and self-improving configuration
+- **[geminiblattman](https://github.com/chrisblattman/geminiblattman)** by Chris Blattman (U Chicago) — Comprehensive guide for non-technical academics: executive assistant workflows, proposal writing, agent debates, and self-improving configuration
 - **[MixtapeTools](https://github.com/scunning1975/MixtapeTools)** by Scott Cunningham (Baylor) — The Rhetoric of Decks: philosophy and practice of beautiful, rhetorically effective academic presentations
 - **[autoresearch](https://github.com/karpathy/autoresearch)** by Andrej Karpathy — Constraint-based autonomous research with `program.md` as constitutional document
-- **[ClaudeCodeTools](https://github.com/aspi6246/ClaudeCodeTools)** — "The Editor" persona: seven-audit sequential paper review protocol
+- **[GeminiCodeTools](https://github.com/aspi6246/GeminiCodeTools)** — "The Editor" persona: seven-audit sequential paper review protocol
 
-See the [guide's ecosystem section](https://psantanna.com/claude-code-my-workflow/workflow-guide.html#sec-ecosystem) for detailed descriptions, design principles, and more resources.
+See the [guide's ecosystem section](https://psantanna.com/gemini-code-my-workflow/workflow-guide.html#sec-ecosystem) for detailed descriptions, design principles, and more resources.
 
 ---
 
